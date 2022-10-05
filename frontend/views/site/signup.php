@@ -22,31 +22,34 @@ $this->title = 'Registo';
             <?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
 
             <?= $form->field($model_signup, 'username', [
-                'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => '{input}',
-                'template' => '{beginWrapper}{label}{input}{error}{endWrapper}'
+                'options' => ['class' => 'input-group has-feedback'],
+                'template' => '<div class="input-group-prepend">
+                <span class="input-group-text">{label}</span>
+                </div>{input}{error}'
             ])
-                ->label('Nome de utilizador')
+                ->label('Nome de utilizador :')
                 ->textInput() ?>
 
             <?= $form->field($model_signup, 'email', [
-                'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => '{input}',
-                'template' => '{beginWrapper}{label}{input}{error}{endWrapper}'
+                'options' => ['class' => 'input-group has-feedback'],
+                'template' => '<div class="input-group-prepend">
+                <span class="input-group-text">{label}</span>
+                </div>{input}{error}'
             ])
-                ->label('Email')
+                ->label('Email :')
                 ->textInput() ?>
 
             <?= $form->field($model_signup, 'password', [
-                'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => '{input}',
-                'template' => '{beginWrapper}{label}{input}{error}{endWrapper}'
+                'options' => ['class' => 'input-group has-feedback'],
+                'template' => '<div class="input-group-prepend">
+                <span class="input-group-text">{label}</span>
+                </div>{input}{error}'
             ])
-                ->label('Palavra-passe')
+                ->label('Palavra-passe :')
                 ->passwordInput() ?>
 
             <div class="text-center">
-                <?= Html::submitButton('Criar conta', ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+                <?= Html::submitButton('Signup', ['class' => 'btn btn-success ripple', 'name' => 'signup-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>

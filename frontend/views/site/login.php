@@ -9,7 +9,7 @@ use yii\bootstrap5\ActiveForm;
 
 $this->registerCssFile("@web/css/login.css");
 
-$this->title = 'Login';
+$this->title = 'Iniciar sessão';
 ?>
 
 <div class="col-4 offset-4">
@@ -22,30 +22,32 @@ $this->title = 'Login';
             <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model_login, 'username', [
-                'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => '{input}',
-                'template' => '{beginWrapper}{label}{input}{error}{endWrapper}'
+                'options' => ['class' => 'input-group has-feedback'],
+                'template' => '<div class="input-group-prepend">
+                <span class="input-group-text">{label}</span>
+                </div>{input}{error}'
             ])
-                ->label('Nome de utilizador')
+                ->label('Nome de utilizador :')
                 ->textInput() ?>
 
             <?= $form->field($model_login, 'password', [
-                'options' => ['class' => 'form-group has-feedback'],
-                'inputTemplate' => '{input}<div class="input-group-append"></div>',
-                'template' => '{beginWrapper}{label}{input}{error}{endWrapper}'
+                'options' => ['class' => 'input-group has-feedback'],
+                'template' => '<div class="input-group-prepend">
+                <span class="input-group-text">{label}</span>
+                </div>{input}{error}'
             ])
-                ->label('Palavra-passe')
+                ->label('Palavra-passe :')
                 ->passwordInput() ?>
 
             <div class="text-center">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-success', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-success ripple', 'name' => 'login-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
         </div>
         <div class="card-footer text-center">
             <h5>Ainda não tem conta ticketsource? </h5>
-            <h6>O registo na plataforma ticketsource permite-lhe acompanhar as suas compras na área de cliente.</h6>
+            <p>O registo na plataforma ticketsource permite-lhe acompanhar as suas compras na área de cliente.</p>
 
             <?= Html::a('Registar', ['/site/signup'], ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
         </div>

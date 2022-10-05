@@ -1,0 +1,12 @@
+.site-error {
+	margin-top: 10% !important;
+}
+
+.btn.btn-dark {
+	box-shadow: 0 4px 9px -5px black !important;
+	border: 0;
+}
+
+.text-center p{
+    line-height: 1.25rem;
+}
