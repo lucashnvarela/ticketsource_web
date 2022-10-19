@@ -14,7 +14,6 @@
 	font-weight: normal;
 	font-variant: normal;
 	text-transform: none;
-	line-height: 1;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
@@ -23,7 +22,6 @@
 [class^="ti-"]::before, [class*=" ti-"]::before {
 	font-family: 'themify';
 	vertical-align: -0.1rem !important;
-	padding-right: 2% !important;
 }
 
 .dropdown-toggle::after {

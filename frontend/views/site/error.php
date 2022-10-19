@@ -13,7 +13,7 @@ $this->title = $name;
 ?>
 
 <div class="site-error">
-    <div class="col-4 offset-4 alert alert-danger shadow-sm">
+    <div class="col-4 offset-4 alert alert-danger page-not-found">
         <div class="text-center">
             <h3>Page not found</h3>
             <p>The requested URL was not found on this server.<br>

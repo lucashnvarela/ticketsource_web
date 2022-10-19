@@ -1,0 +1,60 @@
+.navbar {
+	background-color: white;
+	border-bottom: #ced4da 1px solid;
+	height: 9%;
+	font-size: 18px;
+}
+
+.navbar-brand {
+	width: 15rem;
+}
+
+.nav-item:not(:has(.nav-link.nav-logout, .nav-link.nav-login, .nav-link.nav-signup)) {
+	padding: 0 0.875rem;
+}
+
+.nav-item:has(.nav-link.nav-user) {
+	padding-right: 0;
+}
+
+.nav-link:not(.nav-event)::before {
+	padding-right: 0.125rem;
+}
+
+.nav-link.nav-user {
+	width: 140px !important;
+	padding-right: 0;
+}
+
+.nav-link.nav-logout {
+	font-size: 15px;
+	padding-top: 0.6875rem;
+	padding-left: 0 !important;
+	margin-left: -0.375rem;
+}
+
+.search-bar {
+	width: 30% !important;
+}
+
+.btn.btn-search {
+	background-color: white !important;
+	border: 1px solid #ced4da !important;
+	border-left: 0 !important;
+}
+
+.dropdown-menu {
+	padding-top: 0.25rem !important;
+	padding-bottom: 0.25rem !important;
+	--bs-dropdown-min-width: 8rem !important;
+}
+
+.dropdown-divider {
+	border-top: 1px solid #ced4da;
+	margin-top: 0.25rem !important;
+	margin-bottom: 0.25rem !important;
+}
+
+.btn-login {
+	margin-left: 0.5rem;
+}

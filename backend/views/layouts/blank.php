@@ -3,17 +3,15 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
+use common\widgets\Alert;
 use backend\assets\AppAsset;
 use yii\helpers\Html;
+
+$this->registerCssFile("@web/css/blank.css");
 
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
-<style>
-    body {
-        font-family: Poppins, sans-serif !important;
-    }
-</style>
 
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>" class="h-100">
@@ -30,7 +28,9 @@ AppAsset::register($this);
     <?php $this->beginBody() ?>
 
     <main role="main">
-        <div class="container">
+        <div class="main container">
+            <?= Alert::widget() ?>
+
             <?= $content ?>
         </div>
     </main>

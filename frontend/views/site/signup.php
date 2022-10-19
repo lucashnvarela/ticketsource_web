@@ -13,12 +13,12 @@ $this->title = 'Registo';
 ?>
 
 <div class="col-4 offset-4">
-    <div class="card signup-form shadow-sm">
+    <div class="card signup-form">
         <div class="card-header bg-light text-center">
             <h4 class="card-title"><?= $this->title ?></h4>
             <h6 class="card-subtitle text-muted">Por favor preencha os seguintes campos</h6>
         </div>
-        <div class="card-body text-left">
+        <div class="card-body">
             <?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
 
             <?= $form->field($model_signup, 'username', [

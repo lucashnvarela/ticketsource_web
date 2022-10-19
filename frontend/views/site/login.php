@@ -13,12 +13,12 @@ $this->title = 'Iniciar sessão';
 ?>
 
 <div class="col-4 offset-4">
-    <div class="card login-form shadow-sm">
+    <div class="card login-form">
         <div class="card-header bg-light text-center">
             <h4 class="card-title"><?= $this->title ?></h4>
             <h6 class="card-subtitle text-muted">Por favor preencha os seguintes campos</h6>
         </div>
-        <div class="card-body text-left">
+        <div class="card-body">
             <?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model_login, 'username', [
@@ -46,10 +46,7 @@ $this->title = 'Iniciar sessão';
             <?php ActiveForm::end(); ?>
         </div>
         <div class="card-footer text-center">
-            <h5>Ainda não tem conta ticketsource? </h5>
-            <p>O registo na plataforma ticketsource permite-lhe acompanhar as suas compras na área de cliente.</p>
-
-            <?= Html::a('Registar', ['/site/signup'], ['class' => 'btn btn-success', 'name' => 'signup-button']) ?>
+            <h6>Ainda não tem conta ticketsource? <?= Html::a('Registe-se já', ['/site/signup'], ['class' => 'btn-signup', 'name' => 'signup-link']) ?></h6>
         </div>
     </div>
 </div>
