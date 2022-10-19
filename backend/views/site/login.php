@@ -40,7 +40,7 @@ $this->title = 'Iniciar sessão';
                 ->passwordInput() ?>
 
             <div class="text-center">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-success ripple', 'name' => 'login-button']) ?>
+                <?= Html::submitButton('Login', ['class' => 'btn btn-success ripple ', 'name' => 'login-button']) ?>
             </div>
 
             <?php ActiveForm::end(); ?>

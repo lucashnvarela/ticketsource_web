@@ -3,24 +3,21 @@
 namespace frontend\controllers;
 
 use Yii;
-use yii\base\InvalidArgumentException;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
 use frontend\models\SignupForm;
+use common\models\User;
 
 /**
  * Site controller
  */
-class SiteController extends Controller
-{
+class SiteController extends Controller {
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'access' => [
                 'class' => AccessControl::class,
@@ -50,8 +47,7 @@ class SiteController extends Controller
     /**
      * {@inheritdoc}
      */
-    public function actions()
-    {
+    public function actions() {
         return [
             'error' => [
                 'class' => \yii\web\ErrorAction::class,
@@ -68,8 +64,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionIndex()
-    {
+    public function actionIndex() {
         return $this->render('index');
     }
 
@@ -78,15 +73,27 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogin()
-    {
+    public function actionLogin() {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
         }
 
         $model_login = new LoginForm();
-        if ($model_login->load(Yii::$app->request->post()) && $model_login->login()) {
-            return $this->goBack();
+        if ($model_login->load(Yii::$app->request->post())) {
+
+            $user_login = User::findByUsername($model_login->username);
+
+            if ($user_login->validatePassword($model_login->password)) {
+                if (!Yii::$app->authManager->getAssignment('admin', $user_login->id) && !Yii::$app->authManager->getAssignment('gestorBilheteira', $user_login->id)) {
+                    $model_login->login();
+
+                    return $this->redirect('index');
+                } else {
+                    Yii::$app->session->setFlash('error', 'Sem permissão de acesso');
+                }
+            } else {
+                Yii::$app->session->setFlash('error', 'Username ou password estão errados');
+            }
         }
 
         $model_login->password = '';
@@ -101,8 +108,7 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionLogout()
-    {
+    public function actionLogout() {
         Yii::$app->user->logout();
 
         return $this->goHome();
@@ -113,11 +119,10 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionSignup()
-    {
+    public function actionSignup() {
         $model_signup = new SignupForm();
         if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup()) {
-            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso.');
             return $this->goHome();
         }
 

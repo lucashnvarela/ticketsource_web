@@ -33,10 +33,6 @@ class m220926_193509_init_rbac extends Migration
         $desbloquearCliente->description = 'Desbloquear Cliente';
         $auth->add($desbloquearCliente);
 
-        $visualizarEventos = $auth->createPermission('visualizarEventos');
-        $visualizarEventos->description = 'Visualizar Eventos';
-        $auth->add($visualizarEventos);
-
         $adicionarEvento = $auth->createPermission('adicionarEvento');
         $adicionarEvento->description = 'Adicionar Evento';
         $auth->add($adicionarEvento);
@@ -105,9 +101,13 @@ class m220926_193509_init_rbac extends Migration
         $visualizarBilhetes->description = 'Visualizar Bilhetes Adquiridos';
         $auth->add($visualizarBilhetes);
 
-        $visualizarBilhetesVendidos = $auth->createPermission('visualizarBilhetesVendidos');
-        $visualizarBilhetesVendidos->description = 'Visualizar Bilhetes Vendidos';
-        $auth->add($visualizarBilhetesVendidos);
+        $visualizarBilhetesFaturados = $auth->createPermission('visualizarBilhetesFaturados');
+        $visualizarBilhetesFaturados->description = 'Visualizar Bilhetes Faturados';
+        $auth->add($visualizarBilhetesFaturados);
+
+        $editarBilhetesFaturados = $auth->createPermission('editarBilhetesFaturados');
+        $editarBilhetesFaturados->description = 'Editar Bilhetes Faturados';
+        $auth->add($editarBilhetesFaturados);
 
         $visualizarUtilizadores = $auth->createPermission('visualizarUtilizadores');
         $visualizarUtilizadores->description = 'Visualizar Utilizadores';
@@ -116,6 +116,10 @@ class m220926_193509_init_rbac extends Migration
         $visualizarPerfil = $auth->createPermission('visualizarPerfil');
         $visualizarPerfil->description = 'Visualizar Perfil';
         $auth->add($visualizarPerfil);
+
+        $editarPerfil = $auth->createPermission('editarPerfil');
+        $editarPerfil->description = 'Editar Perfil';
+        $auth->add($editarPerfil);
 
 
         $cliente = $auth->createRole('cliente');
@@ -131,6 +135,8 @@ class m220926_193509_init_rbac extends Migration
         $auth->addChild($cliente, $adicionarFavoritos);
         $auth->addChild($cliente, $apagarFavoritos);
         $auth->addChild($cliente, $visualizarPerfil);
+        $auth->addChild($cliente, $editarPerfil);
+
 
         $gestorBilheteira = $auth->createRole('gestorBilheteira');
         $auth->add($gestorBilheteira);
@@ -142,7 +148,9 @@ class m220926_193509_init_rbac extends Migration
         $auth->addChild($gestorBilheteira, $adicionarEvento);
         $auth->addChild($gestorBilheteira, $apagarEvento);
         $auth->addChild($gestorBilheteira, $editarEvento);
-        $auth->addChild($gestorBilheteira, $visualizarBilhetesVendidos);
+        $auth->addChild($gestorBilheteira, $visualizarBilhetesFaturados);
+        $auth->addChild($gestorBilheteira, $editarBilhetesFaturados);
+
 
         $admin = $auth->createRole('admin');
         $auth->add($admin);
