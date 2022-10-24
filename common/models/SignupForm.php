@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\models;
+namespace common\models;
 
 use Yii;
 use yii\base\Model;
@@ -21,17 +21,17 @@ class SignupForm extends Model {
     public function rules() {
         return [
             ['username', 'trim'],
-            ['username', 'required', 'message' => 'Necessário introduzir um nome de utilizador.'],
-            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este nome de utlizador já está registado.'],
+            ['username', 'required', 'message' => 'Necessário introduzir um nome de utilizador'],
+            ['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este nome de utlizador já está registado'],
             ['username', 'string', 'min' => 2, 'max' => 255],
 
             ['email', 'trim'],
-            ['email', 'required', 'message' => 'Necessário introduzir um email.'],
-            ['email', 'email', 'message' => 'Email incorreto.'],
+            ['email', 'required', 'message' => 'Necessário introduzir um email'],
+            ['email', 'email', 'message' => 'Email incorreto'],
             ['email', 'string', 'max' => 255],
-            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este email já está registado.'],
+            ['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Este email já está registado'],
 
-            ['password', 'required', 'message' => 'Necessário introduzir uma password.'],
+            ['password', 'required', 'message' => 'Necessário introduzir uma password'],
             ['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength']],
 
         ];
@@ -42,7 +42,7 @@ class SignupForm extends Model {
      *
      * @return bool whether the creating new account was successful and email was sent
      */
-    public function signup() {
+    public function signup($role) {
         if (!$this->validate()) {
             return null;
         }
@@ -55,7 +55,7 @@ class SignupForm extends Model {
 
         //rbac
         $auth = Yii::$app->authManager;
-        $auth->assign($auth->getRole('cliente'), $user->getId());
+        $auth->assign($auth->getRole($role), $user->getId());
 
         return true;
     }
