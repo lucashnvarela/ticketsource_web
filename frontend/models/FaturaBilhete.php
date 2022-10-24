@@ -15,21 +15,18 @@ use Yii;
  * @property Bilhete $bilhete
  * @property Fatura $fatura
  */
-class Fatura_Bilhete extends \yii\db\ActiveRecord
-{
+class FaturaBilhete extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'fatura_bilhete';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'id_fatura', 'id_bilhete'], 'required'],
             [['id', 'id_fatura', 'id_bilhete'], 'integer'],
@@ -43,8 +40,7 @@ class Fatura_Bilhete extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'id_fatura' => 'Id Fatura',
@@ -58,8 +54,7 @@ class Fatura_Bilhete extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBilhete()
-    {
+    public function getBilhete() {
         return $this->hasOne(Bilhete::class, ['id' => 'id_bilhete']);
     }
 
@@ -68,8 +63,7 @@ class Fatura_Bilhete extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFatura()
-    {
+    public function getFatura() {
         return $this->hasOne(Fatura::class, ['id' => 'id_fatura']);
     }
 }

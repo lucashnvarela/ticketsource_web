@@ -37,7 +37,7 @@ $this->registerCssFile("@web/css/navbar.css");
 		'items' => [
 			[
 				'label' => 'Eventos',
-				'url' => ['#'],
+				'url' => ['evento/index'],
 				'linkOptions' => ['class' => 'ti-ticket nav-link link-event'],
 			],
 		],
@@ -65,17 +65,17 @@ $this->registerCssFile("@web/css/navbar.css");
 			'items' => [
 				[
 					'label' => 'Carrinho',
-					'url' => ['#'],
+					'url' => ['carrinho/index'],
 					'linkOptions' => ['class' => 'ti-shopping-cart nav-link link-cart']
 				],
 				[
 					'label' => 'Wishlist',
-					'url' => ['#'],
+					'url' => ['favorito/index'],
 					'linkOptions' => ['class' => 'ti-heart nav-link link-wishlist']
 				],
 				[
 					'label' => 'Minha Conta',
-					'url' => ['#'],
+					'url' => ['perfil/view'],
 					'linkOptions' => ['class' => 'ti-user nav-link link-user']
 				],
 				'<li class="nav-item">
