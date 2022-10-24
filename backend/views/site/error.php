@@ -1,40 +1,26 @@
 <?php
 
-/* @var $this yii\web\View */
-/* @var $name string */
-/* @var $message string */
-/* @var $exception Exception */
+/** @var yii\web\View $this */
+/** @var string $name */
+/** @var string $message */
+/** @var Exception $exception */
 
 use yii\helpers\Html;
 
+$this->registerCssFile("@web/css/error.css");
+
 $this->title = $name;
-$this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
-<div class="error-page">
-    <div class="error-content" style="margin-left: auto;">
-        <h3><i class="fas fa-exclamation-triangle text-danger"></i> <?= Html::encode($name) ?></h3>
 
-        <p>
-            <?= nl2br(Html::encode($message)) ?>
-        </p>
+<div class="h-100 d-flex flex-column justify-content-center align-items-center">
+    <div class="alert alert-danger page-not-found">
+        <div class="text-center">
+            <h3>Page not found</h3>
+            <p>The requested URL was not found on this server.<br>
+                Please contact us if you think this is a server error.<br>
+                Thank you.</p>
 
-        <p>
-            The above error occurred while the Web server was processing your request.
-            Please contact us if you think this is a server error. Thank you.
-            Meanwhile, you may <?= Html::a('return to dashboard', Yii::$app->homeUrl); ?>
-            or try using the search form.
-        </p>
-
-        <form class="search-form" style="margin-right: 190px;">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Search">
-
-                <div class="input-group-append">
-                    <button type="submit" name="submit" class="btn btn-danger"><i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
+            <?= Html::a('', ['/site/index'], ['class' => 'btn btn-dark rounded-circle ti-home']) ?>
+        </div>
     </div>
 </div>
-

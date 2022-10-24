@@ -15,7 +15,7 @@ $this->title = 'Registo';
 <div class="h-100 d-flex flex-column justify-content-center align-items-center">
     <div class="card signup-form">
         <div class="card-header">
-            <h4 class="card-title"><?= $this->title ?></h4>
+            <h4 class="card-title"><?= $this->title ?><br><span class="role">Gestor de Bilheteira</span></h4>
             <h6 class="card-subtitle">Por favor preencha os seguintes campos</h6>
         </div>
         <div class="card-body">

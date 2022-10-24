@@ -53,19 +53,14 @@ img.navbar-brand {
 	padding-right: 0.25rem;
 }
 
-/* search bar
+/* dropdown menu
 */
-.search-bar {
-	width: 30% !important;
+.dropdown-menu {
+	max-width: max-content;
 }
 
-.search-bar input {
-	background-color: transparent !important;
-	border-right: 0 !important;
-}
-
-.btn.btn-search {
-	background-color: transparent !important;
-	border: 1px solid #ced4da !important;
-	border-left: 0 !important;
+.dropdown-item.active,
+.dropdown-item:active {
+	color: black !important;
+	background-color: #52b56350 !important;
 }

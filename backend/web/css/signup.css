@@ -10,6 +10,10 @@
 	padding-top: 1rem !important;
 }
 
+.card.signup-form .card-title .role {
+	font-size: 18px;
+}
+
 .card.signup-form .card-header .card-subtitle {
 	color: #6c757d !important;
 }
