@@ -2,12 +2,13 @@
 
 namespace backend\controllers;
 
-use common\models\LoginForm;
 use Yii;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
+use common\models\LoginForm;
+use common\models\SignupForm;
 use common\models\User;
 
 /**
@@ -27,7 +28,7 @@ class SiteController extends Controller {
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index'],
+                        'actions' => ['logout', 'index', 'signup'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -79,8 +80,10 @@ class SiteController extends Controller {
 
             $user_login = User::findByUsername($model_login->username);
 
-            if ($user_login->validatePassword($model_login->password)) {
-                if (!Yii::$app->authManager->getAssignment('cliente', $user_login->id)) {
+            if (is_null($user_login))
+                Yii::$app->session->setFlash('error', 'Username ou password estão errados');
+            elseif ($user_login->validatePassword($model_login->password)) {
+                if (Yii::$app->authManager->getAssignment('cliente', $user_login->id) == null) {
                     $model_login->login();
 
                     return $this->redirect('index');
@@ -108,5 +111,23 @@ class SiteController extends Controller {
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionSignup() {
+
+        $model_signup = new SignupForm();
+        if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup('gestorBilheteira')) {
+            Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
+            'model_signup' => $model_signup,
+        ]);
     }
 }

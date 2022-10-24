@@ -7,7 +7,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
-use frontend\models\SignupForm;
+use common\models\SignupForm;
 use common\models\User;
 
 /**
@@ -83,8 +83,10 @@ class SiteController extends Controller {
 
             $user_login = User::findByUsername($model_login->username);
 
-            if ($user_login->validatePassword($model_login->password)) {
-                if (!Yii::$app->authManager->getAssignment('admin', $user_login->id) && !Yii::$app->authManager->getAssignment('gestorBilheteira', $user_login->id)) {
+            if (is_null($user_login))
+                Yii::$app->session->setFlash('error', 'Username ou password estão errados');
+            elseif ($user_login->validatePassword($model_login->password)) {
+                if (Yii::$app->authManager->getAssignment('cliente', $user_login->id) != null) {
                     $model_login->login();
 
                     return $this->redirect('index');
@@ -121,8 +123,8 @@ class SiteController extends Controller {
      */
     public function actionSignup() {
         $model_signup = new SignupForm();
-        if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup()) {
-            Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso.');
+        if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup('cliente')) {
+            Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso');
             return $this->goHome();
         }
 
