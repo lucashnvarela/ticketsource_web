@@ -17,7 +17,7 @@ class SessaoSearch extends Sessao
     public function rules()
     {
         return [
-            [['id', 'evento_id', 'lugares_disponiveis'], 'integer'],
+            [['id', 'id_evento', 'lugares_disponiveis'], 'integer'],
             [['data', 'localizacao'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class SessaoSearch extends Sessao
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'evento_id' => $this->evento_id,
+            'id_evento' => $this->id_evento,
             'data' => $this->data,
             'lugares_disponiveis' => $this->lugares_disponiveis,
         ]);

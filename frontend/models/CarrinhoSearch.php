@@ -17,7 +17,7 @@ class CarrinhoSearch extends Carrinho
     public function rules()
     {
         return [
-            [['id', 'user_id', 'bilhete_id'], 'integer'],
+            [['id', 'id_user', 'id_bilhete'], 'integer'],
         ];
     }
 
@@ -58,8 +58,8 @@ class CarrinhoSearch extends Carrinho
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
-            'bilhete_id' => $this->bilhete_id,
+            'id_user' => $this->id_user,
+            'id_bilhete' => $this->id_bilhete,
         ]);
 
         return $dataProvider;

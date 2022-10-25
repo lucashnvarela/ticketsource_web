@@ -3,37 +3,45 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/** @var yii\web\View $this */
-/** @var frontend\models\Pagamento $model */
+/* @var $this yii\web\View */
+/* @var $model frontend\models\Pagamento */
 
 $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Pagamentos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="pagamento-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'numero_cartao',
-            'data_validade',
-            'codigo_seguranca',
-        ],
-    ]) ?>
-
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <p>
+                        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                            'class' => 'btn btn-danger',
+                            'data' => [
+                                'confirm' => 'Are you sure you want to delete this item?',
+                                'method' => 'post',
+                            ],
+                        ]) ?>
+                    </p>
+                    <?= DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'id',
+                            'numero_cartao',
+                            'data_validade',
+                            'codigo_seguranca',
+                        ],
+                    ]) ?>
+                </div>
+                <!--.col-md-12-->
+            </div>
+            <!--.row-->
+        </div>
+        <!--.card-body-->
+    </div>
+    <!--.card-->
 </div>

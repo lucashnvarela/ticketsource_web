@@ -3,12 +3,13 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var frontend\models\PagamentoSearch $model */
-/** @var yii\widgets\ActiveForm $form */
+/* @var $this yii\web\View */
+/* @var $model frontend\models\PagamentoSearch */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="pagamento-search">
+<div class="row mt-2">
+    <div class="col-md-12">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -30,4 +31,6 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+    </div>
+    <!--.col-md-12-->
 </div>

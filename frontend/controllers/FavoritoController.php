@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use Yii;
 use frontend\models\Favorito;
 use frontend\models\FavoritoSearch;
 use yii\web\Controller;
@@ -14,32 +15,28 @@ use yii\filters\VerbFilter;
 class FavoritoController extends Controller
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
-                    ],
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
      * Lists all Favorito models.
-     *
-     * @return string
+     * @return mixed
      */
     public function actionIndex()
     {
         $searchModel = new FavoritoSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -50,7 +47,7 @@ class FavoritoController extends Controller
     /**
      * Displays a single Favorito model.
      * @param int $id ID
-     * @return string
+     * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
@@ -63,18 +60,14 @@ class FavoritoController extends Controller
     /**
      * Creates a new Favorito model.
      * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
+     * @return mixed
      */
     public function actionCreate()
     {
         $model = new Favorito();
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-        } else {
-            $model->loadDefaultValues();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
@@ -86,14 +79,14 @@ class FavoritoController extends Controller
      * Updates an existing Favorito model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
-     * @return string|\yii\web\Response
+     * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -106,7 +99,7 @@ class FavoritoController extends Controller
      * Deletes an existing Favorito model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
-     * @return \yii\web\Response
+     * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($id)
@@ -125,7 +118,7 @@ class FavoritoController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Favorito::findOne(['id' => $id])) !== null) {
+        if (($model = Favorito::findOne($id)) !== null) {
             return $model;
         }
 

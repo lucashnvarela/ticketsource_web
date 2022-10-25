@@ -22,7 +22,7 @@ $this->registerCssFile("@web/css/navbar.css");
         'items' => [
             [
                 'label' => 'Dashboard',
-                'url' => ['index'],
+                'url' => Yii::$app->homeUrl,
                 'linkOptions' => ['class' => 'ti-dashboard nav-link link-dashboard'],
             ],
         ],
@@ -35,8 +35,8 @@ $this->registerCssFile("@web/css/navbar.css");
                 [
                     'label' => 'Eventos',
                     'items' => [
-                        ['label' => 'Lista de Eventos', 'url' => ['#']],
-                        ['label' => 'Adicionar Evento', 'url' => ['#']],
+                        ['label' => 'Lista de Eventos', 'url' => ['evento/index']],
+                        ['label' => 'Adicionar Evento', 'url' => ['evento/create']],
                     ],
                     'linkOptions' => [
                         'class' => 'ti-ticket nav-link link-event'
@@ -52,8 +52,8 @@ $this->registerCssFile("@web/css/navbar.css");
                 [
                     'label' => 'Utilizadores',
                     'items' => [
-                        ['label' => 'Lista de Utlizadores', 'url' => ['#']],
-                        ['label' => 'Adicionar Gestor', 'url' => ['/site/signup']],
+                        ['label' => 'Lista de Utlizadores', 'url' => ['user/index']],
+                        ['label' => 'Adicionar Gestor', 'url' => ['site/signup']],
                     ],
                     'linkOptions' => [
                         'class' => 'ti-user nav-link link-user'

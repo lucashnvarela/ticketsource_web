@@ -1,18 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var frontend\models\Favorito $model */
-/** @var yii\widgets\ActiveForm $form */
+/* @var $this yii\web\View */
+/* @var $model frontend\models\Favorito */
+/* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
 <div class="favorito-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'id')->textInput() ?>
 
     <?= $form->field($model, 'id_user')->textInput() ?>
 

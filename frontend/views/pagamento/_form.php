@@ -1,18 +1,16 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var frontend\models\Pagamento $model */
-/** @var yii\widgets\ActiveForm $form */
+/* @var $this yii\web\View */
+/* @var $model frontend\models\Pagamento */
+/* @var $form yii\bootstrap4\ActiveForm */
 ?>
 
 <div class="pagamento-form">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'id')->textInput() ?>
 
     <?= $form->field($model, 'numero_cartao')->textInput() ?>
 
