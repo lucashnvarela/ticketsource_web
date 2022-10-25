@@ -30,9 +30,8 @@ class Favorito extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'id_user', 'id_evento'], 'required'],
-            [['id', 'id_user', 'id_evento'], 'integer'],
-            [['id'], 'unique'],
+            [['id_user', 'id_evento'], 'required'],
+            [['id_user', 'id_evento'], 'integer'],
             [['id_evento'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::class, 'targetAttribute' => ['id_evento' => 'id']],
             [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];

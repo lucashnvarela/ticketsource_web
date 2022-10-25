@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "fatura".
  *
  * @property int $id
- * @property int $user_id
+ * @property int $id_user
  * @property int $id_pagamento
- * @property string|null $data
- * @property float|null $total
+ * @property string $data
+ * @property float $total
  *
  * @property FaturaBilhete[] $faturaBilhetes
  * @property Pagamento $pagamento
@@ -33,13 +33,12 @@ class Fatura extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'user_id', 'id_pagamento'], 'required'],
-            [['id', 'user_id', 'id_pagamento'], 'integer'],
+            [['id_user', 'id_pagamento', 'data', 'total'], 'required'],
+            [['id_user', 'id_pagamento'], 'integer'],
             [['data'], 'safe'],
             [['total'], 'number'],
-            [['id'], 'unique'],
             [['id_pagamento'], 'exist', 'skipOnError' => true, 'targetClass' => Pagamento::class, 'targetAttribute' => ['id_pagamento' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -50,7 +49,7 @@ class Fatura extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
+            'id_user' => 'Id User',
             'id_pagamento' => 'Id Pagamento',
             'data' => 'Data',
             'total' => 'Total',
@@ -84,6 +83,6 @@ class Fatura extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'id_user']);
     }
 }

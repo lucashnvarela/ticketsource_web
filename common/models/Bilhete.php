@@ -9,11 +9,11 @@ use Yii;
  *
  * @property int $id
  * @property int $id_sessao
- * @property int|null $uid
- * @property int|null $numero_lugar
- * @property float|null $preco
- * @property int|null $disponivel
- * @property int|null $status
+ * @property int $uid
+ * @property int $numero_lugar
+ * @property float $preco
+ * @property int $disponivel
+ * @property int $status
  *
  * @property Carrinho[] $carrinhos
  * @property FaturaBilhete[] $faturaBilhetes
@@ -35,11 +35,10 @@ class Bilhete extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'id_sessao'], 'required'],
-            [['id', 'id_sessao', 'uid', 'numero_lugar', 'disponivel', 'status'], 'integer'],
+            [['id_sessao', 'uid', 'numero_lugar', 'preco', 'disponivel', 'status'], 'required'],
+            [['id_sessao', 'uid', 'numero_lugar', 'disponivel', 'status'], 'integer'],
             [['preco'], 'number'],
             [['uid'], 'unique'],
-            [['id'], 'unique'],
             [['id_sessao'], 'exist', 'skipOnError' => true, 'targetClass' => Sessao::class, 'targetAttribute' => ['id_sessao' => 'id']],
         ];
     }

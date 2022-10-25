@@ -53,7 +53,7 @@ class SignupForm extends Model {
         $user->setPassword($this->password);
         $user->save();
 
-        //rbac
+        //* rbac
         $auth = Yii::$app->authManager;
         $auth->assign($auth->getRole($role), $user->getId());
 

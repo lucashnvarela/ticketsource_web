@@ -10,28 +10,30 @@ use Yii;
  * @property int $id
  * @property int $id_fatura
  * @property int $id_bilhete
- * @property float|null $preco
+ * @property float $preco
  *
  * @property Bilhete $bilhete
  * @property Fatura $fatura
  */
-class FaturaBilhete extends \yii\db\ActiveRecord {
+class FaturaBilhete extends \yii\db\ActiveRecord
+{
     /**
      * {@inheritdoc}
      */
-    public static function tableName() {
+    public static function tableName()
+    {
         return 'fatura_bilhete';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules() {
+    public function rules()
+    {
         return [
-            [['id', 'id_fatura', 'id_bilhete'], 'required'],
-            [['id', 'id_fatura', 'id_bilhete'], 'integer'],
+            [['id_fatura', 'id_bilhete', 'preco'], 'required'],
+            [['id_fatura', 'id_bilhete'], 'integer'],
             [['preco'], 'number'],
-            [['id'], 'unique'],
             [['id_bilhete'], 'exist', 'skipOnError' => true, 'targetClass' => Bilhete::class, 'targetAttribute' => ['id_bilhete' => 'id']],
             [['id_fatura'], 'exist', 'skipOnError' => true, 'targetClass' => Fatura::class, 'targetAttribute' => ['id_fatura' => 'id']],
         ];
@@ -40,7 +42,8 @@ class FaturaBilhete extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels() {
+    public function attributeLabels()
+    {
         return [
             'id' => 'ID',
             'id_fatura' => 'Id Fatura',
@@ -54,7 +57,8 @@ class FaturaBilhete extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBilhete() {
+    public function getBilhete()
+    {
         return $this->hasOne(Bilhete::class, ['id' => 'id_bilhete']);
     }
 
@@ -63,7 +67,8 @@ class FaturaBilhete extends \yii\db\ActiveRecord {
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFatura() {
+    public function getFatura()
+    {
         return $this->hasOne(Fatura::class, ['id' => 'id_fatura']);
     }
 }

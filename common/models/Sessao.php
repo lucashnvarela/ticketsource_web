@@ -8,10 +8,10 @@ use Yii;
  * This is the model class for table "sessao".
  *
  * @property int $id
- * @property int $evento_id
- * @property string|null $data
- * @property string|null $localizacao
- * @property int|null $lugares_disponiveis
+ * @property int $id_evento
+ * @property string $data
+ * @property string $localizacao
+ * @property int $lugares_disponiveis
  *
  * @property Bilhete[] $bilhetes
  * @property Evento $evento
@@ -32,12 +32,11 @@ class Sessao extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'evento_id'], 'required'],
-            [['id', 'evento_id', 'lugares_disponiveis'], 'integer'],
+            [['id_evento', 'data', 'localizacao', 'lugares_disponiveis'], 'required'],
+            [['id_evento', 'lugares_disponiveis'], 'integer'],
             [['data'], 'safe'],
             [['localizacao'], 'string', 'max' => 45],
-            [['id'], 'unique'],
-            [['evento_id'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::class, 'targetAttribute' => ['evento_id' => 'id']],
+            [['id_evento'], 'exist', 'skipOnError' => true, 'targetClass' => Evento::class, 'targetAttribute' => ['id_evento' => 'id']],
         ];
     }
 
@@ -48,7 +47,7 @@ class Sessao extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'evento_id' => 'Evento ID',
+            'id_evento' => 'Id Evento',
             'data' => 'Data',
             'localizacao' => 'Localizacao',
             'lugares_disponiveis' => 'Lugares Disponiveis',
@@ -72,6 +71,6 @@ class Sessao extends \yii\db\ActiveRecord
      */
     public function getEvento()
     {
-        return $this->hasOne(Evento::class, ['id' => 'evento_id']);
+        return $this->hasOne(Evento::class, ['id' => 'id_evento']);
     }
 }

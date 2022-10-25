@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "evento".
  *
  * @property int $id
- * @property string|null $titulo
- * @property string|null $descricao
- * @property string|null $nome_pic
+ * @property string $titulo
+ * @property string $descricao
+ * @property string $nome_pic
  *
  * @property Favorito[] $favoritos
  * @property Sessao[] $sessaos
@@ -31,10 +31,8 @@ class Evento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
+            [['titulo', 'descricao', 'nome_pic'], 'required'],
             [['titulo', 'descricao', 'nome_pic'], 'string', 'max' => 45],
-            [['id'], 'unique'],
         ];
     }
 
@@ -68,6 +66,6 @@ class Evento extends \yii\db\ActiveRecord
      */
     public function getSessaos()
     {
-        return $this->hasMany(Sessao::class, ['evento_id' => 'id']);
+        return $this->hasMany(Sessao::class, ['id_evento' => 'id']);
     }
 }

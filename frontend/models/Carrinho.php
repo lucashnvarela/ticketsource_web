@@ -8,8 +8,8 @@ use Yii;
  * This is the model class for table "carrinho".
  *
  * @property int $id
- * @property int $user_id
- * @property int $bilhete_id
+ * @property int $id_user
+ * @property int $id_bilhete
  *
  * @property Bilhete $bilhete
  * @property User $user
@@ -30,11 +30,10 @@ class Carrinho extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'user_id', 'bilhete_id'], 'required'],
-            [['id', 'user_id', 'bilhete_id'], 'integer'],
-            [['id'], 'unique'],
-            [['bilhete_id'], 'exist', 'skipOnError' => true, 'targetClass' => Bilhete::class, 'targetAttribute' => ['bilhete_id' => 'id']],
-            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
+            [['id_user', 'id_bilhete'], 'required'],
+            [['id_user', 'id_bilhete'], 'integer'],
+            [['id_bilhete'], 'exist', 'skipOnError' => true, 'targetClass' => Bilhete::class, 'targetAttribute' => ['id_bilhete' => 'id']],
+            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
         ];
     }
 
@@ -45,8 +44,8 @@ class Carrinho extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'user_id' => 'User ID',
-            'bilhete_id' => 'Bilhete ID',
+            'id_user' => 'Id User',
+            'id_bilhete' => 'Id Bilhete',
         ];
     }
 
@@ -57,7 +56,7 @@ class Carrinho extends \yii\db\ActiveRecord
      */
     public function getBilhete()
     {
-        return $this->hasOne(Bilhete::class, ['id' => 'bilhete_id']);
+        return $this->hasOne(Bilhete::class, ['id' => 'id_bilhete']);
     }
 
     /**
@@ -67,6 +66,6 @@ class Carrinho extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(User::class, ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'id_user']);
     }
 }

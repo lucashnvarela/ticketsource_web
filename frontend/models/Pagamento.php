@@ -8,9 +8,9 @@ use Yii;
  * This is the model class for table "pagamento".
  *
  * @property int $id
- * @property int|null $numero_cartao
- * @property string|null $data_validade
- * @property int|null $codigo_seguranca
+ * @property int $numero_cartao
+ * @property string $data_validade
+ * @property int $codigo_seguranca
  *
  * @property Fatura[] $faturas
  */
@@ -30,11 +30,10 @@ class Pagamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
-            [['id', 'numero_cartao', 'codigo_seguranca'], 'integer'],
+            [['numero_cartao', 'data_validade', 'codigo_seguranca'], 'required'],
+            [['numero_cartao', 'codigo_seguranca'], 'integer'],
             [['data_validade'], 'safe'],
             [['numero_cartao'], 'unique'],
-            [['id'], 'unique'],
         ];
     }
 
