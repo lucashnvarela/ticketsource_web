@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use common\models\Sessao;
 use common\models\SessaoSearch;
+use common\models\Calendar;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -12,16 +13,14 @@ use yii\filters\VerbFilter;
 /**
  * SessaoController implements the CRUD actions for Sessao model.
  */
-class SessaoController extends Controller
-{
+class SessaoController extends Controller {
     /**
      * {@inheritdoc}
      */
-    public function behaviors()
-    {
+    public function behaviors() {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -33,14 +32,18 @@ class SessaoController extends Controller
      * Lists all Sessao models.
      * @return mixed
      */
-    public function actionIndex()
-    {
-        $searchModel = new SessaoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    public function actionIndex(int $month, int $year) {
+        $calendarModel = new Calendar();
+        $calendarDate = ['month' => $month, 'year' => $year];
+        $db_sessao = Sessao::find()
+            ->where(['month(data)' => $month, 'year(data)' => $year])
+            ->all();
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            'calendarModel' => $calendarModel,
+            'calendarDate' => $calendarDate,
+            'db_sessao' => $db_sessao,
         ]);
     }
 
@@ -50,10 +53,13 @@ class SessaoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
-    {
+    public function actionView($date) {
+        $db_sessao = Sessao::find()
+            ->where(['data' => $date])
+            ->all();
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'db_sessao' => $db_sessao,
         ]);
     }
 
@@ -62,8 +68,7 @@ class SessaoController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
-    {
+    public function actionCreate() {
         $model = new Sessao();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -82,8 +87,7 @@ class SessaoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
-    {
+    public function actionUpdate($id) {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -102,8 +106,7 @@ class SessaoController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($id)
-    {
+    public function actionDelete($id) {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -116,8 +119,7 @@ class SessaoController extends Controller
      * @return Sessao the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
+    protected function findModel($id) {
         if (($model = Sessao::findOne($id)) !== null) {
             return $model;
         }
