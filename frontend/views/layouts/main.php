@@ -6,8 +6,10 @@
 use frontend\assets\AppAsset;
 use yii\bootstrap5\Html;
 
-$this->registerCssFile("@web/css/themify-icons.css");
-$this->registerCssFile("@web/css/main.css");
+//import font awesome
+$this->registerJsFile('https://kit.fontawesome.com/af38e31d5d.js');
+
+$this->registerCssFile("@web/css/layouts/main.css");
 
 AppAsset::register($this);
 ?>

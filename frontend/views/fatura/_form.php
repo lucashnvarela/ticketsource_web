@@ -14,8 +14,6 @@ use yii\bootstrap4\ActiveForm;
 
     <?= $form->field($model, 'id_user')->textInput() ?>
 
-    <?= $form->field($model, 'id_pagamento')->textInput() ?>
-
     <?= $form->field($model, 'data')->textInput() ?>
 
     <?= $form->field($model, 'total')->textInput() ?>

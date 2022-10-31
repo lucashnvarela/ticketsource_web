@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $model,
                         'attributes' => [
                             'id',
+                            'id_fatura',
                             'numero_cartao',
                             'data_validade',
                             'codigo_seguranca',

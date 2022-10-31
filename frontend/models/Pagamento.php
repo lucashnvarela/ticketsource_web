@@ -8,11 +8,12 @@ use Yii;
  * This is the model class for table "pagamento".
  *
  * @property int $id
+ * @property int $id_fatura
  * @property int $numero_cartao
  * @property string $data_validade
  * @property int $codigo_seguranca
  *
- * @property Fatura[] $faturas
+ * @property Fatura $fatura
  */
 class Pagamento extends \yii\db\ActiveRecord
 {
@@ -30,10 +31,11 @@ class Pagamento extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['numero_cartao', 'data_validade', 'codigo_seguranca'], 'required'],
-            [['numero_cartao', 'codigo_seguranca'], 'integer'],
+            [['id_fatura', 'numero_cartao', 'data_validade', 'codigo_seguranca'], 'required'],
+            [['id_fatura', 'numero_cartao', 'codigo_seguranca'], 'integer'],
             [['data_validade'], 'safe'],
             [['numero_cartao'], 'unique'],
+            [['id_fatura'], 'exist', 'skipOnError' => true, 'targetClass' => Fatura::class, 'targetAttribute' => ['id_fatura' => 'id']],
         ];
     }
 
@@ -44,6 +46,7 @@ class Pagamento extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'id_fatura' => 'Id Fatura',
             'numero_cartao' => 'Numero Cartao',
             'data_validade' => 'Data Validade',
             'codigo_seguranca' => 'Codigo Seguranca',
@@ -51,12 +54,12 @@ class Pagamento extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Faturas]].
+     * Gets query for [[Fatura]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFaturas()
+    public function getFatura()
     {
-        return $this->hasMany(Fatura::class, ['id_pagamento' => 'id']);
+        return $this->hasOne(Fatura::class, ['id' => 'id_fatura']);
     }
 }

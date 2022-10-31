@@ -12,6 +12,8 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'id_fatura')->textInput() ?>
+
     <?= $form->field($model, 'numero_cartao')->textInput() ?>
 
     <?= $form->field($model, 'data_validade')->textInput() ?>

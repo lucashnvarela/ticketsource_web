@@ -18,6 +18,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
+    <?= $form->field($model, 'id_fatura') ?>
+
     <?= $form->field($model, 'numero_cartao') ?>
 
     <?= $form->field($model, 'data_validade') ?>

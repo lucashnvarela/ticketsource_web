@@ -17,7 +17,7 @@ class FaturaSearch extends Fatura
     public function rules()
     {
         return [
-            [['id', 'id_user', 'id_pagamento'], 'integer'],
+            [['id', 'id_user'], 'integer'],
             [['data'], 'safe'],
             [['total'], 'number'],
         ];
@@ -61,7 +61,6 @@ class FaturaSearch extends Fatura
         $query->andFilterWhere([
             'id' => $this->id,
             'id_user' => $this->id_user,
-            'id_pagamento' => $this->id_pagamento,
             'data' => $this->data,
             'total' => $this->total,
         ]);

@@ -7,7 +7,7 @@ use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use common\models\User;
 
-$this->registerCssFile("@web/css/navbar.css");
+$this->registerCssFile("@web/css/layouts/navbar.css");
 ?>
 
 <header>
@@ -36,54 +36,60 @@ $this->registerCssFile("@web/css/navbar.css");
 	echo Nav::widget([
 		'items' => [
 			[
-				'label' => 'Eventos',
+				'label' => '<i class="fa-regular fa-calendar-days"></i> Eventos',
 				'url' => ['evento/index'],
-				'linkOptions' => ['class' => 'ti-ticket nav-link link-event'],
+				'linkOptions' => ['class' => 'nav-link link-eventos'],
+				'encode' => false
 			],
 		],
-		'options' => ['class' => 'navbar-nav me-auto'],
+		'options' => ['class' => 'navbar-nav me-auto nav-eventos'],
 	]);
 
 	if (Yii::$app->user->isGuest) {
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => 'Iniciar sessão',
+					'label' => '<i class="fa-solid fa-user-check"></i> Iniciar sessão',
 					'url' => ['site/login'],
-					'linkOptions' => ['class' => 'nav-link link-login']
+					'linkOptions' => ['class' => 'nav-link link-login'],
+					'encode' => false
 				],
 				[
-					'label' => ' Registar',
-					'url' => ['/site/signup'],
-					'linkOptions' => ['class' => 'nav-link link-signup']
+					'label' => '<i class="fa-solid fa-user-plus"></i> Registar',
+					'url' => ['site/signup'],
+					'linkOptions' => ['class' => 'nav-link link-signup'],
+					'encode' => false
 				],
 			],
-			'options' => ['class' => 'navbar-nav ms-auto login-signup'],
+			'options' => ['class' => 'navbar-nav ms-auto nav-guest'],
 		]);
 	} else {
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => 'Carrinho',
+					'label' => '<i class="fa-solid fa-cart-shopping"></i> Carrinho',
 					'url' => ['carrinho/index'],
-					'linkOptions' => ['class' => 'ti-shopping-cart nav-link link-cart']
+					'linkOptions' => ['class' => 'nav-link link-cart'],
+					'encode' => false
 				],
 				[
-					'label' => 'Wishlist',
+					'label' => '<i class="fa-solid fa-heart"></i> Wishlist',
 					'url' => ['favorito/index'],
-					'linkOptions' => ['class' => 'ti-heart nav-link link-wishlist']
+					'linkOptions' => ['class' => 'nav-link link-wishlist'],
+					'encode' => false
 				],
 				[
-					'label' => 'Minha Conta',
+					'label' => '<i class="fa-solid fa-user-large"></i> Minha Conta',
 					'url' => ['perfil/view'],
-					'linkOptions' => ['class' => 'ti-user nav-link link-user']
+					'linkOptions' => ['class' => 'nav-link link-user'],
+					'encode' => false
 				],
 				'<li class="nav-item">
 					<span id="username">(' . User::findOne(Yii::$app->user->id)->username . ')</span>' .
 					Html::a('Logout', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link link-logout']) .
 					'</li>'
 			],
-			'options' => ['class' => 'navbar-nav ms-auto'],
+			'options' => ['class' => 'navbar-nav ms-auto nav-loged'],
 		]);
 	}
 

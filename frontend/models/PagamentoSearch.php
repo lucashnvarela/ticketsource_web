@@ -17,7 +17,7 @@ class PagamentoSearch extends Pagamento
     public function rules()
     {
         return [
-            [['id', 'numero_cartao', 'codigo_seguranca'], 'integer'],
+            [['id', 'id_fatura', 'numero_cartao', 'codigo_seguranca'], 'integer'],
             [['data_validade'], 'safe'],
         ];
     }
@@ -59,6 +59,7 @@ class PagamentoSearch extends Pagamento
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'id_fatura' => $this->id_fatura,
             'numero_cartao' => $this->numero_cartao,
             'data_validade' => $this->data_validade,
             'codigo_seguranca' => $this->codigo_seguranca,
