@@ -23,8 +23,7 @@ use Yii;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Alert extends \yii\bootstrap5\Widget
-{
+class Alert extends \yii\bootstrap5\Widget {
     /**
      * @var array the alert types configuration for the flash messages.
      * This array is setup as $key => $value, where:
@@ -44,12 +43,10 @@ class Alert extends \yii\bootstrap5\Widget
      */
     public $closeButton = [];
 
-
     /**
      * {@inheritdoc}
      */
-    public function run()
-    {
+    public function run() {
         $session = Yii::$app->session;
         $flashes = $session->getAllFlashes();
         $appendClass = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
@@ -60,9 +57,15 @@ class Alert extends \yii\bootstrap5\Widget
             }
 
             foreach ((array) $flash as $i => $message) {
+                $body =
+                    '<div class="d-flex flex-row align-items-center">' .
+                    '<h5 class="title"><i class="fa-solid fa-circle-exclamation"></i>' . $type . '</h5>' .
+                    '<div class="w-100 d-flex justify-content-center"><span class="message">' . $message . '</span></div>' .
+                    '</div>';
+
                 echo \yii\bootstrap5\Alert::widget([
-                    'body' => $message,
-                    'closeButton' => $this->closeButton,
+                    'body' => $body,
+                    'closeButton' => false, //$this->closeButton,
                     'options' => array_merge($this->options, [
                         'id' => $this->getId() . '-' . $type . '-' . $i,
                         'class' => $this->alertTypes[$type] . $appendClass,

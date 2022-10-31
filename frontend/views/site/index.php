@@ -1,8 +1,8 @@
 <?php
 
-/** @var yii\web\View $this */
+/** @var $this yii\web\View */
 
-$this->registerCssFile("@web/css/index.css");
+$this->registerCssFile("@web/css/site/index.css");
 
 $this->title = Yii::$app->name;
 ?>

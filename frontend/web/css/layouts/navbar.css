@@ -1,0 +1,50 @@
+.navbar {
+	background-color: white;
+	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.07), 0 2px 2px 0 rgba(0, 0, 0, 0.04);
+	min-height: 60px;
+}
+
+.nav-item .nav-link {
+	font-size: 18px;
+	color: rgba(0, 0, 0, 0.7);
+	display: inline-block;
+	padding: 0 !important;
+}
+
+.nav-item .nav-link:hover,
+.navbar-nav .nav-link.active {
+	color: #52b563 !important;
+}
+
+.nav-item .nav-link i {
+	font-size: 16px;
+}
+
+/* Logo
+*/
+a.navbar-brand {
+	padding: 0;
+	margin: 0;
+}
+
+img.navbar-brand {
+	height: 30px;
+	object-fit: cover;
+	padding: 0 !important;
+	margin-bottom: 0.25rem;
+}
+
+.nav-item:not(:has(.link-logout, #username)) {
+	padding: 0 1.5rem;
+}
+
+.nav-item #username {
+	font-size: 16px;
+	margin-right: 0.0625rem;
+	padding-left: 1.5rem;
+}
+
+.fa-heart,
+.fa-calendar-days {
+	vertical-align: 1px;
+}

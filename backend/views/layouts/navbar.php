@@ -7,7 +7,7 @@ use yii\bootstrap5\Nav;
 use yii\bootstrap5\NavBar;
 use common\models\User;
 
-$this->registerCssFile("@web/css/navbar.css");
+$this->registerCssFile("@web/css/layouts/navbar.css");
 ?>
 
 <header>
@@ -21,10 +21,12 @@ $this->registerCssFile("@web/css/navbar.css");
     echo Nav::widget([
         'items' => [
             [
-                'label' => 'Dashboard',
+                'label' => '<i class="fa-solid fa-chart-column"></i> Dashboard',
                 'url' => Yii::$app->homeUrl,
-                'linkOptions' => ['class' => 'ti-dashboard nav-link link-dashboard'],
+                'linkOptions' => ['class' => 'nav-link link-dashboard'],
+                'encode' => false
             ],
+
         ],
         'options' => ['class' => 'navbar-nav'],
     ]);
@@ -33,34 +35,37 @@ $this->registerCssFile("@web/css/navbar.css");
         echo Nav::widget([
             'items' => [
                 [
-                    'label' => 'Eventos',
-                    'items' => [
-                        ['label' => 'Lista de Eventos', 'url' => ['evento/index']],
-                        ['label' => 'Adicionar Evento', 'url' => ['evento/create']],
-                    ],
-                    'linkOptions' => [
-                        'class' => 'ti-ticket nav-link link-event'
-                    ]
-                ]
-
+                    'label' => '<i class="fa-regular fa-calendar-days"></i> Calendario de Eventos',
+                    'url' => ['sessao/index', 'month' => date('n'), 'year' => date('Y')],
+                    'linkOptions' => ['class' => 'nav-link link-eventos'],
+                    'encode' => false
+                ],
+                [
+                    'label' => '<i class="fa-regular fa-calendar-plus"></i> Registar Novo Evento',
+                    'url' => ['evento/create'],
+                    'linkOptions' => ['class' => 'nav-link link-create-evento'],
+                    'encode' => false
+                ],
             ],
-            'options' => ['class' => 'navbar-nav'],
+            'options' => ['class' => 'navbar-nav nav-gestor'],
         ]);
     } else {
         echo Nav::widget([
             'items' => [
                 [
-                    'label' => 'Utilizadores',
-                    'items' => [
-                        ['label' => 'Lista de Utlizadores', 'url' => ['user/index']],
-                        ['label' => 'Adicionar Gestor', 'url' => ['site/signup']],
-                    ],
-                    'linkOptions' => [
-                        'class' => 'ti-user nav-link link-user'
-                    ]
-                ]
+                    'label' => '<i class="fa-solid fa-users"></i> Lista de Utilizadores',
+                    'url' => ['user/index'],
+                    'linkOptions' => ['class' => 'nav-link link-users'],
+                    'encode' => false
+                ],
+                [
+                    'label' => '<i class="fa-solid fa-user-plus"></i> Registar Novo Gestor',
+                    'url' => ['site/signup'],
+                    'linkOptions' => ['class' => 'nav-link link-create-gestor'],
+                    'encode' => false
+                ],
             ],
-            'options' => ['class' => 'navbar-nav'],
+            'options' => ['class' => 'navbar-nav nav-admin'],
         ]);
     }
 

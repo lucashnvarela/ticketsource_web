@@ -1,30 +1,27 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var \common\models\LoginForm $model_login */
+/** @var $this yii\web\View */
+/** @var $form yii\bootstrap5\ActiveForm */
+/** @var $model_login \common\models\LoginForm */
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 use common\widgets\Alert;
 
-$this->registerCssFile("@web/css/login.css");
+$this->registerCssFile("@web/css/site/login.css");
 
 $this->title = 'Iniciar sessão';
 ?>
 
-<div class="h-100 d-flex flex-column justify-content-center align-items-center">
-    <?= Alert::widget() ?>
+<div class="login-page">
     <div class="card login-form">
         <div class="card-header">
-            <h4 class="card-title"><?= $this->title ?></h4>
-            <h6 class="card-subtitle">Por favor preencha os seguintes campos</h6>
+            <h5 class="title"><i class="fa-solid fa-user-check"></i> <?= $this->title ?></h5>
+            <p class="subtitle">Por favor preencha os seguintes campos</p>
         </div>
         <div class="card-body">
-            <?php $form = ActiveForm::begin([
-                'id' => 'login-form',
-                'options' => ['class' => 'd-flex flex-column align-items-center'],
-            ]) ?>
+            <?php
+            $form = ActiveForm::begin(['id' => 'login-form']) ?>
 
             <?= $form->field($model_login, 'username', [
                 'options' => ['class' => 'input-group has-feedback'],
@@ -45,4 +42,5 @@ $this->title = 'Iniciar sessão';
             <?php ActiveForm::end(); ?>
         </div>
     </div>
+    <?= Alert::widget() ?>
 </div>

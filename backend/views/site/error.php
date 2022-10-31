@@ -7,7 +7,7 @@
 
 use yii\helpers\Html;
 
-$this->registerCssFile("@web/css/error.css");
+$this->registerCssFile("@web/css/site/error.css");
 
 $this->title = $name;
 ?>

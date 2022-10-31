@@ -6,13 +6,14 @@
 use backend\assets\AppAsset;
 use yii\bootstrap5\Html;
 
-$this->registerCssFile("@web/../../frontend/web/css/themify-icons.css");
-$this->registerCssFile("@web/css/main.css");
+//import font awesome
+$this->registerJsFile('https://kit.fontawesome.com/af38e31d5d.js');
 
-//remover depois de alterar todos os svgs
-\hail812\adminlte3\assets\FontAwesomeAsset::register($this);
+$this->registerCssFile("@web/css/layouts/main.css");
+
 AppAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
 
 <!DOCTYPE html>

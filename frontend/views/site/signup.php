@@ -1,22 +1,22 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var yii\bootstrap5\ActiveForm $form */
-/** @var \frontend\model_signups\SignupForm $model_signup_signup */
+/** @var $this yii\web\View */
+/** @var $form yii\bootstrap5\ActiveForm */
+/** @var $model_signup \frontend\model_signups\SignupForm */
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
 
-$this->registerCssFile("@web/css/signup.css");
+$this->registerCssFile("@web/css/site/signup.css");
 
 $this->title = 'Registo';
 ?>
 
-<div class="h-100 d-flex flex-column justify-content-center align-items-center">
+<div class="signup-page">
     <div class="card signup-form">
         <div class="card-header">
-            <h4 class="card-title"><?= $this->title ?></h4>
-            <h6 class="card-subtitle">Por favor preencha os seguintes campos</h6>
+            <h5 class="title"><i class="fa-solid fa-user-plus"></i> <?= $this->title ?></h5>
+            <p class="subtitle">Por favor preencha os seguintes campos</p>
         </div>
         <div class="card-body">
             <?php $form = ActiveForm::begin([

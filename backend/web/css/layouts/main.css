@@ -1,10 +1,8 @@
-body {
-	background-color: #ced4da20 !important;
-	font-family: Poppins, sans-serif !important;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-body main {
-	height: 100vh !important;
+body {
+	background-color: #e0e0e020 !important;
+	font-family: Poppins, sans-serif !important;
 }
 
 /* btn color
@@ -19,8 +17,8 @@ body main {
 	--bs-btn-disabled-bg: #52b563 !important;
 	--bs-btn-disabled-border-color: #52b563 !important;
 
-	box-shadow: 0 4px 9px -5px #46a557 !important;
-	padding: 0.43rem 1.5rem 0.4rem !important;
+	box-shadow: 0 4px 9px -5px #46a557;
+	padding: 0.4rem 1.5rem 0.4rem;
 	border: 0;
 }
 
@@ -37,6 +35,17 @@ body main {
 	border-width: 0;
 	padding: 0.25rem 1rem 0.25rem;
 	font-size: 18px;
+}
+
+.input-group .form-control {
+	background-color: transparent;
+	border-radius: 6px;
+	border: 1px solid #ddd;
+}
+
+.input-group .form-control:focus {
+	box-shadow: none !important;
+	border: 1px solid #ddd;
 }
 
 /* btn ripple effect

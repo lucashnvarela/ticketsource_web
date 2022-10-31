@@ -81,18 +81,17 @@ class SiteController extends Controller {
             $user_login = User::findByUsername($model_login->username);
 
             if (is_null($user_login))
-                Yii::$app->session->setFlash('error', 'Username ou password estão errados');
+                Yii::$app->session->setFlash('error', 'Username ou password incorretos');
+
             elseif ($user_login->validatePassword($model_login->password)) {
                 if (Yii::$app->authManager->getAssignment('cliente', $user_login->id) == null) {
-                    $model_login->login();
+                    if ($user_login->status == User::STATUS_ACTIVE) {
+                        $model_login->login();
 
-                    return $this->redirect('index');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Sem permissão de acesso');
-                }
-            } else {
-                Yii::$app->session->setFlash('error', 'Username ou password estão errados');
-            }
+                        return $this->redirect('index');
+                    } else Yii::$app->session->setFlash('error', 'Login indisponível');
+                } else Yii::$app->session->setFlash('error', 'Sem permissão de acesso');
+            } else Yii::$app->session->setFlash('error', 'Username ou password incorretos');
         }
 
         $model_login->password = '';

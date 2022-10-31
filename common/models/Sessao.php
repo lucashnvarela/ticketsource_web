@@ -16,21 +16,18 @@ use Yii;
  * @property Bilhete[] $bilhetes
  * @property Evento $evento
  */
-class Sessao extends \yii\db\ActiveRecord
-{
+class Sessao extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'sessao';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id_evento', 'data', 'localizacao', 'lugares_disponiveis'], 'required'],
             [['id_evento', 'lugares_disponiveis'], 'integer'],
@@ -43,8 +40,7 @@ class Sessao extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
             'id_evento' => 'Id Evento',
@@ -59,8 +55,7 @@ class Sessao extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBilhetes()
-    {
+    public function getBilhetes() {
         return $this->hasMany(Bilhete::class, ['id_sessao' => 'id']);
     }
 
@@ -69,8 +64,7 @@ class Sessao extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getEvento()
-    {
+    public function getEvento() {
         return $this->hasOne(Evento::class, ['id' => 'id_evento']);
     }
 }
