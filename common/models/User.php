@@ -56,6 +56,45 @@ class User extends ActiveRecord implements IdentityInterface {
     }
 
     /**
+     * @brief Returns the status of the user
+     * 
+     * @return string
+     */
+    public function getStatus() {
+        $status = [
+            0 => 'deleted',
+            9 => 'inactive',
+            10 => 'active',
+        ];
+
+        return $status[$this->status];
+    }
+
+    /**
+     * @brief Sets the status inactive
+     */
+    public function block() {
+        $this->status = self::STATUS_INACTIVE;
+        return $this->save();
+    }
+
+    /**
+     * @brief Sets the status active
+     */
+    public function unblock() {
+        $this->status = self::STATUS_ACTIVE;
+        return $this->save();
+    }
+
+    /**
+     * @brief Sets the status deleted
+     */
+    public function delete() {
+        $this->status = self::STATUS_DELETED;
+        return $this->save();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public static function findIdentity($id) {
@@ -76,7 +115,7 @@ class User extends ActiveRecord implements IdentityInterface {
      * @return static|null
      */
     public static function findByUsername($username) {
-        return static::findOne(['username' => $username, 'status' => self::STATUS_ACTIVE]);
+        return static::findOne(['username' => $username]);
     }
 
     /**
