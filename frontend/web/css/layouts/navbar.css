@@ -1,23 +1,23 @@
 .navbar {
 	background-color: white;
 	box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.07), 0 2px 2px 0 rgba(0, 0, 0, 0.04);
-	min-height: 60px;
+	min-height: 55px;
 }
 
 .nav-item .nav-link {
-	font-size: 18px;
-	color: rgba(0, 0, 0, 0.7);
+	font-size: 16px;
+    color: #000000b3;
 	display: inline-block;
 	padding: 0 !important;
 }
 
 .nav-item .nav-link:hover,
-.navbar-nav .nav-link.active {
+.nav-item .nav-link.active {
 	color: #52b563 !important;
 }
 
 .nav-item .nav-link i {
-	font-size: 16px;
+	font-size: 15px;
 }
 
 /* Logo
@@ -28,7 +28,7 @@ a.navbar-brand {
 }
 
 img.navbar-brand {
-	height: 30px;
+	height: 25px;
 	object-fit: cover;
 	padding: 0 !important;
 	margin-bottom: 0.25rem;
@@ -36,6 +36,10 @@ img.navbar-brand {
 
 .nav-item:not(:has(.link-logout, #username)) {
 	padding: 0 1.5rem;
+}
+
+.nav-item:has(.link-signup){
+	padding-right: 0 !important;
 }
 
 .nav-item #username {
@@ -46,5 +50,5 @@ img.navbar-brand {
 
 .fa-heart,
 .fa-calendar-days {
-	vertical-align: 1px;
+	vertical-align: 0.25px;
 }

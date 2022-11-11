@@ -36,7 +36,7 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 	echo Nav::widget([
 		'items' => [
 			[
-				'label' => '<i class="fa-regular fa-calendar-days"></i> Eventos',
+				'label' => '<i class="fas fa-calendar-day"></i> Eventos',
 				'url' => ['evento/index'],
 				'linkOptions' => ['class' => 'nav-link link-eventos'],
 				'encode' => false
@@ -49,13 +49,13 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => '<i class="fa-solid fa-user-check"></i> Iniciar sessão',
+					'label' => '<i class="fas fa-user-check"></i> Iniciar sessão',
 					'url' => ['site/login'],
 					'linkOptions' => ['class' => 'nav-link link-login'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fa-solid fa-user-plus"></i> Registar',
+					'label' => '<i class="fas fa-user-plus"></i> Registar',
 					'url' => ['site/signup'],
 					'linkOptions' => ['class' => 'nav-link link-signup'],
 					'encode' => false
@@ -67,20 +67,20 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => '<i class="fa-solid fa-cart-shopping"></i> Carrinho',
+					'label' => '<i class="fas fa-cart-shopping"></i> Carrinho',
 					'url' => ['carrinho/index'],
 					'linkOptions' => ['class' => 'nav-link link-cart'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fa-solid fa-heart"></i> Wishlist',
+					'label' => '<i class="fas fa-heart"></i> Wishlist',
 					'url' => ['favorito/index'],
 					'linkOptions' => ['class' => 'nav-link link-wishlist'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fa-solid fa-user-large"></i> Minha Conta',
-					'url' => ['perfil/view'],
+					'label' => '<i class="fas fa-user-large"></i> Minha Conta',
+					'url' => ['perfil/update'],
 					'linkOptions' => ['class' => 'nav-link link-user'],
 					'encode' => false
 				],

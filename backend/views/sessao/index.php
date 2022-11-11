@@ -9,13 +9,13 @@ use yii\helpers\Url;
 
 $this->registerCssFile("@web/css/sessao/index.css");
 
-$this->title = 'Calendario de Eventos';
+$this->title = 'Calendario de Sessões';
 ?>
 
-<div class="sessao-index container">
+<div class="index-page">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title"><i class="fa-regular fa-calendar-days"></i> <?= $this->title ?></h5>
+            <h5 class="title"><i class="far fa-calendar-days"></i> <?= $this->title ?></h5>
             <div class="calendar-tools">
                 <?php
                 echo Html::a(
@@ -23,20 +23,20 @@ $this->title = 'Calendario de Eventos';
                     ['sessao/index', 'month' => date('n'), 'year' => date('Y')],
                     ['class' => 'btn-today ripple']
                 );
-                $previousMonth = $calendarModel->getPreviousMonth($calendarDate['month'], $calendarDate['year']);
+                $previousMonth = $calendarModel->getPreviousMonth(month: $calendarDate['month'], year: $calendarDate['year']);
                 echo Html::a(
-                    '<i class="fa-solid fa-chevron-left"></i>',
+                    '<i class="fas fa-chevron-left"></i>',
                     ['sessao/index', 'month' => $previousMonth['month'], 'year' => $previousMonth['year']],
                     ['class' => 'btn-previous-month ripple']
                 );
-                $nextMonth = $calendarModel->getNextMonth($calendarDate['month'], $calendarDate['year']);
+                $nextMonth = $calendarModel->getNextMonth(month: $calendarDate['month'], year: $calendarDate['year']);
                 echo Html::a(
-                    '<i class="fa-solid fa-chevron-right"></i>',
+                    '<i class="fas fa-chevron-right"></i>',
                     ['sessao/index', 'month' => $nextMonth['month'], 'year' => $nextMonth['year']],
                     ['class' => 'btn-next-month ripple']
                 );
                 ?>
-                <h5 class="calendar-date"><?= $calendarModel->getMonth($calendarDate['month']) . ' ' . $calendarDate['year'] ?></h5>
+                <h5 class="calendar-date"><?= $calendarModel->getMonth(month: $calendarDate['month']) . ' ' . $calendarDate['year'] ?></h5>
             </div>
         </div>
 
@@ -55,29 +55,31 @@ $this->title = 'Calendario de Eventos';
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <?php
-                            foreach ($calendarModel->getWeeks($calendarDate['month']) as $week) {
-                                foreach ($week as $day) {
-                                    if ($day == date('d') && $calendarDate['month'] == date('n')) $dayClass = 'day today';
-                                    else $dayClass = 'day';
-                                    if ($day != null) {
-                                        echo
-                                        '<td><a href="' .
-                                            Url::toRoute(['sessao/view', 'date' => $calendarDate['year'] . '-' . $calendarDate['month'] . '-' . $day]) .
-                                            '" class="td-container">
+                        <?php
+                        foreach ($calendarModel->getWeeks(month: $calendarDate['month']) as $week) {
+                            echo '<tr>';
+
+                            foreach ($week as $day) {
+                                $todayClass = null;
+                                $calendarModel->isToday(day: $day, calendarDate: $calendarDate) ? $todayClass .= ' class="today"' : null;
+
+                                if ($day != null) {
+                                    echo
+                                    '<td><a href="' .
+                                        Url::toRoute(['sessao/view', 'date' => $calendarDate['year'] . '-' . $calendarDate['month'] . '-' . $day]) .
+                                        '" class="td-container">
                                                 <div class="day-container">
-                                                    <div class="' . $dayClass . '">' . $day . '</div>
+                                                    <div' . $todayClass . '>' . $day . '</div>
                                                 </div>
                                                 <div class="event-container">';
-                                        $sessaoElements = $calendarModel->getSessions($db_sessao, $calendarDate['year'] . '-' . $calendarDate['month'] . '-' . $day);
-                                        if ($sessaoElements != null) foreach ($sessaoElements as $el) echo $el;
-                                        echo '</div>
+                                    $sessaoList = $calendarModel->getSessions(db_sessao: $db_sessao, date: $calendarDate['year'] . '-' . $calendarDate['month'] . '-' . $day);
+                                    if ($sessaoList != null) foreach ($sessaoList as $el) echo $el;
+                                    echo '</div>
                                             </a></td>';
-                                    } else echo '<td></td>';
-                                }
-                                echo '</tr>';
-                            } ?>
+                                } else echo '<td></td>';
+                            }
+                            echo '</tr>';
+                        } ?>
                     </tbody>
                 </table>
             </div>

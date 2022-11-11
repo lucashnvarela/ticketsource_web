@@ -6,35 +6,47 @@ use yii\helpers\Html;
 use common\models\Evento;
 
 class Calendar {
+
+    /**
+     * @brief Retorna true se for o dia de hoje e false caso contrário
+     * 
+     * @param int $day Dia
+     * @param array $calendarDate Array com o mês e o ano
+     */
+    public function isToday($day, $calendarDate) {
+        if ($day == date('d') && $calendarDate['month'] == date('n') && $calendarDate['year'] == date('Y')) return true;
+        else return false;
+    }
+
     /**
      * @brief Retorna o primeiro dia da semana de um mês
      * 
-     * @param int $month
-     * @param int $year
+     * @param int $month Mês
+     * @param int $year Ano
      * @return array
      */
-    public function getFirstWeekday(int $month) {
+    public function getFirstWeekday($month) {
         return intval(date('N', strtotime('01-' . $month . '-' . date('Y')))) - 1;
     }
 
     /**
      * @brief Retorna o número de dias de um mês
      * 
-     * @param int $month
-     * @param int $year
+     * @param int $month Mês
+     * @param int $year Ano
      * @return array
      */
-    public function getMonthDays(int $month) {
+    public function getMonthDays($month) {
         return intval(date('t', strtotime('01-' . $month . '-' . date('Y'))));
     }
 
     /**
      * @brief Retorna o nome de um mês
      * 
-     * @param int $month
+     * @param int $month Mês
      * @return string
      */
-    public function getMonth(int $month) {
+    public function getMonth($month) {
         $months = [
             1 => 'Janeiro',
             2 => 'Fevereiro',
@@ -57,20 +69,20 @@ class Calendar {
     /**
      * @brief Retorna os dias de cada semana de um mês
      * 
-     * @param int $month
-     * @param int $year
+     * @param int $month Mês
+     * @param int $year Ano
      * @return array
      */
-    public function getWeeks(int $month) {
-        $firstWeekday = $this->getFirstWeekday($month);
+    public function getWeeks($month) {
+        $firstWeekday = $this->getFirstWeekday(month: $month);
         $monthWeeks = array();
         $day = 1;
 
-        while ($day <= $this->getMonthDays($month)) {
+        while ($day <= $this->getMonthDays(month: $month)) {
             $week = array();
             for ($weekday = 0; $weekday <= 6; $weekday++) {
                 if ($monthWeeks != null) {
-                    if ($day <= $this->getMonthDays($month)) {
+                    if ($day <= $this->getMonthDays(month: $month)) {
                         $week[$weekday] = $day;
                         $day++;
                     } else $week[$weekday] = null;
@@ -88,11 +100,11 @@ class Calendar {
     /**
      * @brief Retorna o mês anterior
      * 
-     * @param int $month
-     * @param int $year
+     * @param int $month Mês
+     * @param int $year Ano
      * @return array
      */
-    public function getNextMonth(int $month, int $year) {
+    public function getNextMonth($month, $year) {
         if ($month == 12) {
             $month = 1;
             $year++;
@@ -104,11 +116,11 @@ class Calendar {
     /**
      * @brief Retorna o mês seguinte
      * 
-     * @param int $month
-     * @param int $year
+     * @param int $month Mês
+     * @param int $year Ano
      * @return array
      */
-    public function getPreviousMonth(int $month, int $year) {
+    public function getPreviousMonth($month, $year) {
         if ($month == 1) {
             $month = 12;
             $year--;
@@ -120,31 +132,30 @@ class Calendar {
     /**
      * @brief Retorna as sessoes de uma data
      * 
-     * @param array $db_sessao
-     * @param string $date
+     * @param array $db_sessao Sessões
+     * @param string $date Data
      * @return array|void
      */
-    public function getSessions(array $db_sessao, string $date) {
-        $btnClass = ['x1', 'x2', 'x3'];
+    public function getSessions($db_sessao, $date) {
+        $btnClass = ['blue', 'purple', 'green', 'orange', 'red'];
 
         if ($db_sessao != null) {
             $date = date('Y-m-d', strtotime($date));
-            $sessaoElements = array();
+            $sessaoList = array();
 
             $i = 0;
             foreach ($db_sessao as $sessaoModel) {
                 if ($sessaoModel->data == $date) {
-                    $sessaoElements[] = Html::tag(
+                    $sessaoList[] = Html::tag(
                         'p',
                         Evento::findOne($sessaoModel->id_evento)->titulo . $sessaoModel->id,
-                        ['class' => 'btn-event ' . $btnClass[rand(0, 2)]]
+                        ['class' => 'btn-event ' . $btnClass[rand(0, 4)]]
                     );
                     $i++;
                     if ($i > 3) break;
                 }
             }
-
-            return $sessaoElements;
+            return $sessaoList;
         }
     }
 }

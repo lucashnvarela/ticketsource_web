@@ -9,6 +9,7 @@ use common\models\Calendar;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * SessaoController implements the CRUD actions for Sessao model.
@@ -19,10 +20,14 @@ class SessaoController extends Controller {
      */
     public function behaviors() {
         return [
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'delete' => ['POST'],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete'],
+                        'allow' => true,
+                        'roles' => ['gestorBilheteira'],
+                    ],
                 ],
             ],
         ];
@@ -33,7 +38,7 @@ class SessaoController extends Controller {
      * @return mixed
      */
 
-    public function actionIndex(int $month, int $year) {
+    public function actionIndex($month, $year) {
         $calendarModel = new Calendar();
         $calendarDate = ['month' => $month, 'year' => $year];
         $db_sessao = Sessao::find()

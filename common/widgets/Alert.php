@@ -59,7 +59,7 @@ class Alert extends \yii\bootstrap5\Widget {
             foreach ((array) $flash as $i => $message) {
                 $body =
                     '<div class="d-flex flex-row align-items-center">' .
-                    '<h5 class="title"><i class="fa-solid fa-circle-exclamation"></i>' . $type . '</h5>' .
+                    '<h5 class="title"><i class="fas fa-circle-exclamation"></i>' . $type . '</h5>' .
                     '<div class="w-100 d-flex justify-content-center"><span class="message">' . $message . '</span></div>' .
                     '</div>';
 

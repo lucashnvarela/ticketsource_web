@@ -1,12 +1,11 @@
-.sessao-index {
+.index-page {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	margin-top: 4rem;
+	padding-top: 4rem;
 }
 
 .card {
-	width: 1000px;
 	border: 1px solid #ddd !important;
 	border-radius: 0.5rem !important;
 	margin-top: 4rem;
@@ -23,14 +22,14 @@
 	padding: 1.25rem 1.5rem !important;
 }
 
-.card .card-header .card-title {
+.card .card-header .title {
 	font-size: 20px;
 	font-weight: bold;
 	margin: 0.5rem 2rem;
 }
 
-.card .card-header .card-title i {
-	font-size: 18px;
+.card .card-header .title i {
+	font-size: 19px;
 }
 
 .card .card-header .calendar-tools {
@@ -67,10 +66,6 @@
 	background-color: #e0e0e040;
 }
 
-.card .card-header .card-subtitle {
-	color: #6c757d !important;
-}
-
 .card .card-body {
 	padding: 0 1.5rem;
 }
@@ -84,7 +79,6 @@
 
 table {
 	table-layout: fixed;
-	width: 100%;
 	margin: 0 !important;
 }
 
@@ -94,6 +88,7 @@ thead tr th {
 
 tbody tr td {
 	font-size: 12px;
+	width: 132px;
 	height: 132px;
 	padding: 0.25rem;
 }
@@ -115,8 +110,12 @@ tbody tr:not(:last-of-type) td {
 	border-bottom: 0.5px solid #ddd;
 }
 
-tbody tr td:not(:last-of-type) {
+tbody tr td:not(:last-of-type, :not(:has(.td-container))) {
 	border-right: 0.5px solid #ddd;
+}
+
+tbody tr td:has(.td-container:first-child):not(:first-of-type) {
+	border-left: 0.5px solid #ddd;
 }
 
 td .td-container {
@@ -133,7 +132,7 @@ td .td-container:hover {
 }
 
 tr td:has(.td-container):hover {
-	background: #e0e0e030;
+	background: #e0e0e020;
 }
 
 td .day-container {
@@ -142,12 +141,12 @@ td .day-container {
 	align-items: center;
 }
 
-td .day-container .day {
+td .day-container div {
 	padding-top: 0.1875rem;
 	margin-bottom: 0.25rem;
 }
 
-td .day-container .day.today {
+td .day-container div.today {
 	color: #fff;
 	background-color: #52b563;
 	width: 22px;
@@ -174,32 +173,47 @@ td .event-container .btn-event {
 	margin-bottom: 0.1875rem;
 }
 
-td .event-container .btn-event.x1 {
-	order: 2;
+td .event-container .btn-event.blue {
 	color: rgb(10, 71, 169);
 	background: rgb(207, 224, 252, 0.8);
 }
 
-td .event-container .btn-event.x2 {
-	order: 1;
+td .event-container .btn-event.purple {
 	color: rgb(110, 2, 177);
 	background: rgb(235, 205, 254, 0.8);
 }
 
-td .event-container .btn-event.x3 {
-	order: 3;
+td .event-container .btn-event.green {
 	color: rgb(11, 65, 33);
-	background: rgb(199, 245, 217, 0.8);
+	background: rgba(199, 245, 217, 0.8);
 }
 
-td .event-container .btn-event.x1:hover {
+td .event-container .btn-event.orange {
+	color: rgb(151, 101, 8);
+	background: rgb(253, 231, 182, 0.8);
+}
+
+td .event-container .btn-event.red {
+	color: rgb(160, 9, 9);
+	background: rgb(253, 185, 185, 0.8);
+}
+
+td .event-container .btn-event.blue:hover {
 	background: rgba(207, 224, 252);
 }
 
-td .event-container .btn-event.x2:hover {
+td .event-container .btn-event.purple:hover {
 	background: rgba(235, 205, 254);
 }
 
-td .event-container .btn-event.x3:hover {
+td .event-container .btn-event.green:hover {
 	background: rgba(199, 245, 217);
+}
+
+td .event-container .btn-event.orange:hover {
+	background: rgba(253, 231, 182);
+}
+
+td .event-container .btn-event.red:hover {
+	background: rgba(253, 185, 185);
 }

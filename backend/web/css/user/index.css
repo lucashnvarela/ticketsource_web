@@ -1,12 +1,12 @@
-.user-index {
+.index-page {
 	display: flex;
-	flex-direction: column;
+	justify-content: center;
 	align-items: center;
-	margin-top: 4rem;
+	padding-top: 4rem;
 }
 
 .card {
-	width: 1000px;
+	width: 1024px;
 	border: 1px solid #ddd !important;
 	border-radius: 0.5rem !important;
 	margin-top: 4rem;
@@ -23,14 +23,14 @@
 	padding: 1.25rem 1.5rem !important;
 }
 
-.card .card-header .card-title {
+.card .card-header .title {
 	font-size: 20px;
 	font-weight: bold;
 	margin: 0.5rem 2rem;
 }
 
-.card .card-header .card-title i {
-	font-size: 18px;
+.card .card-header .title i {
+	font-size: 19px;
 }
 
 .card .card-body {
@@ -62,7 +62,7 @@
 	align-items: center;
 	text-decoration: none;
 	cursor: pointer;
-	color: #000;
+	color: #000000b3;
 	background-color: transparent;
 	border-radius: 6px;
 	border: 1px solid #ddd;
@@ -90,6 +90,22 @@ thead tr th {
 	padding: 0.25rem;
 }
 
+thead tr th i{
+	font-size: 15px;
+	vertical-align: -1px;
+	color: #52b563b3;
+}
+
+thead tr th i:hover{
+	color: #52b563;
+}
+
+.fa-arrow-right-arrow-left{
+	font-size: 14px;
+	vertical-align: 0;
+	rotate: 90deg;
+}
+
 tbody tr td {
 	height: 67px;
 	padding: 0.25rem;
@@ -99,12 +115,13 @@ tbody tr .td-id {
 	width: 45px;
 }
 
-tbody tr .td-created,
 tbody tr .td-role,
 tbody tr .td-status {
 	width: 140px;
 }
 
+
+tbody tr .td-created,
 tbody tr .td-actions {
 	width: 190px;
 }
@@ -134,7 +151,7 @@ tbody tr .td-actions {
 tbody tr .td-actions .table-link {
 	font-size: 16px;
 	text-decoration: none;
-	color: #000;
+	color: #000000b3;
 	background-color: transparent;
 	width: fit-content;
 	border-radius: 6px;
@@ -148,7 +165,7 @@ tbody tr .td-actions .table-link:hover {
 }
 
 tbody tr .td-actions i {
-	font-size: 14px;
+	font-size: 15px;
 }
 
 tbody tr td p {
@@ -165,17 +182,17 @@ tbody tr .td-nome p:last-of-type {
 	border-radius: 50rem !important;
 }
 
-.badge-active {
+.badge-ativo {
 	background-color: #dfe7f6 !important;
 	color: #2c58a0 !important;
 }
 
-.badge-inactive {
+.badge-inativo {
 	background-color: #fbf0da !important;
 	color: #73510d !important;
 }
 
-.badge-deleted {
+.badge-eliminado {
 	background-color: #f9e1e5 !important;
 	color: #af233a !important;
 }

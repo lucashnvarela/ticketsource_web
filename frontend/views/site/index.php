@@ -2,6 +2,8 @@
 
 /** @var $this yii\web\View */
 
+use common\models\Perfil;
+
 $this->registerCssFile("@web/css/site/index.css");
 
 $this->title = Yii::$app->name;
