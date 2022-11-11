@@ -12,11 +12,11 @@ use yii\bootstrap4\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
-
     <?= $form->field($model, 'titulo')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'descricao')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'tipo')->dropDownList([ 'Desporto' => 'Desporto', 'Música' => 'Música', 'Teatro' => 'Teatro', 'Festival' => 'Festival', ], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'nome_pic')->textInput(['maxlength' => true]) ?>
 

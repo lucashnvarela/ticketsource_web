@@ -18,7 +18,7 @@ class EventoSearch extends Evento
     {
         return [
             [['id'], 'integer'],
-            [['titulo', 'descricao', 'nome_pic'], 'safe'],
+            [['titulo', 'descricao', 'tipo', 'nome_pic'], 'safe'],
         ];
     }
 
@@ -63,6 +63,7 @@ class EventoSearch extends Evento
 
         $query->andFilterWhere(['like', 'titulo', $this->titulo])
             ->andFilterWhere(['like', 'descricao', $this->descricao])
+            ->andFilterWhere(['like', 'tipo', $this->tipo])
             ->andFilterWhere(['like', 'nome_pic', $this->nome_pic]);
 
         return $dataProvider;

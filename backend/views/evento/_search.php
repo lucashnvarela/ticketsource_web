@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'descricao') ?>
 
+    <?= $form->field($model, 'tipo') ?>
+
     <?= $form->field($model, 'nome_pic') ?>
 
     <div class="form-group">

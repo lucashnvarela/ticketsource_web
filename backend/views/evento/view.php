@@ -33,6 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'id',
                             'titulo',
                             'descricao',
+                            'tipo',
                             'nome_pic',
                         ],
                     ]) ?>
