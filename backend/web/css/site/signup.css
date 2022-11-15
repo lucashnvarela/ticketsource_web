@@ -7,9 +7,10 @@
 }
 
 .card.signup-form {
-	max-width: 420px;
-	border: 1px solid #ddd;
+	border: 1px solid var(--color-light-grey) !important;
 	border-radius: 0.5rem;
+	border: 0;
+	max-width: 420px;
 }
 
 .card.signup-form .card-header {
@@ -24,49 +25,36 @@
 	flex-direction: row;
 	justify-content: space-around;
 	align-items: center;
-	padding: 0.25rem 1rem 0.5rem;
+	padding: 0.25rem 1rem;
 }
 
-.card.signup-form .card-header .title h5:first-of-type {
+.card.signup-form .card-header .title h5 {
 	font-size: 20px;
 	font-weight: bold;
-	text-transform: capitalize;
 	margin: 0;
 }
 
 .card.signup-form .card-header .title h5:last-of-type {
-	font-size: 20px;
-	font-weight: bold;
-	margin: 0;
-}
-
-.card.signup-form .card-header .title h5 i {
-	font-size: 19px;
+	font-size: 18px;
 }
 
 .card.signup-form .card-header .subtitle {
-	color: #6c757d;
+	color: var(--color-grey);
 	margin: 0;
 }
 
-#form-signup .card-body {
+.card.signup-form .card-body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 0 1rem;
 }
 
-#form-signup .card-body div:not(.input-group, .input-group-prepend) {
-	display: flex;
-	flex-direction: row;
-	gap: 1rem;
-}
-
 #form-signup .card-body .input-group {
 	padding-bottom: 0.5rem;
 }
 
-#form-signup .card-body div:last-of-type {
+#form-signup .card-body .input-group:last-of-type {
 	padding-bottom: 0;
 }
 
@@ -109,6 +97,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0 2rem;
+	margin: 0;
 }
 
 #form-signup .card-footer {

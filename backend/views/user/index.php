@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use common\models\User;
 
 /** @var $this yii\web\View */
 /** @var $db_users common\models\User */
@@ -14,7 +13,9 @@ $this->title = 'Lista de Utilizadores';
 <div class="index-page">
 	<div class="card">
 		<div class="card-header">
-			<h5 class="title"><i class="fas fa-users"></i> <?= $this->title ?> </h5>
+			<h5 class="title">
+				<ion-icon name="people-outline"></ion-icon> <?= $this->title ?>
+			</h5>
 			<div class="search-bar input-group">
 				<input type="search" class="form-control" placeholder="Pesquisar" />
 				<a class="btn-search">
@@ -68,20 +69,20 @@ $this->title = 'Lista de Utilizadores';
 										if ($user->isCliente()) {
 											if ($user->isActive()) {
 												echo Html::a(
-													'<i class="fas fa-lock"></i> Bloquear',
+													'<ion-icon name="lock-closed-outline"></ion-icon> Bloquear',
 													['user/block', 'id' => $user->id],
 													['class' => 'table-link']
 												);
 											} else {
 												echo Html::a(
-													'<i class="fas fa-lock-open"></i> Desbloquear',
+													'<ion-icon name="lock-open-outline"></ion-icon> Desbloquear',
 													['user/unblock', 'id' => $user->id],
 													['class' => 'table-link']
 												);
 											}
 										} elseif ($user->isGestor() && !$user->isDeleted()) {
 											echo Html::a(
-												'<i class="fas fa-trash-can"></i> Eliminar',
+												'<ion-icon name="trash-outline"></ion-icon> Eliminar',
 												['user/delete', 'id' => $user->id],
 												['class' => 'table-link']
 											);

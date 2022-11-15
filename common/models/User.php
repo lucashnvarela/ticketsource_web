@@ -9,6 +9,21 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
+ * @brief const role admin
+ */
+define('ROLE_ADMIN', 'admin');
+
+/**
+ * @brief const role gestor
+ */
+define('ROLE_GESTOR', 'gestorBilheteira');
+
+/**
+ * @brief const role cliente
+ */
+define('ROLE_CLIENTE', 'cliente');
+
+/**
  * User model
  *
  * @property integer $id
@@ -27,10 +42,6 @@ class User extends ActiveRecord implements IdentityInterface {
 	const STATUS_DELETED = 0;
 	const STATUS_INACTIVE = 9;
 	const STATUS_ACTIVE = 10;
-
-	const ROLE_ADMIN = 'admin';
-	const ROLE_GESTOR = 'gestorBilheteira';
-	const ROLE_CLIENTE = 'cliente';
 
 	/**
 	 * {@inheritdoc}
@@ -124,7 +135,7 @@ class User extends ActiveRecord implements IdentityInterface {
 	 * @return bool
 	 */
 	public function isCliente() {
-		return Yii::$app->authManager->getAssignment(self::ROLE_CLIENTE, $this->id) ? true : false;
+		return Yii::$app->authManager->getAssignment(ROLE_CLIENTE, $this->id) != null ? true : false;
 	}
 
 	/**
@@ -133,7 +144,7 @@ class User extends ActiveRecord implements IdentityInterface {
 	 * @return bool
 	 */
 	public function isGestor() {
-		return Yii::$app->authManager->getAssignment(self::ROLE_GESTOR, $this->id) ? true : false;
+		return Yii::$app->authManager->getAssignment(ROLE_GESTOR, $this->id) != null ? true : false;
 	}
 
 	/**
@@ -142,7 +153,7 @@ class User extends ActiveRecord implements IdentityInterface {
 	 * @return bool
 	 */
 	public function isAdmin() {
-		return Yii::$app->authManager->getAssignment(self::ROLE_ADMIN, $this->id) ? true : false;
+		return Yii::$app->authManager->getAssignment(ROLE_ADMIN, $this->id) != null ? true : false;
 	}
 
 	/**

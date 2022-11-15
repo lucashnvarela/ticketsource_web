@@ -1,6 +1,5 @@
 .login-page {
 	display: flex;
-	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	width: 100%;
@@ -8,14 +7,10 @@
 }
 
 .card.login-form {
-	max-width: 420px;
-	border: 1px solid #ddd;
+	border: 1px solid var(--color-light-grey) !important;
 	border-radius: 0.5rem;
-}
-
-.login-page:has(.alert) .card.login-form {
-	border-bottom-left-radius: 0 !important;
-	border-bottom-right-radius: 0 !important;
+	border: 0;
+	max-width: 420px;
 }
 
 .card.login-form .card-header {
@@ -29,7 +24,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: capitalize;
-	padding: 0.25rem 1rem 0.5rem;
+	padding: 0.25rem 1rem;
 	margin: 0;
 }
 
@@ -38,7 +33,7 @@
 }
 
 .card.login-form .card-header .subtitle {
-	color: #6c757d;
+	color: var(--color-grey);
 	margin: 0;
 }
 
@@ -102,6 +97,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0 2rem;
+	margin: 0;
 }
 
 #login-form .card-footer {
@@ -112,41 +108,4 @@
 	align-items: center;
 	border-top: 0;
 	padding: 0.5rem 1rem 1.25rem;
-}
-
-/* Alert notification
-*/
-.alert:not(.page-not-found) {
-	z-index: -1;
-	width: 420px;
-	border-top-right-radius: 0 !important;
-	border-top-left-radius: 0 !important;
-	padding: 0;
-	margin-bottom: -3rem;
-}
-
-.alert .title {
-	font-size: 16px;
-	font-weight: bold;
-	text-transform: capitalize;
-	width: 150px;
-	padding: 0.7rem;
-	margin: 0;
-}
-
-.alert .title i {
-	font-size: 18px;
-	vertical-align: -1.5px;
-	margin-right: 0.25rem;
-}
-
-.alert .message {
-	padding: 0.7rem;
-}
-
-.alert-danger {
-	background-color: #f9e1e5 !important;
-	color: #af233a !important;
-	border: 1px solid #af233a40 !important;
-	border-radius: 0.5rem !important;
 }

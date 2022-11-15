@@ -6,9 +6,9 @@
 }
 
 .card {
+	width: 768px;
 	border: 1px solid var(--color-light-grey) !important;
 	border-radius: 0.5rem !important;
-	width: 1024px;
 	margin-top: 4rem;
 	margin-bottom: 4rem;
 }
@@ -29,9 +29,8 @@
 	margin: 0.5rem 2rem;
 }
 
-.card .card-header .title ion-icon {
-	font-size: 24px;
-	vertical-align: -6px;
+.card .card-header .title i {
+	font-size: 19px;
 }
 
 .card .card-body {
@@ -94,11 +93,11 @@ thead tr th {
 thead tr th i {
 	font-size: 15px;
 	vertical-align: -1px;
-	color: var(--color-light-dark);
+	color: #52b563b3;
 }
 
 thead tr th i:hover {
-	color: var(--color-dark);
+	color: #52b563;
 }
 
 .fa-arrow-right-arrow-left {
@@ -116,13 +115,12 @@ tbody tr .td-id {
 	width: 45px;
 }
 
-tbody tr .td-role,
-tbody tr .td-status {
+tbody tr .td-tipo,
+tbody tr .td-sessoes {
 	width: 140px;
 }
 
-tbody tr .td-created,
-tbody tr .td-actions {
+tbody tr .td-titulo {
 	width: 190px;
 }
 
@@ -131,12 +129,12 @@ tbody tr:not(:last-of-type) td {
 	border-bottom: 0.5px solid var(--color-light-grey);
 }
 
-thead tr th:not(.th-nome),
-tbody tr td:not(.td-nome) {
+thead tr th:not(.th-titulo),
+tbody tr td:not(.td-titulo) {
 	text-align: center;
 }
 
-tbody tr .td-nome {
+tbody tr .td-tiutlo {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -154,46 +152,20 @@ tbody tr .td-actions .table-link {
 	color: var(--color-light-dark);
 	background-color: transparent;
 	width: fit-content;
-	border: 1px solid var(--color-light-grey);
-	border-radius: 8px;
-	padding: 0.5rem 1rem;
+	border-radius: 6px;
+	border: 0;
+	padding: 0.5rem 1.5rem;
 }
 
 tbody tr .td-actions .table-link:hover {
 	color: var(--color-dark);
-	box-shadow: var(--shadow-small);
+	background-color: #e0e0e040;
 }
 
-tbody tr .td-actions ion-icon {
-	font-size: 18px;
-	vertical-align: -4px;
+tbody tr .td-actions i {
+	font-size: 15px;
 }
 
 tbody tr td p {
 	margin: 0;
-}
-
-tbody tr .td-nome p:last-of-type {
-	color: var(--color-grey);
-}
-
-.badge {
-	font-size: 14px !important;
-	text-transform: capitalize;
-	border-radius: 50rem !important;
-}
-
-.badge-ativo {
-	background-color: #dfe7f6 !important;
-	color: #2c58a0 !important;
-}
-
-.badge-inativo {
-	background-color: #fbf0da !important;
-	color: #73510d !important;
-}
-
-.badge-eliminado {
-	background-color: #f9e1e5 !important;
-	color: #af233a !important;
 }

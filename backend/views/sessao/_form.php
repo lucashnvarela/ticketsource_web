@@ -10,22 +10,20 @@ use yii\bootstrap4\ActiveForm;
 
 <div class="sessao-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+	<?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'id')->textInput() ?>
+	<?= $form->field($model, 'id_evento')->textInput() ?>
 
-    <?= $form->field($model, 'evento_id')->textInput() ?>
+	<?= $form->field($model, 'data')->textInput() ?>
 
-    <?= $form->field($model, 'data')->textInput() ?>
+	<?= $form->field($model, 'localizacao')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'localizacao')->textInput(['maxlength' => true]) ?>
+	<?= $form->field($model, 'lugares_disponiveis')->textInput() ?>
 
-    <?= $form->field($model, 'lugares_disponiveis')->textInput() ?>
+	<div class="form-group">
+		<?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+	</div>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+	<?php ActiveForm::end(); ?>
 
 </div>

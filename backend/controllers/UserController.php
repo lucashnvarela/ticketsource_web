@@ -26,7 +26,7 @@ class UserController extends Controller {
 					[
 						'actions' => ['index', 'block', 'unblock', 'delete'],
 						'allow' => true,
-						'roles' => ['admin'],
+						'roles' => [ROLE_ADMIN],
 					],
 				],
 			],

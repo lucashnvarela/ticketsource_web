@@ -1,48 +1,53 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Sessao */
+/** @var $this yii\web\View */
+/** @var $db_sessao common\models\Sessao */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Sessaos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+$this->registerCssFile("@web/css/sessao/index.css");
+
+$this->title = 'Lista de Sessões';
 ?>
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                            'class' => 'btn btn-danger',
-                            'data' => [
-                                'confirm' => 'Are you sure you want to delete this item?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
-                    </p>
-                    <?= DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            'id',
-                            'evento_id',
-                            'data',
-                            'localizacao',
-                            'lugares_disponiveis',
-                        ],
-                    ]) ?>
-                </div>
-                <!--.col-md-12-->
-            </div>
-            <!--.row-->
-        </div>
-        <!--.card-body-->
-    </div>
-    <!--.card-->
+<div class="index-page">
+	<div class="card">
+		<div class="card-header">
+			<h5 class="title"><i class="fas fa-users"></i> <?= $this->title ?> </h5>
+			<div class="search-bar input-group">
+				<input type="search" class="form-control" placeholder="Pesquisar" />
+				<a class="btn-search">
+					<i class="fas fa-search"></i>
+				</a>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="table-border">
+				<?php
+				if ($db_sessao != null) { ?>
+					<table>
+						<thead>
+							<tr>
+								<th class="th-id">#</th>
+								<th class="th-data">Data</th>
+								<th class="th-localizacao">Localização</th>
+								<th class="th-lugares">Lugares disponíveis</th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php
+							foreach ($db_sessao as $sessao) { ?>
+								<tr>
+
+								</tr>
+							<?php } ?>
+						</tbody>
+					</table>
+				<?php  } ?>
+			</div>
+		</div>
+		<div class="card-footer">
+		</div>
+	</div>
 </div>

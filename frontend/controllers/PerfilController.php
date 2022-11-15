@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\User;
 use common\models\Perfil;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -25,7 +26,7 @@ class PerfilController extends Controller {
 					[
 						'actions' => ['update'],
 						'allow' => true,
-						'roles' => ['cliente'],
+						'roles' => [ROLE_CLIENTE],
 					],
 				],
 			],

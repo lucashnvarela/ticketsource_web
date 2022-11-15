@@ -16,27 +16,14 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		'brandLabel' => Html::img('@web/img/logo.png', ['class' => 'navbar-brand']),
 		'brandUrl' => Yii::$app->homeUrl,
 		'options' => [
-			'class' => 'navbar navbar-expand-lg fixed-top',
+			'class' => 'navbar navbar-expand-xl fixed-top',
 		],
 	]);
-
-	/*
-	echo Html::tag(
-		'div',
-		Html::tag('input', '', ['class' => 'form-control', 'type' => 'search', 'placeholder' => 'Pesquisar'])
-			. Html::tag(
-				'button',
-				Html::tag('i', '', ['class' => 'ti-search']),
-				['class' => 'btn btn-search', 'type' => 'submit']
-			),
-		['class' => 'input-group search-bar rounded']
-	);
-	*/
 
 	echo Nav::widget([
 		'items' => [
 			[
-				'label' => '<i class="fas fa-calendar-day"></i> Eventos',
+				'label' => '<ion-icon name="calendar-outline"></ion-icon> Eventos',
 				'url' => ['evento/index'],
 				'linkOptions' => ['class' => 'nav-link link-eventos'],
 				'encode' => false
@@ -49,13 +36,13 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => '<i class="fas fa-user-check"></i> Iniciar sessão',
+					'label' => 'Iniciar sessão',
 					'url' => ['site/login'],
 					'linkOptions' => ['class' => 'nav-link link-login'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fas fa-user-plus"></i> Registar',
+					'label' => 'Registar',
 					'url' => ['site/signup'],
 					'linkOptions' => ['class' => 'nav-link link-signup'],
 					'encode' => false
@@ -67,19 +54,19 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => '<i class="fas fa-cart-shopping"></i> Carrinho',
+					'label' => '<ion-icon name="cart-outline"></ion-icon> Carrinho',
 					'url' => ['carrinho/index'],
 					'linkOptions' => ['class' => 'nav-link link-cart'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fas fa-heart"></i> Wishlist',
+					'label' => '<ion-icon name="heart-outline"></ion-icon> Favoritos',
 					'url' => ['favorito/index'],
 					'linkOptions' => ['class' => 'nav-link link-wishlist'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fas fa-user-large"></i> Minha Conta',
+					'label' => '<ion-icon name="person-circle-outline"></ion-icon> Minha Conta',
 					'url' => ['perfil/update'],
 					'linkOptions' => ['class' => 'nav-link link-user'],
 					'encode' => false

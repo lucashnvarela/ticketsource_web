@@ -14,14 +14,14 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 	<?php
 	NavBar::begin([
 		'options' => [
-			'class' => 'navbar navbar-expand-lg fixed-top',
+			'class' => 'navbar navbar-expand-xl fixed-top',
 		],
 	]);
 
 	echo Nav::widget([
 		'items' => [
 			[
-				'label' => '<i class="fas fa-chart-column"></i> Dashboard',
+				'label' => '<ion-icon name="bar-chart-outline"></ion-icon> Dashboard',
 				'url' => Yii::$app->homeUrl,
 				'linkOptions' => ['class' => 'nav-link link-dashboard'],
 				'encode' => false
@@ -35,13 +35,13 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => '<i class="fas fa-users"></i> Lista de Utilizadores',
+					'label' => '<ion-icon name="people-outline"></ion-icon> Lista de Utilizadores',
 					'url' => ['user/index', 'sort' => 'username'],
 					'linkOptions' => ['class' => 'nav-link link-users'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="fas fa-user-plus"></i> Registar Novo Gestor',
+					'label' => '<ion-icon name="person-add-outline"></ion-icon> Registar Novo Gestor',
 					'url' => ['site/signup'],
 					'linkOptions' => ['class' => 'nav-link link-create-gestor'],
 					'encode' => false

@@ -6,7 +6,6 @@
 
 use yii\bootstrap5\Html;
 use yii\bootstrap5\ActiveForm;
-use common\widgets\Alert;
 
 $this->registerCssFile("@web/css/perfil/update.css");
 
@@ -17,7 +16,9 @@ $this->title = 'Informações pessoais';
 	<div class="update-container">
 		<div class="card update-form">
 			<div class="card-header">
-				<h5 class="title"><i class="far fa-address-card"></i> <?= $this->title ?></h5>
+				<h5 class="title">
+					<ion-icon name="person-circle-outline"></ion-icon> <?= $this->title ?>
+				</h5>
 				<p class="subtitle">Por favor preencha os seguintes campos</p>
 			</div>
 			<?php $form = ActiveForm::begin(['id' => 'update-form']) ?>
@@ -78,12 +79,11 @@ $this->title = 'Informações pessoais';
 			</div>
 			<?php ActiveForm::end() ?>
 		</div>
-		<?= Alert::widget() ?>
 	</div>
 	<div class="card menu">
 		<div class="card-body">
-			<?= Html::a('<i class="far fa-address-card"></i> Informações pessoais', ['perfil/update'], ['class' => 'menu-link active']) ?>
-			<?= Html::a('<i class="fas fa-cart-shopping"></i> Histórico de Compras', ['fatura/index'], ['class' => 'menu-link']) ?>
+			<?= Html::a('<ion-icon name="person-circle-outline"></ion-icon> Informações pessoais', ['perfil/update'], ['class' => 'menu-link active']) ?>
+			<?= Html::a('<ion-icon name="receipt-outline"></ion-icon> Histórico de Compras', ['fatura/index'], ['class' => 'menu-link']) ?>
 		</div>
 	</div>
 </div>

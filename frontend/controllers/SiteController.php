@@ -31,7 +31,7 @@ class SiteController extends Controller {
 					[
 						'actions' => ['logout'],
 						'allow' => true,
-						'roles' => ['cliente'],
+						'roles' => [ROLE_CLIENTE],
 					],
 				],
 			],
@@ -84,15 +84,18 @@ class SiteController extends Controller {
 			if (is_null($user_login))
 				Yii::$app->session->setFlash('error', 'Username ou password incorretos');
 
-			elseif ($user_login->isCliente()) {
-				if ($user_login->isActive()) {
-					if ($user_login->validatePassword($model_login->password)) {
+			elseif ($user_login->validatePassword($model_login->password)) {
+				if ($user_login->isCliente()) {
+					if ($user_login->isActive()) {
 						$model_login->login();
 
 						return $this->goHome();
-					} else Yii::$app->session->setFlash('error', 'Username ou password incorretos');
-				} else Yii::$app->session->setFlash('error', 'Login indisponível');
-			} else Yii::$app->session->setFlash('error', 'Sem permissão de acesso');
+					} else
+						Yii::$app->session->setFlash('error', 'Login indisponível');
+				} else
+					Yii::$app->session->setFlash('error', 'Sem permissão de acesso');
+			} else
+				Yii::$app->session->setFlash('error', 'Username ou password incorretos');
 		}
 
 		$model_login->password = '';
@@ -120,9 +123,9 @@ class SiteController extends Controller {
 	 */
 	public function actionSignup() {
 		$model_signup = new SignupForm();
-		if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup(User::ROLE_CLIENTE)) {
-			//Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso');
-			return $this->goHome();
+		if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup(ROLE_CLIENTE)) {
+			Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso');
+			return $this->redirect(['login']);
 		}
 
 		return $this->render('signup', [

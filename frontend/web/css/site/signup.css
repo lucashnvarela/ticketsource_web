@@ -7,9 +7,10 @@
 }
 
 .card.signup-form {
-	max-width: 420px;
-	border: 1px solid #ddd;
+	border: 1px solid var(--color-light-grey) !important;
 	border-radius: 0.5rem;
+	border: 0;
+	max-width: 420px;
 }
 
 .card.signup-form .card-header {
@@ -23,16 +24,12 @@
 	font-size: 20px;
 	font-weight: bold;
 	text-transform: capitalize;
-	padding: 0.25rem 1rem 0.5rem;
+	padding: 0.25rem 1rem;
 	margin: 0;
 }
 
-.card.signup-form .card-header .title i {
-	font-size: 19px;
-}
-
 .card.signup-form .card-header .subtitle {
-	color: #6c757d;
+	color: var(--color-grey);
 	margin: 0;
 }
 
@@ -96,6 +93,7 @@
 	justify-content: center;
 	align-items: center;
 	padding: 0 2rem;
+	margin: 0;
 }
 
 #form-signup .card-footer {
