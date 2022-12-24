@@ -3,14 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use yii\data\Sort;
+use yii\data\Pagination;
 use common\models\User;
 use common\models\Evento;
 use common\models\EventoSearch;
+use backend\models\UploadForm;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+use yii\web\UploadedFile;
 
 /**
  * EventoController implements the CRUD actions for Evento model.
@@ -25,9 +27,9 @@ class EventoController extends Controller {
 				'class' => AccessControl::class,
 				'rules' => [
 					[
-						'actions' => ['index', 'view', 'create', 'update', 'delete'],
+						'actions' => ['index', 'create', 'update', 'delete'],
 						'allow' => true,
-						'roles' => [ROLE_GESTOR],
+						'roles' => [User::ROLE_GESTOR],
 					],
 				],
 			],
@@ -45,30 +47,22 @@ class EventoController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
+		//* verificar se o utilizador tem permissões para visualizar os eventos
+		if (!Yii::$app->user->can('visualizarEventos'))
+			throw new NotFoundHttpException;
 
-		$sort_form = new Sort([
-			'attributes' => ['titulo', 'tipo'],
+		$model_search = new EventoSearch();
+		$data_provider = $model_search->search(Yii::$app->request->queryParams);
+
+		$pagination = new Pagination([
+			'defaultPageSize' => 6,
+			'totalCount' => $data_provider->getTotalCount(),
 		]);
-
-		$db_evento = Evento::find()
-			->orderBy($sort_form->orders)
-			->all();
 
 		return $this->render('index', [
-			'db_evento' => $db_evento,
-			//'sort_config' => Evento::tableSort(sort_form: $sort_form->orders),
-		]);
-	}
-
-	/**
-	 * Displays a single Evento model.
-	 * @param int $id ID
-	 * @return mixed
-	 * @throws NotFoundHttpException if the model cannot be found
-	 */
-	public function actionView($id) {
-		return $this->render('view', [
-			'model' => $this->findModel($id),
+			'model_search' => $model_search,
+			'db_evento' => $data_provider->getModels(),
+			'pagination' => $pagination,
 		]);
 	}
 
@@ -78,14 +72,29 @@ class EventoController extends Controller {
 	 * @return mixed
 	 */
 	public function actionCreate() {
-		$model = new Evento();
+		//* verificar se o utilizador tem permissões para criar eventos
+		if (!Yii::$app->user->can('adicionarEvento'))
+			throw new NotFoundHttpException;
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+		$model_evento = new Evento();
+		$model_upload = new UploadForm();
+
+		if ($model_evento->load(Yii::$app->request->post()) and $model_upload->load(Yii::$app->request->post())) {
+			// Upload da imagem
+			$model_upload->imageFile = UploadedFile::getInstance($model_upload, 'imageFile');
+			$model_upload->upload();
+
+			// Nome do ficheiro
+			$model_evento->nome_pic = $model_upload->imageFile->name;
+			$model_evento->save();
+
+			Yii::$app->session->setFlash('success', 'Evento registado com sucesso');
+			return $this->redirect(['index']);
 		}
 
 		return $this->render('create', [
-			'model' => $model,
+			'model_evento' => $model_evento,
+			'model_upload' => $model_upload,
 		]);
 	}
 
@@ -97,14 +106,32 @@ class EventoController extends Controller {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
-		$model = $this->findModel($id);
+		//* verificar se o utilizador tem permissões para atualizar eventos
+		if (!Yii::$app->user->can('editarEvento'))
+			throw new NotFoundHttpException;
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+		$model_evento = $this->findModel($id);
+		$model_upload = new UploadForm();
+
+		if ($model_evento->load(Yii::$app->request->post()) and $model_upload->load(Yii::$app->request->post())) {
+			$model_upload->imageFile = UploadedFile::getInstance($model_upload, 'imageFile');
+
+			if (!is_null($model_upload->imageFile)) {
+				// Upload da imagem
+				$model_upload->upload();
+
+				// Nome do ficheiro
+				$model_evento->nome_pic = $model_upload->imageFile->name;
+				$model_evento->save();
+			}
+
+			Yii::$app->session->setFlash('success', 'Evento atualizado com sucesso');
+			return $this->redirect(['index']);
 		}
 
 		return $this->render('update', [
-			'model' => $model,
+			'model_evento' => $model_evento,
+			'model_upload' => $model_upload,
 		]);
 	}
 
@@ -116,6 +143,10 @@ class EventoController extends Controller {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionDelete($id) {
+		//* verificar se o utilizador tem permissões para apagar eventos
+		if (!Yii::$app->user->can('apagarEvento'))
+			throw new NotFoundHttpException;
+
 		$this->findModel($id)->delete();
 
 		return $this->redirect(['index']);

@@ -1,16 +1,13 @@
-.index-page {
+.user-index {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	padding-top: 4rem;
 }
 
 .card {
-	border: 1px solid var(--color-light-grey) !important;
+	border: 1px solid var(--theme-border-color) !important;
 	border-radius: 0.5rem !important;
 	width: 1024px;
-	margin-top: 4rem;
-	margin-bottom: 4rem;
+	margin: 4rem 0 auto;
 }
 
 .card .card-header,
@@ -23,62 +20,48 @@
 	padding: 1.25rem 1.5rem !important;
 }
 
-.card .card-header .title {
+.card .card-header #title {
 	font-size: 20px;
 	font-weight: bold;
 	margin: 0.5rem 2rem;
 }
 
-.card .card-header .title ion-icon {
-	font-size: 24px;
-	vertical-align: -6px;
+.card .card-header #title ion-icon {
+	font-size: 26px;
+	margin-bottom: -6px;
+}
+
+.card .card-header .header-actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
 }
 
 .card .card-body {
 	padding: 0 1.5rem;
 }
 
-.card-footer p {
+.card .card-body .no-data {
+	display: flex;
+	justify-content: baseline;
+	align-items: center;
+	padding-left: 2rem;
+}
+
+.card .card-body .no-data p {
+	font-size: 18px;
 	margin: 0;
 }
 
-/* search bar
-*/
-.search-bar {
-	width: 350px !important;
-	padding: 0 2rem;
-}
-
-.search-bar .form-control {
-	border-right: 0 !important;
-}
-
-.search-bar .form-control:focus {
-	border-right: 0 !important;
-}
-
-.btn-search {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-decoration: none;
-	cursor: pointer;
-	color: var(--color-light-dark);
-	background-color: transparent;
-	border-radius: 6px;
-	border: 1px solid var(--color-light-grey);
-	border-left: 0;
-	padding: 0.5rem 1rem;
-}
-
-.btn-search:hover {
-	color: var(--color-dark);
+.card-footer p {
+	margin: 0;
 }
 
 /* table
 */
 .table-border {
-	border: 1px solid var(--color-light-grey);
+	border: 1px solid var(--theme-border-color);
 	border-radius: 0.5rem;
 }
 
@@ -94,11 +77,11 @@ thead tr th {
 thead tr th i {
 	font-size: 15px;
 	vertical-align: -1px;
-	color: var(--color-light-dark);
+	color: var(--theme-text-color);
 }
 
 thead tr th i:hover {
-	color: var(--color-dark);
+	color: var(--theme-base-color);
 }
 
 .fa-arrow-right-arrow-left {
@@ -128,7 +111,7 @@ tbody tr .td-actions {
 
 thead tr th,
 tbody tr:not(:last-of-type) td {
-	border-bottom: 0.5px solid var(--color-light-grey);
+	border-bottom: 0.5px solid var(--theme-border-color);
 }
 
 thead tr th:not(.th-nome),
@@ -136,37 +119,25 @@ tbody tr td:not(.td-nome) {
 	text-align: center;
 }
 
-tbody tr .td-nome {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: left;
-}
-
-tbody tr .td-actions {
-	justify-content: center;
-	align-items: center;
-}
-
 tbody tr .td-actions .table-link {
 	font-size: 16px;
 	text-decoration: none;
-	color: var(--color-light-dark);
+	color: var(--theme-text-color);
 	background-color: transparent;
 	width: fit-content;
-	border: 1px solid var(--color-light-grey);
-	border-radius: 8px;
+	border: 1px solid var(--theme-border-color);
+	border-radius: 0.375rem;
 	padding: 0.5rem 1rem;
 }
 
 tbody tr .td-actions .table-link:hover {
-	color: var(--color-dark);
+	color: var(--theme-base-color);
 	box-shadow: var(--shadow-small);
 }
 
 tbody tr .td-actions ion-icon {
 	font-size: 18px;
-	vertical-align: -4px;
+	margin-bottom: -3px;
 }
 
 tbody tr td p {
@@ -174,13 +145,15 @@ tbody tr td p {
 }
 
 tbody tr .td-nome p:last-of-type {
-	color: var(--color-grey);
+	color: var(--theme-text-secondary);
 }
 
 .badge {
 	font-size: 14px !important;
 	text-transform: capitalize;
-	border-radius: 50rem !important;
+	border-radius: 0.5rem !important;
+	width: fit-content;
+	padding: 0.25rem 0.5rem !important;
 }
 
 .badge-ativo {
@@ -196,4 +169,21 @@ tbody tr .td-nome p:last-of-type {
 .badge-eliminado {
 	background-color: #f9e1e5 !important;
 	color: #af233a !important;
+}
+
+.action-link {
+	font-size: 16px;
+	text-decoration: none;
+	color: var(--theme-text-color);
+	background-color: transparent;
+	min-width: fit-content;
+	border: 1px solid var(--theme-border-color);
+	border-radius: 0.375rem;
+	padding: 0.5rem 1rem;
+	margin: 0 0.5rem;
+}
+
+.action-link:hover {
+	color: var(--theme-base-color);
+	box-shadow: var(--shadow-small);
 }

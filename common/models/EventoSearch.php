@@ -5,67 +5,72 @@ namespace common\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\Evento;
+use Yii;
 
 /**
  * EventoSearch represents the model behind the search form of `common\models\Evento`.
  */
-class EventoSearch extends Evento
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['id'], 'integer'],
-            [['titulo', 'descricao', 'tipo', 'nome_pic'], 'safe'],
-        ];
-    }
+class EventoSearch extends Evento {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	public $searchstring;
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = Evento::find();
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules() {
+		return [
+			[['searchstring', 'titulo', 'categoria'], 'safe'],
+		];
+	}
 
-        // add conditions that should always apply here
+	/**
+	 * {@inheritdoc}
+	 */
+	public function scenarios() {
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function search($params) {
+		$filter = Yii::$app->request->get('filter');
 
-        $this->load($params);
+		if (isset($filter)) $query = Evento::find()->where(['categoria' => $filter]);
+		else $query = Evento::find();
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		// add conditions that should always apply here
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-        ]);
+		$dataProvider = new ActiveDataProvider(['query' => $query]);
 
-        $query->andFilterWhere(['like', 'titulo', $this->titulo])
-            ->andFilterWhere(['like', 'descricao', $this->descricao])
-            ->andFilterWhere(['like', 'tipo', $this->tipo])
-            ->andFilterWhere(['like', 'nome_pic', $this->nome_pic]);
+		$this->load($params);
 
-        return $dataProvider;
-    }
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+
+		// grid filtering conditions
+		/*
+		$query->andFilterWhere([
+			'titulo' => $this->titulo,
+			'categoria' => $this->categoria,
+		]);
+		*/
+
+		if (isset($filter)) $query->andFilterWhere(['like', 'titulo', $this->searchstring]);
+		else $query->andFilterWhere([
+			'or',
+			['like', 'titulo', $this->searchstring],
+			['like', 'categoria', $this->searchstring],
+		]);
+
+		return $dataProvider;
+	}
 }

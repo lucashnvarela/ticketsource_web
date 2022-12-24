@@ -15,8 +15,8 @@ $this->title = 'Registo';
 <div class="signup-page">
 	<div class="card signup-form">
 		<div class="card-header">
-			<h5 class="title"><?= $this->title ?></h5>
-			<p class="subtitle">Por favor preencha os seguintes campos</p>
+			<h5 id="title"><?= $this->title ?></h5>
+			<p id="subtitle">Por favor preencha os seguintes campos</p>
 		</div>
 		<?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
 		<div class="card-body">
@@ -44,7 +44,7 @@ $this->title = 'Registo';
 			?>
 		</div>
 		<div class="card-footer">
-			<?= Html::submitButton('Signup', ['class' => 'btn btn-success ripple', 'name' => 'signup-button']) ?>
+			<?= Html::submitButton('<ion-icon name="person-add-outline"></ion-icon> Signup', ['class' => 'btn-default ripple', 'name' => 'signup-button']) ?>
 		</div>
 		<?php ActiveForm::end() ?>
 	</div>

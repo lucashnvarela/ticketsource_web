@@ -16,12 +16,18 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		'brandLabel' => Html::img('@web/img/logo.png', ['class' => 'navbar-brand']),
 		'brandUrl' => Yii::$app->homeUrl,
 		'options' => [
-			'class' => 'navbar navbar-expand-xl fixed-top',
+			'class' => 'navbar navbar-expand-xl',
 		],
 	]);
 
 	echo Nav::widget([
 		'items' => [
+			[
+				'label' => '<ion-icon name="home-outline"></ion-icon> Home',
+				'url' => ['site/index'],
+				'linkOptions' => ['class' => 'nav-link link-home'],
+				'encode' => false
+			],
 			[
 				'label' => '<ion-icon name="calendar-outline"></ion-icon> Eventos',
 				'url' => ['evento/index'],
@@ -36,15 +42,9 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => 'Iniciar sessão',
+					'label' => '<ion-icon name="log-in-outline"></ion-icon>  Iniciar sessão',
 					'url' => ['site/login'],
 					'linkOptions' => ['class' => 'nav-link link-login'],
-					'encode' => false
-				],
-				[
-					'label' => 'Registar',
-					'url' => ['site/signup'],
-					'linkOptions' => ['class' => 'nav-link link-signup'],
 					'encode' => false
 				],
 			],
@@ -71,9 +71,9 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 					'linkOptions' => ['class' => 'nav-link link-user'],
 					'encode' => false
 				],
-				'<li class="nav-item">
-					<span id="username">(' . User::findOne(Yii::$app->user->id)->username . ')</span>' .
-					Html::a('Logout', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link link-logout']) .
+				'<span id="username"><ion-icon name="at-outline"></ion-icon> ' . User::findOne(Yii::$app->user->id)->username . '</span>' .
+					'<li class="nav-item">' .
+					Html::a('<ion-icon name="log-out-outline"></ion-icon> Logout', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link link-logout']) .
 					'</li>'
 			],
 			'options' => ['class' => 'navbar-nav ms-auto nav-loged'],

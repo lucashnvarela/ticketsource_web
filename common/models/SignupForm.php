@@ -21,26 +21,37 @@ class SignupForm extends Model {
 	public function rules() {
 		return [
 			['username', 'trim'],
-			['username', 'required', 'message' => 'Necessário introduzir um nome de utilizador'],
+			['username', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['username', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Já existe um utilizador com este nome'],
-			['username', 'string', 'min' => 2, 'tooShort' => 'O nome de utilizador deve conter pelo menos 2 caracteres'],
+			['username', 'string', 'min' => 2, 'tooShort' => 'O campo {attribute} deve conter pelo menos 2 caracteres'],
 			['username', 'string', 'max' => 255],
 
 			['email', 'trim'],
-			['email', 'required', 'message' => 'Necessário introduzir um email'],
-			['email', 'email', 'message' => 'Email inválido'],
+			['email', 'required', 'message' => 'O campo {attribute} é obrigatório'],
+			['email', 'email', 'message' => 'O campo {attribute} é inválido'],
 			['email', 'string', 'max' => 255],
 			['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Já existe um utlizador com este email'],
 
-			['password', 'required', 'message' => 'Necessário introduzir uma password'],
-			['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'tooShort' => 'A Palavra-passe deve conter pelo menos 8 caracteres'],
+			['password', 'required', 'message' => 'O campo {attribute} é obrigatório'],
+			['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'tooShort' => 'O campo {attribute} deve conter pelo menos 4 caracteres'],
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function attributeLabels() {
+		return [
+			'username' => 'nome de utilizador',
+			'email' => 'email',
+			'password' => 'palavra-passe'
 		];
 	}
 
 	/**
 	 * Signs user up.
 	 *
-	 * @return bool whether the creating new account was successful and email was sent
+	 * @return bool|null whether the creating new account was successful and email was sent
 	 */
 	public function signup($role) {
 		if (!$this->validate()) return null;
@@ -49,6 +60,7 @@ class SignupForm extends Model {
 		$model_user->username = $this->username;
 		$model_user->email = $this->email;
 		$model_user->setPassword($this->password);
+		$model_user->generateEmailVerificationToken();
 		$model_user->save();
 
 		//* rbac

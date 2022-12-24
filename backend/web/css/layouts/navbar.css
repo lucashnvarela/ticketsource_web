@@ -1,15 +1,13 @@
 .navbar {
 	background-color: white;
-	border: 1px solid var(--color-light-grey);
-	border-radius: 0.5rem;
-	width: fit-content;
+	border-bottom: 1px solid var(--theme-border-color);
 	min-height: fit-content;
-	padding: 0.5rem !important;
-	margin: 1rem auto;
+	justify-content: center !important;
+	padding: 1rem !important;
 }
 
 .navbar .container {
-	width: 1284px;
+	width: 1248px;
 	margin: 0 !important;
 }
 
@@ -17,38 +15,41 @@
 	display: inline-flex;
 	background-color: transparent;
 	border-radius: 0.5rem;
-	width: fit-content;
-	height: fit-content;
 	padding: 0.5rem 1rem;
 	margin: 0 0.5rem;
 }
 
 .nav .nav-item .nav-link {
 	font-size: 16px;
-	color: var(--color-light-dark);
+	color: var(--theme-text-color);
 	padding: 0 !important;
+}
+
+.nav .nav-item:hover,
+.nav .nav-item:has(.active) {
+	background-color: var(--theme-btn-background-color);
 }
 
 .nav .nav-item .nav-link:hover,
 .nav .nav-item .nav-link.active {
-	color: var(--color-dark);
+	color: var(--theme-base-color);
 }
 
 .nav .nav-item .nav-link ion-icon {
-	vertical-align: -2px;
-}
-
-.nav-admin .nav-item:has(.link-users) ion-icon {
 	font-size: 20px;
-	vertical-align: -4px;
+	margin-bottom: -4px;
 }
 
-.nav-item #username {
+#username {
 	font-size: 16px;
-	margin-right: 0.0625rem;
-	margin-top: 0.0625rem;
+	font-weight: bold;
+	color: var(--theme-text-color);
+	padding: 0.5rem 1rem;
+	margin-right: -1.25rem;
 }
 
-.nav-item:has(#username) {
-	padding-right: 0;
+#username ion-icon {
+	font-size: 20px;
+	margin-bottom: -5px;
+	margin-right: -4px;
 }

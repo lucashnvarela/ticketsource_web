@@ -31,12 +31,12 @@ class SiteController extends Controller {
 					[
 						'actions' => ['signup'],
 						'allow' => true,
-						'roles' => [ROLE_ADMIN],
+						'roles' => [User::ROLE_ADMIN],
 					],
 					[
 						'actions' => ['logout', 'index'],
 						'allow' => true,
-						'roles' => [ROLE_ADMIN, ROLE_GESTOR],
+						'roles' => [User::ROLE_ADMIN, User::ROLE_GESTOR],
 					],
 				],
 			],
@@ -78,7 +78,8 @@ class SiteController extends Controller {
 		//* Total de Rendimentos
 		$db_faturabilhete = FaturaBilhete::find()->all();
 		$tRendimentos = 0;
-		foreach ($db_faturabilhete as $faturabilhete) $tRendimentos += $faturabilhete->preco;
+		foreach ($db_bilhete as $bilhete) $tRendimentos += $bilhete->sessao->preco;
+		//foreach ($db_faturabilhete as $faturabilhete) $tRendimentos += $faturabilhete->preco;
 
 		return $this->render('index', [
 			'nEventos' => count($db_evento),
@@ -101,12 +102,12 @@ class SiteController extends Controller {
 		$model_login = new LoginForm();
 		if ($model_login->load(Yii::$app->request->post())) {
 
-			$user_login = User::findByUsername($model_login->username);
+			$user_login = User::findByUsername(username: $model_login->username);
 
 			if (is_null($user_login))
 				Yii::$app->session->setFlash('error', 'Username ou password incorretos');
 
-			elseif ($user_login->validatePassword($model_login->password)) {
+			elseif ($user_login->validatePassword(password: $model_login->password)) {
 				if (!$user_login->isCliente()) {
 					if ($user_login->isActive()) {
 						$model_login->login();
@@ -144,9 +145,12 @@ class SiteController extends Controller {
 	 * @return mixed
 	 */
 	public function actionSignup() {
+		//* verifica se o utilizador tem permissão para criar um novo gestor
+		if (!Yii::$app->user->can('adicionarGestor'))
+			return $this->redirect(['site/index']);
 
 		$model_signup = new SignupForm();
-		if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup(ROLE_GESTOR)) {
+		if ($model_signup->load(Yii::$app->request->post()) && $model_signup->signup(role: User::ROLE_GESTOR)) {
 			Yii::$app->session->setFlash('success', 'Registo efetuado com sucesso');
 			return $this->redirect(['user/index', 'sort' => 'username']);
 		}

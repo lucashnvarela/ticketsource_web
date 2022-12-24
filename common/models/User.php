@@ -9,21 +9,6 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * @brief const role admin
- */
-define('ROLE_ADMIN', 'admin');
-
-/**
- * @brief const role gestor
- */
-define('ROLE_GESTOR', 'gestorBilheteira');
-
-/**
- * @brief const role cliente
- */
-define('ROLE_CLIENTE', 'cliente');
-
-/**
  * User model
  *
  * @property integer $id
@@ -42,6 +27,10 @@ class User extends ActiveRecord implements IdentityInterface {
 	const STATUS_DELETED = 0;
 	const STATUS_INACTIVE = 9;
 	const STATUS_ACTIVE = 10;
+
+	const ROLE_ADMIN = 'admin';
+	const ROLE_GESTOR = 'gestorBilheteira';
+	const ROLE_CLIENTE = 'cliente';
 
 	/**
 	 * {@inheritdoc}
@@ -70,100 +59,111 @@ class User extends ActiveRecord implements IdentityInterface {
 	}
 
 	/**
-	 * @brief Retorna o status do utilizador
-	 * 
+	 * Retorna true se o utilizador tiver um perfil, false caso contrário
+	 * @return bool 
+	 */
+	public static function hasPerfil(): bool {
+		return Perfil::find()
+			->where(['id_user' => Yii::$app->user->id])
+			->exists();
+	}
+
+	/**
+	 * Retorna o status do utilizador autenticado
 	 * @return string
 	 */
-	public function getStatus() {
-		$status = [
+	public function getStatus(): string {
+		$status_list = [
 			0 => 'eliminado',
 			9 => 'inativo',
 			10 => 'ativo',
 		];
 
-		return $status[$this->status];
+		return $status_list[$this->status];
 	}
 
 	/**
-	 * @brief Define o status do utilizador como inativo
+	 * Define o status do utilizador como inativo
+	 * @return bool
 	 */
-	public function block() {
+	public function setInactive(): bool {
 		$this->status = self::STATUS_INACTIVE;
 		return $this->save();
 	}
 
 	/**
-	 * @brief Retorna true se o utilizador estiver inativo
+	 * Retorna true se o utilizador estiver com o status a inativo, false caso contrário
+	 * @return bool
 	 */
-	public function isInactive() {
+	public function isInactive(): bool {
 		return $this->status == self::STATUS_INACTIVE;
 	}
 
 	/**
-	 * @brief Define o status do utilizador como ativo
+	 * Define o status do utilizador como ativo
+	 * @return bool
 	 */
-	public function unblock() {
+	public function setActive(): bool {
 		$this->status = self::STATUS_ACTIVE;
 		return $this->save();
 	}
 
 	/**
-	 * @brief Retorna true se o utilizador estiver ativo
+	 * Retorna true se o utilizador estiver com o status a ativo, false caso contrário
+	 * @return bool 
 	 */
-	public function isActive() {
+	public function isActive(): bool {
 		return $this->status == self::STATUS_ACTIVE;
 	}
 
 	/**
-	 * @brief Define o status do utilizador como eliminado
+	 * Define o status do utilizador como eliminado
+	 * @return bool
 	 */
-	public function delete() {
+	public function setDeleted(): bool {
 		$this->status = self::STATUS_DELETED;
 		return $this->save();
 	}
 
 	/**
-	 * @brief Retorna true se o utilizador estiver eliminado
+	 * Retorna true se o utilizador estiver com o status a eliminado, false caso contrário
+	 * @return bool
 	 */
-	public function isDeleted() {
+	public function isDeleted(): bool {
 		return $this->status == self::STATUS_DELETED;
 	}
 
 	/**
-	 * @brief Retorna true se o utilizador for cliente
-	 * 
+	 * Retorna true se o utilizador for cliente, false caso contrário
 	 * @return bool
 	 */
-	public function isCliente() {
-		return Yii::$app->authManager->getAssignment(ROLE_CLIENTE, $this->id) != null ? true : false;
+	public function isCliente(): bool {
+		return Yii::$app->authManager->getAssignment(User::ROLE_CLIENTE, $this->id) != null ? true : false;
 	}
 
 	/**
-	 * @brief Retorna true se o utilizador for gestor de bilheteira
-	 * 
+	 * Retorna true se o utilizador for gestor de bilheteira, false caso contrário
 	 * @return bool
 	 */
-	public function isGestor() {
-		return Yii::$app->authManager->getAssignment(ROLE_GESTOR, $this->id) != null ? true : false;
+	public function isGestor(): bool {
+		return Yii::$app->authManager->getAssignment(User::ROLE_GESTOR, $this->id) != null ? true : false;
 	}
 
 	/**
-	 * @brief Retorna true se o utilizador for admin
-	 * 
+	 * Retorna true se o utilizador for admin, false caso contrário
 	 * @return bool
 	 */
-	public function isAdmin() {
-		return Yii::$app->authManager->getAssignment(ROLE_ADMIN, $this->id) != null ? true : false;
+	public function isAdmin(): bool {
+		return Yii::$app->authManager->getAssignment(User::ROLE_ADMIN, $this->id) != null ? true : false;
 	}
 
 	/**
-	 * @brief Retorna um array com as classes dos icons e ordenação para as colunas username, created_at e status
-	 * 
+	 * Retorna um array com as classes dos icons e ordenação para as colunas username, created_at e status
 	 * @return array
 	 */
-	public static function tableSort($sort_form) {
-		$attr = array_keys($sort_form)[0];
-		$sort = array_values($sort_form)[0];
+	public static function tableSort($sort_orders) {
+		$attr = array_keys($sort_orders)[0];
+		$sort = array_values($sort_orders)[0];
 
 		$columns = ['username', 'created_at', 'status'];
 		$fontawesome = [

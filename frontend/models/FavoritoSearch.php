@@ -5,63 +5,89 @@ namespace frontend\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Favorito;
+use Yii;
 
 /**
  * FavoritoSearch represents the model behind the search form of `frontend\models\Favorito`.
  */
-class FavoritoSearch extends Favorito
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['id', 'id_user', 'id_evento'], 'integer'],
-        ];
-    }
+class FavoritoSearch extends Favorito {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function scenarios()
-    {
-        // bypass scenarios() implementation in the parent class
-        return Model::scenarios();
-    }
+	public $searchstring;
 
-    /**
-     * Creates data provider instance with search query applied
-     *
-     * @param array $params
-     *
-     * @return ActiveDataProvider
-     */
-    public function search($params)
-    {
-        $query = Favorito::find();
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules() {
+		return [
+			[['id', 'id_user', 'id_evento'], 'integer'],
+			[['searchstring'], 'safe'],
 
-        // add conditions that should always apply here
+		];
+	}
 
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query,
-        ]);
+	/**
+	 * {@inheritdoc}
+	 */
+	public function scenarios() {
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-        $this->load($params);
+	/**
+	 * Creates data provider instance with search query applied
+	 *
+	 * @param array $params
+	 *
+	 * @return ActiveDataProvider
+	 */
+	public function search($params) {
+		$filter = Yii::$app->request->get('filter');
 
-        if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            return $dataProvider;
-        }
+		if (isset($filter))
+			$query = Favorito::find()
+				->where(['id_user' => Yii::$app->user->id])
+				->joinWith('evento')
+				->where(['evento.categoria' => $filter]);
+		else
+			$query = Favorito::find()
+				->where(['id_user' => Yii::$app->user->id]);
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'id_user' => $this->id_user,
-            'id_evento' => $this->id_evento,
-        ]);
 
-        return $dataProvider;
-    }
+		// add conditions that should always apply here
+
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
+
+		$this->load($params);
+
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to return any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
+
+		// grid filtering conditions
+		/*
+		$query->andFilterWhere([
+			'id' => $this->id,
+			'id_user' => $this->id_user,
+			'id_evento' => $this->id_evento,
+		]);
+		*/
+
+		if (isset($filter))
+			$query
+				->joinWith('evento')
+				->andFilterWhere(['like', 'evento.titulo', $this->searchstring]);
+		else $query
+			->joinWith('evento')
+			->andFilterWhere([
+				'or',
+				['like', 'evento.titulo', $this->searchstring],
+				['like', 'evento.categoria', $this->searchstring],
+			]);
+
+		return $dataProvider;
+	}
 }

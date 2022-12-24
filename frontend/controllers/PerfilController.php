@@ -26,7 +26,7 @@ class PerfilController extends Controller {
 					[
 						'actions' => ['update'],
 						'allow' => true,
-						'roles' => [ROLE_CLIENTE],
+						'roles' => [User::ROLE_CLIENTE],
 					],
 				],
 			],
@@ -35,14 +35,17 @@ class PerfilController extends Controller {
 
 	/**
 	 * Updates an existing Perfil model.
-	 * 
 	 * @return mixed
 	 */
 	public function actionUpdate() {
+		//* verificar se o utilizador tem permissão para atualizar o perfil
+		if (!Yii::$app->user->can('editarPerfil'))
+			throw new NotFoundHttpException;
+
 		$user_perfil = Perfil::findOne(['id_user' => Yii::$app->user->id]);
 
 		if ($user_perfil != null) $model_perfil = $user_perfil;
-		else $model_perfil = Perfil::addPerfil(user_id: Yii::$app->user->id);
+		else $model_perfil = Perfil::addPerfil(id_user: Yii::$app->user->id);
 
 		if ($model_perfil->load(Yii::$app->request->post()) && $model_perfil->save()) {
 			Yii::$app->session->setFlash('success', 'Dados atualizados com sucesso');

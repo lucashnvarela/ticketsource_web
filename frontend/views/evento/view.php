@@ -1,47 +1,73 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Evento */
+/** @var $this yii\web\View */
+/** @var $model_evento common\models\Evento */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+use backend\models\UploadForm;
+use common\models\Evento;
+
+$this->registerCssFile("@web/css/evento/view.css");
+
+$this->title = 'Evento - ' . $model_evento->titulo;
 ?>
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                            'class' => 'btn btn-danger',
-                            'data' => [
-                                'confirm' => 'Are you sure you want to delete this item?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
-                    </p>
-                    <?= DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            'id',
-                            'titulo',
-                            'descricao',
-                            'nome_pic',
-                        ],
-                    ]) ?>
-                </div>
-                <!--.col-md-12-->
-            </div>
-            <!--.row-->
-        </div>
-        <!--.card-body-->
-    </div>
-    <!--.card-->
+<div class="evento-view">
+	<div class="card">
+		<div class="card-header">
+			<div class="evento-image">
+				<img src=<?= UploadForm::getImageDir() . $model_evento->nome_pic  ?>>
+			</div>
+			<div class="evento-detalhes">
+				<div id="title">
+					<h5><?= $model_evento->titulo ?></h5>
+				</div>
+				<div id="categoria">
+					<?= Html::tag('h5', $model_evento->categoria, [
+						'class' => 'btn-' . Evento::getCategoriaBtnClass($model_evento->categoria),
+					]) ?>
+				</div>
+				<div class="fav-link">
+					<?php
+					if (!Yii::$app->user->isGuest) :
+						if ($model_evento->isFavorito()) :
+							echo Html::a('<ion-icon name="heart-dislike-outline"></ion-icon> Remover dos Favoritos', ['favorito/delete', 'id_evento' => $model_evento->id], ['class' => 'btn-default', 'data' => ['confirm' => 'Tem a certeza que pretende remover este evento dos seus favoritos?', 'method' => 'post']]);
+						else :
+							echo Html::a('<ion-icon name="heart-outline"></ion-icon> Adicionar aos Favoritos', ['favorito/create', 'id_evento' => $model_evento->id], ['class' => 'btn-default']);
+						endif;
+					endif;
+					?>
+				</div>
+			</div>
+		</div>
+		<div class="card-body">
+			<?php if (!empty($model_evento->descricao)) : ?>
+				<div class="evento-descricao">
+					<h6 class="card-label">Descrição :</h6>
+					<?= $model_evento->descricao ?>
+				</div>
+			<?php endif ?>
+
+			<div class="evento-sessoes">
+				<h6 class="card-label">Sessões :</h6>
+				<?php
+				if (!empty($model_evento->sessoes)) : ?>
+					<ul>
+						<?php
+						foreach ($model_evento->sessoes as $model_sessao) :
+							echo $this->render('@frontend/views/sessao/form', [
+								'model_sessao' => $model_sessao,
+							]);
+						endforeach ?>
+					</ul>
+				<?php
+				else : ?>
+					<div class="no-data">
+						<p>Não existem sessões disponíveis para este evento</p>
+					</div>
+				<?php endif ?>
+			</div>
+		</div>
+	</div>
 </div>

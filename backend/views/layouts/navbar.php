@@ -14,15 +14,15 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 	<?php
 	NavBar::begin([
 		'options' => [
-			'class' => 'navbar navbar-expand-xl fixed-top',
+			'class' => 'navbar navbar-expand-xl',
 		],
 	]);
 
 	echo Nav::widget([
 		'items' => [
 			[
-				'label' => '<ion-icon name="bar-chart-outline"></ion-icon> Dashboard',
-				'url' => Yii::$app->homeUrl,
+				'label' => '<ion-icon name="pie-chart-outline"></ion-icon> Dashboard',
+				'url' => ['site/index'],
 				'linkOptions' => ['class' => 'nav-link link-dashboard'],
 				'encode' => false
 			],
@@ -40,12 +40,6 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 					'linkOptions' => ['class' => 'nav-link link-users'],
 					'encode' => false
 				],
-				[
-					'label' => '<ion-icon name="person-add-outline"></ion-icon> Registar Novo Gestor',
-					'url' => ['site/signup'],
-					'linkOptions' => ['class' => 'nav-link link-create-gestor'],
-					'encode' => false
-				],
 			],
 			'options' => ['class' => 'navbar-nav nav-admin'],
 		]);
@@ -53,21 +47,15 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 		echo Nav::widget([
 			'items' => [
 				[
-					'label' => '<i class="fas fa-calendar-day"></i> Lista de Eventos',
+					'label' => '<ion-icon name="today-outline"></ion-icon> Lista de Eventos',
 					'url' => ['evento/index'],
 					'linkOptions' => ['class' => 'nav-link link-eventos'],
 					'encode' => false
 				],
 				[
-					'label' => '<i class="far fa-calendar-days"></i> Calendario de Sessões',
+					'label' => '<ion-icon name="calendar-outline"></ion-icon> Calendario de Sessões',
 					'url' => ['sessao/index', 'month' => date('n'), 'year' => date('Y')],
 					'linkOptions' => ['class' => 'nav-link link-sessoes'],
-					'encode' => false
-				],
-				[
-					'label' => '<i class="far fa-calendar-plus"></i> Registar Novo Evento',
-					'url' => ['evento/create'],
-					'linkOptions' => ['class' => 'nav-link link-create-evento'],
 					'encode' => false
 				],
 			],
@@ -77,9 +65,9 @@ $this->registerCssFile("@web/css/layouts/navbar.css");
 
 	echo Nav::widget([
 		'items' => [
-			'<li class="nav-item">
-				<span id="username">(' . User::findOne(Yii::$app->user->id)->username . ')</span>' .
-				Html::a('Logout', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link link-logout']) .
+			'<span id="username"><ion-icon name="at-outline"></ion-icon> ' . User::findOne(Yii::$app->user->id)->username . '</span>' .
+				'<li class="nav-item">' .
+				Html::a('<ion-icon name="log-out-outline"></ion-icon> Logout', ['site/logout'], ['data-method' => 'post', 'class' => 'nav-link link-logout']) .
 				'</li>'
 		],
 		'options' => ['class' => 'navbar-nav ms-auto nav-logout'],

@@ -1,0 +1,196 @@
+.view-page {
+	display: flex;
+	justify-content: center;
+}
+
+.card {
+	border: 1px solid var(--theme-border-color) !important;
+	border-radius: 0.5rem !important;
+	width: 1120px;
+	margin: 4rem 0 auto;
+}
+
+.card .card-header {
+	text-align: center;
+	background-color: transparent !important;
+	display: flex;
+	justify-content: space-between;
+	border: 0;
+	padding: 1.25rem 1.5rem 0.5rem !important;
+}
+
+.card .card-header #title {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0.5rem 2rem;
+}
+
+.card .card-header #title ion-icon {
+	font-size: 24px;
+	margin-bottom: -5px;
+}
+
+.card .card-header .header-actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+}
+
+.card .card-body {
+	padding: 0 1.5rem;
+}
+
+.card #subtitle {
+	font-size: 16px;
+	font-weight: bold;
+	width: fit-content;
+	margin: 0.5rem auto;
+}
+
+.card #subtitle span {
+	font-weight: normal;
+}
+
+.card .card-body .no-data {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card .card-body .no-data p {
+	font-size: 18px;
+	margin: 0;
+}
+
+.card-footer p {
+	margin: 0;
+}
+
+.card .card-footer {
+	text-align: center;
+	background-color: transparent !important;
+	display: flex;
+	justify-content: space-between;
+	border: 0;
+	padding: 1.25rem 1.5rem !important;
+}
+
+/* table
+*/
+.table-border {
+	border: 1px solid var(--theme-border-color);
+	border-radius: 0.5rem;
+}
+
+table {
+	width: 100%;
+	margin: 0 !important;
+}
+
+thead th {
+	padding: 0.25rem;
+}
+
+tbody td {
+	height: 67px;
+	padding: 0.25rem;
+}
+
+tbody .td-id {
+	width: 45px;
+}
+
+tbody .td-evento {
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 224px;
+	max-height: 24px;
+}
+
+tbody .td-categoria p {
+	font-size: 0.875rem;
+	font-weight: bold;
+	width: fit-content;
+	border-radius: 6px;
+	padding: 4px 12px;
+}
+
+tbody .td-preco span {
+	font-size: 14px;
+}
+
+thead th,
+tbody tr:not(:last-of-type) td {
+	border-bottom: 0.5008px solid var(--theme-border-color);
+}
+
+tbody .td-bilhetes .esgotado {
+	font-size: 0.875rem;
+	font-weight: 700;
+	border-radius: 6px;
+	background-color: #f9e1e5;
+	color: #af233a;
+	width: fit-content;
+	padding: 2px 8px;
+	margin: 0 auto;
+}
+
+thead th:not(.th-evento),
+tbody td:not(.td-evento) {
+	text-align: center;
+}
+
+tbody .td-actions {
+	width: 288px;
+	padding-left: 1.25rem;
+}
+
+tbody .td-actions .btn-default:not(:last-of-type) {
+	margin: 0 1rem 0 0;
+}
+
+tbody td p {
+	margin: auto;
+}
+
+.td-categoria p.blue {
+	color: rgb(10, 71, 169);
+	background: rgb(207, 224, 252, 0.8);
+}
+
+.td-categoria p.purple {
+	color: rgb(110, 2, 177);
+	background: rgb(235, 205, 254, 0.8);
+}
+
+.td-categoria p.green {
+	color: rgb(11, 65, 33);
+	background: rgba(199, 245, 217, 0.8);
+}
+
+.td-categoria p.red {
+	color: rgb(160, 9, 9);
+	background: rgb(253, 185, 185, 0.8);
+}
+
+.td-categoria p.blue:hover {
+	color: rgb(10, 71, 169);
+	background: rgba(207, 224, 252);
+}
+
+.td-categoria p.purple:hover {
+	color: rgb(110, 2, 177);
+	background: rgba(235, 205, 254);
+}
+
+.td-categoria p.green:hover {
+	color: rgb(11, 65, 33);
+	background: rgba(199, 245, 217);
+}
+
+.td-categoria p.red:hover {
+	color: rgb(160, 9, 9);
+	background: rgba(253, 185, 185);
+}

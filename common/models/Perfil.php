@@ -34,40 +34,32 @@ class Perfil extends \yii\db\ActiveRecord {
 	public function rules() {
 		return [
 			['nome', 'trim'],
-			['nome', 'required', 'message' => 'Necessário introduzir um nome completo'],
+			['nome', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['nome', 'string', 'max' => 45],
 
-			['nif', 'integer', 'message' => 'NIF inválido'],
-			['nif', 'required', 'message' => 'Necessário introduzir o NIF'],
+			['nif', 'integer', 'message' => 'O campo {attribute} é inválido'],
+			['nif', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['nif', 'unique', 'targetClass' => 'common\models\Perfil', 'message' => 'Já existe um utilizador com este NIF'],
-			[
-				'nif', 'integer',
-				'min' => self::minLength, 'tooSmall' => 'NIF inválido',
-				'max' => self::maxLength, 'tooBig' => 'NIF inválido'
-			],
+			['nif', 'match', 'pattern' => '/^[0-9]{9}$/', 'message' => 'O campo {attribute} é inválido'],
 
 			['pais', 'trim'],
-			['pais', 'required', 'message' => 'Necessário introduzir um país'],
+			['pais', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['pais', 'string', 'max' => 45],
 
 			['distrito', 'trim'],
-			['distrito', 'required', 'message' => 'Necessário introduzir um distrito'],
+			['distrito', 'required', 'message' => 'O campo {attribute} é obrigatóri'],
 			['distrito', 'string', 'max' => 45],
 
 			['morada', 'trim'],
-			['morada', 'required', 'message' => 'Necessário introduzir uma morada'],
+			['morada', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['morada', 'string', 'max' => 90],
 
-			['telefone', 'integer', 'message' => 'Número de telefone inválido'],
-			['telefone', 'required', 'message' => 'Necessário introduzir um número de telefone'],
+			['telefone', 'integer', 'message' => 'O campo {attribute} é inválido'],
+			['telefone', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['telefone', 'unique', 'targetClass' => 'common\models\Perfil', 'message' => 'Já existe um utilizador com este número de telefone'],
-			[
-				'telefone', 'integer',
-				'min' => self::minLength, 'tooSmall' => 'Número de telefone inválido',
-				'max' => self::maxLength, 'tooBig' => 'Número de telefone inválido'
-			],
+			['telefone', 'match', 'pattern' => '/^[0-9]{9}$/', 'message' => 'O campo {attribute} é inválido'],
 
-			['id_user', 'required'],
+			['id_user', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['id_user', 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
 		];
 	}
@@ -77,18 +69,18 @@ class Perfil extends \yii\db\ActiveRecord {
 	 */
 	public function attributeLabels() {
 		return [
-			'nome' => 'Nome completo',
+			'nome' => 'nome completo',
 			'nif' => 'NIF',
-			'pais' => 'Pais',
-			'distrito' => 'Distrito',
-			'morada' => 'Morada',
-			'telefone' => 'Telefone',
+			'pais' => 'país',
+			'distrito' => 'distrito',
+			'morada' => 'morada',
+			'telefone' => 'número de telefone',
 		];
 	}
 
-	public static function addPerfil($user_id) {
+	public static function addPerfil($id_user) {
 		$model_perfil = new Perfil();
-		$model_perfil->id_user = $user_id;
+		$model_perfil->id_user = $id_user;
 		return $model_perfil;
 	}
 

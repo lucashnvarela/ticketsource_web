@@ -1,47 +1,45 @@
 <?php
 
+/** @var $this yii\web\View */
+/** @var $model_fatura frontend\models\Fatura */
+/** @var $model_faturabilhete frontend\models\FaturaBilhete */
+
+use frontend\models\Carrinho;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
-/* @var $this yii\web\View */
-/* @var $model frontend\models\Fatura */
+$this->registerCssFile("@web/css/fatura/view.css");
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Faturas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+$this->title = 'Fatura' . ' #' . $model_fatura->id . strtotime($model_fatura->data);
 ?>
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <p>
-                        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-                        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-                            'class' => 'btn btn-danger',
-                            'data' => [
-                                'confirm' => 'Are you sure you want to delete this item?',
-                                'method' => 'post',
-                            ],
-                        ]) ?>
-                    </p>
-                    <?= DetailView::widget([
-                        'model' => $model,
-                        'attributes' => [
-                            'id',
-                            'id_user',
-                            'data',
-                            'total',
-                        ],
-                    ]) ?>
-                </div>
-                <!--.col-md-12-->
-            </div>
-            <!--.row-->
-        </div>
-        <!--.card-body-->
-    </div>
-    <!--.card-->
+<div class="fatura-view">
+	<div class="card">
+		<div class="card-header">
+			<div class="header">
+				<div>
+					<h5 id="title">
+						<ion-icon name="ticket-outline"></ion-icon> Bilhetes
+					</h5>
+				</div>
+				<p id="subtitle"><?= $this->title ?></p>
+			</div>
+		</div>
+		<div class="card-body">
+			<div class="fatura-lista">
+				<ul>
+					<?php
+					foreach ($model_fatura->getBilhetes() as $model_faturabilhete) :
+						echo $this->render('@frontend/views/fatura_bilhete/form', [
+							'model_faturabilhete' => $model_faturabilhete,
+						]);
+					endforeach ?>
+				</ul>
+			</div>
+			<div class="fatura-detalhes">
+				<h6><span>Seguro :</span> <?= number_format(Carrinho::VALOR_SEGURO, 2, ',', ' ') . "€" ?></h6>
+				<h6><span>Total :</span> <?= number_format($model_fatura->total, 2, ',', ' ') . "€" ?></h6>
+				<?= Html::a('<ion-icon name="chevron-back-outline"></ion-icon> Voltar', ['fatura/index'], ['class' => 'btn-default']) ?>
+			</div>
+		</div>
+	</div>
 </div>

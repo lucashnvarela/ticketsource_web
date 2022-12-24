@@ -9,17 +9,14 @@ use yii\bootstrap5\ActiveForm;
 
 $this->registerCssFile("@web/css/site/signup.css");
 
-$this->title = 'Registo';
+$this->title = 'Registo - Gestor de Bilheteira';
 ?>
 
 <div class="signup-page">
 	<div class="card signup-form">
 		<div class="card-header">
-			<div class="title">
-				<h5><?= $this->title ?></h5>
-				<h5>Gestor de Bilheteira</h5>
-			</div>
-			<p class="subtitle">Por favor preencha os seguintes campos</p>
+			<h5 id="title">Registo : <span>Gestor de Bilheteira</span></h5>
+			<p id="subtitle">Por favor preencha os seguintes campos</p>
 		</div>
 		<?php $form = ActiveForm::begin(['id' => 'form-signup']) ?>
 		<div class="card-body">
@@ -47,7 +44,7 @@ $this->title = 'Registo';
 			?>
 		</div>
 		<div class="card-footer">
-			<?= Html::submitButton('Signup', ['class' => 'btn btn-success ripple', 'name' => 'signup-button']) ?>
+			<?= Html::submitButton('<ion-icon name="person-add-outline"></ion-icon> Signup', ['class' => 'btn-default ripple', 'name' => 'signup-button']) ?>
 		</div>
 		<?php ActiveForm::end() ?>
 	</div>

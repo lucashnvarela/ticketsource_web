@@ -3,125 +3,107 @@
 namespace frontend\controllers;
 
 use Yii;
+use common\models\User;
 use frontend\models\Favorito;
 use frontend\models\FavoritoSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+
 
 /**
  * FavoritoController implements the CRUD actions for Favorito model.
  */
-class FavoritoController extends Controller
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
+class FavoritoController extends Controller {
+	/**
+	 * {@inheritdoc}
+	 */
+	public function behaviors() {
+		return [
+			'access' => [
+				'class' => \yii\filters\AccessControl::class,
+				'only' => ['index'],
+				'rules' => [
+					[
+						'actions' => ['index'],
+						'allow' => true,
+						'roles' => [User::ROLE_CLIENTE],
+					],
+				],
+			],
+		];
+	}
 
-    /**
-     * Lists all Favorito models.
-     * @return mixed
-     */
-    public function actionIndex()
-    {
-        $searchModel = new FavoritoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+	/**
+	 * Lists all Favorito models.
+	 * @return mixed
+	 */
+	public function actionIndex($filter = null) {
+		//* verificar se o utilizador tem permissão para aceder aos favoritos
+		if (!Yii::$app->user->can('visualizarFavoritos'))
+			throw new NotFoundHttpException;
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
+		$model_search = new FavoritoSearch();
+		$dataProvider = $model_search->search(Yii::$app->request->queryParams);
 
-    /**
-     * Displays a single Favorito model.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
+		return $this->render('index', [
+			'model_search' => $model_search,
+			'db_favorito' => $dataProvider->getModels(),
+		]);
+	}
 
-    /**
-     * Creates a new Favorito model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate()
-    {
-        $model = new Favorito();
+	/**
+	 * Creates a new Favorito model.
+	 * If creation is successful, the browser will be redirected to the 'view' page.
+	 * @return mixed
+	 */
+	public function actionCreate($id_evento) {
+		//* verificar se o utilizador tem permissão para adicionar um evento aos favoritos
+		if (!Yii::$app->user->can('adicionarFavoritos'))
+			throw new NotFoundHttpException;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+		if (!is_null(Favorito::findOne(['id_user' => Yii::$app->user->id, 'id_evento' => $id_evento])))
+			return $this->redirect(['evento/view', 'id' => $id_evento]);
 
-        return $this->render('create', [
-            'model' => $model,
-        ]);
-    }
+		$model_favorito = new Favorito();
 
-    /**
-     * Updates an existing Favorito model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+		$model_favorito->id_user = Yii::$app->user->id;
+		$model_favorito->id_evento = $id_evento;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
-        }
+		if ($model_favorito->save()) return $this->redirect(['evento/view', 'id' => $id_evento]);
+	}
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
-    }
+	/**
+	 * Deletes an existing Favorito model.
+	 * If deletion is successful, the browser will be redirected to the 'index' page.
+	 * @param int $id ID
+	 * @return mixed
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	public function actionDelete($id_evento) {
+		//* verificar se o utilizador tem permissão para remover um evento dos favoritos
+		if (!Yii::$app->user->can('apagarFavoritos'))
+			throw new NotFoundHttpException;
 
-    /**
-     * Deletes an existing Favorito model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionDelete($id)
-    {
-        $this->findModel($id)->delete();
+		$model_favorito = Favorito::findOne([
+			'id_user' => Yii::$app->user->id,
+			'id_evento' => $id_evento
+		]);
 
-        return $this->redirect(['index']);
-    }
+		if ($model_favorito->delete()) return $this->redirect(['evento/view', 'id' => $id_evento]);
+	}
 
-    /**
-     * Finds the Favorito model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return Favorito the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Favorito::findOne($id)) !== null) {
-            return $model;
-        }
+	/**
+	 * Finds the Favorito model based on its primary key value.
+	 * If the model is not found, a 404 HTTP exception will be thrown.
+	 * @param int $id ID
+	 * @return Favorito the loaded model
+	 * @throws NotFoundHttpException if the model cannot be found
+	 */
+	protected function findModel($id) {
+		if (($model = Favorito::findOne($id)) !== null) {
+			return $model;
+		}
 
-        throw new NotFoundHttpException('The requested page does not exist.');
-    }
+		throw new NotFoundHttpException('The requested page does not exist.');
+	}
 }

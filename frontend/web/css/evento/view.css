@@ -1,0 +1,134 @@
+.evento-view {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.card {
+	border: 1px solid var(--theme-border-color) !important;
+	border-radius: 0.5rem !important;
+	width: 40rem;
+	margin: 4rem 0 auto 0;
+}
+
+.card .card-header {
+	background-color: transparent !important;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	border-bottom: none !important;
+	padding: 1rem !important;
+	margin: 0;
+}
+
+.evento-image img {
+	background-size: cover;
+	background-position: center;
+	height: 240px;
+	width: 160px;
+}
+
+.evento-detalhes {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin: 0.5rem 1rem;
+}
+
+.evento-detalhes #title h5 {
+	font-size: 22px;
+	font-weight: bold;
+	margin: 0;
+}
+
+.evento-detalhes #categoria {
+	width: fit-content;
+	padding: 0.5rem 0;
+}
+
+.evento-detalhes #categoria h5 {
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 0.375rem;
+	padding: 0.25rem 0.75rem;
+}
+
+.evento-detalhes .fav-link {
+	margin: auto 0 0 0;
+}
+
+.evento-detalhes .fav-link .action-link {
+	font-size: 16px;
+	text-decoration: none;
+	color: var(--theme-text-color);
+	background-color: transparent;
+	min-width: fit-content;
+	border: 1px solid var(--theme-border-color);
+	border-radius: 0.375rem;
+	padding: 0.5rem 1rem;
+	margin: 0;
+}
+
+.evento-detalhes .fav-link .action-link:hover {
+	color: var(--bs-red);
+	box-shadow: var(--shadow-small);
+}
+
+.evento-detalhes .fav-link .action-link ion-icon {
+	font-size: 20px;
+	margin-bottom: -5px;
+}
+
+.card .card-body {
+	padding: 0 1rem 2rem;
+}
+
+.card .card-body .card-label {
+	font-size: 18px;
+	font-weight: bold;
+	margin: 0.5rem 0;
+}
+
+.evento-descricao {
+	padding: 0 0 1rem;
+}
+
+.btn-blue {
+	color: rgb(10, 71, 169);
+	background: rgb(207, 224, 252, 0.8);
+}
+
+.btn-purple {
+	color: rgb(110, 2, 177);
+	background: rgb(235, 205, 254, 0.8);
+}
+
+.btn-green {
+	color: rgb(11, 65, 33);
+	background: rgba(199, 245, 217, 0.8);
+}
+
+.btn-red {
+	color: rgb(160, 9, 9);
+	background: rgb(253, 185, 185, 0.8);
+}
+
+.btn-blue:hover {
+	color: rgb(10, 71, 169);
+	background: rgba(207, 224, 252);
+}
+
+.btn-purple:hover {
+	color: rgb(110, 2, 177);
+	background: rgba(235, 205, 254);
+}
+
+.btn-green:hover {
+	color: rgb(11, 65, 33);
+	background: rgba(199, 245, 217);
+}
+
+.btn-red:hover {
+	color: rgb(160, 9, 9);
+	background: rgba(253, 185, 185);
+}

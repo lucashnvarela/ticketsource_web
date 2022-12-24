@@ -1,12 +1,15 @@
 .error-page {
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	width: 100%;
-	height: 100vh;
 }
 
 .alert {
-	width: 450px;
 	text-align: center;
+	width: 28rem;
+	height: fit-content;
+	margin: 16rem auto;
+}
+
+.alert p {
+	margin: 0;
 }

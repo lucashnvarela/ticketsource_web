@@ -12,8 +12,8 @@ $this->title = $name;
 
 <div class="error-page">
 	<div class="alert alert-danger page-not-found">
-		<div class="text-center">
-			<h3>Page not found</h3>
+		<div>
+			<h3><?= $name ?></h3>
 			<p>The requested URL was not found on this server.<br>
 				Please contact us if you think this is a server error.<br>
 				Thank you.</p>

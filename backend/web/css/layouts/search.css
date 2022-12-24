@@ -1,0 +1,33 @@
+.search-bar {
+	width: 288px !important;
+}
+
+.search-bar .form-control {
+	border-right: 0 !important;
+}
+
+.search-bar .form-control:focus {
+	border-right: 0 !important;
+}
+
+.btn-search {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-decoration: none;
+	cursor: pointer;
+	color: var(--theme-text-secondary);
+	background-color: transparent;
+	border-radius: 0.375rem;
+	border: 1px solid var(--theme-border-color);
+	border-left: 0;
+	padding: 0.5rem 1rem;
+}
+
+.btn-search:hover {
+	color: var(--theme-base-color);
+}
+
+.btn-search ion-icon {
+	font-size: 22px;
+}

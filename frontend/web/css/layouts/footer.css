@@ -1,0 +1,65 @@
+.footer {
+	background-color: var(--theme-footer-background);
+	color: #fff;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-evenly;
+	padding: 1.5rem;
+}
+
+.footer > div {
+	padding: 0 1rem;
+}
+
+.footer div div a {
+	font-size: 14px;
+	text-decoration: none;
+	color: #fff;
+}
+
+.footer > div > div span {
+	font-size: 14px;
+	color: #fff;
+	padding: 0 0.5rem;
+}
+
+.footer .links div {
+	width: 25rem;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.footer .eventos div,
+.footer .social div {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.footer .social div a ion-icon {
+	font-size: 16px;
+	margin-bottom: -0.125rem;
+	margin-right: 0.25rem;
+}
+
+.footer div div a:hover {
+	text-decoration: underline;
+}
+
+.footer div div a:nth-of-type(1):hover ion-icon {
+	color: #1877f2;
+}
+
+.footer div div a:nth-of-type(2):hover ion-icon {
+	color: #fcaf45;
+}
+
+.footer div div a:nth-of-type(3):hover ion-icon {
+	color: #1d9bf0;
+}
+
+.footer div div a:nth-of-type(4):hover ion-icon {
+	color: #ff0000;
+}

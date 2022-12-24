@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use Yii;
 use yii\data\Sort;
+use yii\data\Pagination;
 use common\models\User;
 use common\models\UserSearch;
 use yii\web\Controller;
@@ -26,7 +27,7 @@ class UserController extends Controller {
 					[
 						'actions' => ['index', 'block', 'unblock', 'delete'],
 						'allow' => true,
-						'roles' => [ROLE_ADMIN],
+						'roles' => [User::ROLE_ADMIN],
 					],
 				],
 			],
@@ -38,19 +39,27 @@ class UserController extends Controller {
 	 * @return mixed
 	 */
 	public function actionIndex() {
+		//* verificar se o utilizador tem permissão para visualizar os utilizadores
+		if (!Yii::$app->user->can('visualizarUtilizadores'))
+			throw new NotFoundHttpException;
 
-		$sort_form = new Sort([
+		$sort = new Sort([
 			'attributes' => ['username', 'created_at', 'status'],
 		]);
 
-		$db_users = User::find()
-			->where(['not', ['id' => 1]])
-			->orderBy($sort_form->orders)
-			->all();
+		$model_search = new UserSearch();
+		$data_provider = $model_search->search(Yii::$app->request->queryParams, $sort);
+
+		$pagination = new Pagination([
+			'defaultPageSize' => 6,
+			'totalCount' => $data_provider->getTotalCount(),
+		]);
 
 		return $this->render('index', [
-			'db_users' => $db_users,
-			'sort_config' => User::tableSort(sort_form: $sort_form->orders),
+			'db_users' => $data_provider->getModels(),
+			'model_search' => $model_search,
+			'pagination' => $pagination,
+			'sort_config' => User::tableSort(sort_orders: $sort->orders),
 		]);
 	}
 
@@ -70,41 +79,37 @@ class UserController extends Controller {
 	}
 
 	/**
-	 * @brief Blocks a user
-	 * 
+	 * Blocks a user
 	 * @param int $id
 	 */
 	public function actionBlock($id) {
-
-		if (Yii::$app->user->can(permissionName: 'bloquearCliente')) $this->findModel($id)->block();
-		else Yii::$app->session->setFlash('error', 'Não tem permissões para bloquear');
+		//* verificar se o utilizador tem permissão para bloquear utilizadores
+		if (Yii::$app->user->can('bloquearCliente')) $this->findModel($id)->setInactive();
+		else Yii::$app->session->setFlash('error', 'Não tem permissões para bloquear este utilizador');
 
 		return $this->redirect(['index', 'sort' => 'username']);
 	}
 
 	/**
-	 * @brief Unblocks a user
-	 * 
+	 * Unblocks a user
 	 * @param int $id
 	 */
 	public function actionUnblock($id) {
-
-		if (Yii::$app->user->can(permissionName: 'desbloquearCliente')) $this->findModel($id)->unblock();
-		else Yii::$app->session->setFlash('error', 'Não tem permissões para desbloquear');
+		//* verificar se o utilizador tem permissão para desbloquear utilizadores
+		if (Yii::$app->user->can('desbloquearCliente')) $this->findModel($id)->setActive();
+		else Yii::$app->session->setFlash('error', 'Não tem permissões para desbloquear este utilizador');
 
 		return $this->redirect(['index', 'sort' => 'username']);
 	}
 
 	/**
-	 * @brief Deletes a user
-	 * 
+	 * Deletes a user
 	 * @param int $id
 	 */
 	public function actionDelete($id) {
-
-		//* Alterar permissão para 'eliminarGestor'
-		if (Yii::$app->user->can(permissionName: 'desbloquearCliente')) $this->findModel($id)->delete();
-		else Yii::$app->session->setFlash('error', 'Não tem permissões para eliminar');
+		//* verificar se o utilizador tem permissão para eliminar utilizadores
+		if (Yii::$app->user->can('eliminarGestor')) $this->findModel($id)->setDeleted();
+		else Yii::$app->session->setFlash('error', 'Não tem permissões para eliminar este utilizador');
 
 		return $this->redirect(['index', 'sort' => 'username']);
 	}

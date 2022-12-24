@@ -15,8 +15,8 @@ $this->title = 'Iniciar sessão';
 <div class="login-page">
 	<div class="card login-form">
 		<div class="card-header">
-			<h5 class="title"><?= $this->title ?></h5>
-			<p class="subtitle">Por favor preencha os seguintes campos</p>
+			<h5 id="title"><?= $this->title ?></h5>
+			<p id="subtitle">Por favor preencha os seguintes campos</p>
 		</div>
 		<?php $form = ActiveForm::begin(['id' => 'login-form']) ?>
 		<div class="card-body">
@@ -37,7 +37,7 @@ $this->title = 'Iniciar sessão';
 			?>
 		</div>
 		<div class="card-footer">
-			<?= Html::submitButton('Login', ['class' => 'btn btn-success ripple', 'name' => 'login-button']) ?>
+			<?= Html::submitButton('<ion-icon name="log-in-outline"></ion-icon> Login', ['class' => 'btn-default ripple', 'name' => 'login-button']) ?>
 		</div>
 		<?php ActiveForm::end() ?>
 	</div>

@@ -1,27 +1,62 @@
 <?php
 
-use yii\helpers\Html;
+/** @var $this yii\web\View */
+/** @var $form yii\bootstrap5\ActiveForm */
+/** @var $model_evento common\models\Evento */
+/** @var $model_upload backend\models\UploadForm */
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Evento */
+use yii\bootstrap5\Html;
+use yii\bootstrap5\ActiveForm;
 
-$this->title = 'Create Evento';
-$this->params['breadcrumbs'][] = ['label' => 'Eventos', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->registerCssFile("@web/css/evento/create.css");
+
+$this->title = 'Registo - Evento';
 ?>
 
-<div class="container-fluid">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-12">
-                    <?=$this->render('_form', [
-                        'model' => $model
-                    ]) ?>
-                </div>
-            </div>
-        </div>
-        <!--.card-body-->
-    </div>
-    <!--.card-->
+<div class="create-page">
+	<div class="card evento-form">
+		<div class="card-header">
+			<h5 id="title">Registo : <span>Evento</span></h5>
+			<p id="subtitle">Por favor preencha os seguintes campos</p>
+		</div>
+		<?php $form = ActiveForm::begin(['id' => 'form-evento', 'options' => ['enctype' => 'multipart/form-data']]) ?>
+		<div class="card-body">
+			<div>
+				<?php
+				echo $form->field($model_evento, 'titulo', [
+					'options' => ['class' => 'input-group has-feedback'],
+					'template' => '<div class="input-group-prepend"><span class="input-group-text">{label}</span></div>{input}{error}'
+				])
+					->label('Título :')
+					->textInput();
+
+				echo $form->field($model_evento, 'categoria', [
+					'options' => ['class' => 'input-group has-feedback'],
+					'template' => '<div class="input-group-prepend"><span class="input-group-text">{label}</span></div>{input}{error}'
+				])
+					->label('Categoria :')
+					->dropDownList($model_evento->getDropdownList());
+				?>
+			</div>
+			<?php
+			echo $form->field($model_upload, 'imageFile', [
+				'options' => ['class' => 'input-group has-feedback'],
+				'template' => '<div class="input-group-prepend"><span class="input-group-text">{label}</span></div>{input}{error}'
+			])
+				->label('Imagem do evento :')
+				->fileInput(['accept' => 'image/*',]);
+
+			echo $form->field($model_evento, 'descricao', [
+				'options' => ['class' => 'input-group has-feedback'],
+				'template' => '<div class="input-group-prepend"><span class="input-group-text">{label}</span></div>{input}{error}'
+			])
+				->label('Descrição :')
+				->textarea();
+			?>
+		</div>
+		<div class="card-footer">
+			<?= Html::submitButton('<ion-icon name="add-outline"></ion-icon> Registar', ['class' => 'btn-default ripple', 'name' => 'update-button']) ?>
+		</div>
+		<?php ActiveForm::end() ?>
+	</div>
 </div>

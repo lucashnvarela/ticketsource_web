@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use Yii;
+use common\models\User;
+use common\models\Bilhete;
 
 /**
  * This is the model class for table "carrinho".
@@ -14,58 +16,68 @@ use Yii;
  * @property Bilhete $bilhete
  * @property User $user
  */
-class Carrinho extends \yii\db\ActiveRecord
-{
-    /**
-     * {@inheritdoc}
-     */
-    public static function tableName()
-    {
-        return 'carrinho';
-    }
+class Carrinho extends \yii\db\ActiveRecord {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function rules()
-    {
-        return [
-            [['id_user', 'id_bilhete'], 'required'],
-            [['id_user', 'id_bilhete'], 'integer'],
-            [['id_bilhete'], 'exist', 'skipOnError' => true, 'targetClass' => Bilhete::class, 'targetAttribute' => ['id_bilhete' => 'id']],
-            [['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
-        ];
-    }
+	const VALOR_SEGURO = 1.25;
 
-    /**
-     * {@inheritdoc}
-     */
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'ID',
-            'id_user' => 'Id User',
-            'id_bilhete' => 'Id Bilhete',
-        ];
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function tableName() {
+		return 'carrinho';
+	}
 
-    /**
-     * Gets query for [[Bilhete]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getBilhete()
-    {
-        return $this->hasOne(Bilhete::class, ['id' => 'id_bilhete']);
-    }
+	/**
+	 * {@inheritdoc}
+	 */
+	public function rules() {
+		return [
+			[['id_user'], 'required', 'message' => 'O campo {attribute} é obrigatório'],
+			[['id_user'], 'integer', 'message' => 'O campo {attribute} deve ser um número inteiro'],
+			[['id_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['id_user' => 'id']],
 
-    /**
-     * Gets query for [[User]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getUser()
-    {
-        return $this->hasOne(User::class, ['id' => 'id_user']);
-    }
+			[['id_bilhete'], 'required', 'message' => 'O campo {attribute} é obrigatório'],
+			[['id_bilhete'], 'integer', 'message' => 'O campo {attribute} deve ser um número inteiro'],
+			[['id_bilhete'], 'exist', 'skipOnError' => true, 'targetClass' => Bilhete::class, 'targetAttribute' => ['id_bilhete' => 'id']],
+		];
+	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public function attributeLabels() {
+		return [
+			'id' => 'id',
+			'id_user' => 'id_user',
+			'id_bilhete' => 'id_bilhete',
+		];
+	}
+
+	/**
+	 * Retorna todos os bilhetes do carrinho do utilizador autenticado
+	 * @return array
+	 */
+	public static function getUserCarrinho(): array {
+		return Carrinho::find()
+			->where(['id_user' => Yii::$app->user->id])
+			->all();
+	}
+
+	/**
+	 * Gets query for [[Bilhete]].
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getBilhete() {
+		return $this->hasOne(Bilhete::class, ['id' => 'id_bilhete']);
+	}
+
+	/**
+	 * Gets query for [[User]].
+	 *
+	 * @return \yii\db\ActiveQuery
+	 */
+	public function getUser() {
+		return $this->hasOne(User::class, ['id' => 'id_user']);
+	}
 }

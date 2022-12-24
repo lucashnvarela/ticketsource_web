@@ -1,0 +1,151 @@
+.fatura-index {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.card {
+	position: relative;
+	border: 1px solid var(--theme-border-color) !important;
+	border-radius: 0.5rem !important;
+	width: 56rem;
+	margin: 6rem 0;
+}
+
+.card .card-header,
+.card .card-footer {
+	text-align: center;
+	background-color: transparent !important;
+	display: flex;
+	justify-content: space-between;
+	border: 0;
+	padding: 1.25rem 1.5rem !important;
+}
+
+.card:has(.no-data) .card-header {
+	border-bottom: 1px solid var(--theme-border-color) !important;
+	padding: 1.25rem 0.5rem !important;
+	margin: 0 1rem;
+}
+
+.card .card-header #title {
+	font-size: 20px;
+	font-weight: bold;
+	margin: 0.5rem 2rem;
+}
+
+.card .card-header #title ion-icon {
+	font-size: 26px;
+	margin-bottom: -6px;
+}
+
+.card .card-header .header-actions {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.card .card-body {
+	padding: 0 1.5rem;
+}
+
+.card .card-body:has(.no-data) {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	row-gap: 0.75rem;
+	column-gap: 1.05rem;
+	padding: 1rem 1rem 1.5rem !important;
+}
+
+.card .card-body .no-data p {
+	font-size: 18px;
+	margin: 0;
+}
+
+.card-footer p {
+	margin: 0;
+}
+
+/* table
+*/
+.table-border {
+	border: 1px solid var(--theme-border-color);
+	border-radius: 0.5rem;
+}
+
+table {
+	width: 100%;
+	margin: 0 !important;
+}
+
+thead tr th {
+	padding: 0.25rem;
+}
+
+thead tr th i {
+	font-size: 15px;
+	vertical-align: -1px;
+	color: var(--theme-text-color);
+}
+
+thead tr th i:hover {
+	color: var(--theme-base-color);
+}
+
+.fa-arrow-right-arrow-left {
+	font-size: 14px;
+	vertical-align: 0;
+	rotate: 90deg;
+}
+
+tbody tr td {
+	height: 67px;
+	padding: 0.25rem;
+}
+
+tbody tr .td-id {
+	width: 45px;
+}
+
+tbody tr .td-actions {
+	width: 20rem;
+}
+
+thead tr th,
+tbody tr:not(:last-of-type) td {
+	border-bottom: 0.5px solid var(--theme-border-color);
+}
+
+thead tr th:not(.th-nome),
+tbody tr td:not(.td-nome) {
+	text-align: center;
+}
+
+tbody tr .td-actions .btn-default {
+	margin: 0 0.5rem;
+}
+
+tbody tr td p {
+	margin: 0;
+}
+
+tbody tr .td-nome p:last-of-type {
+	color: var(--theme-text-secondary);
+}
+
+.menu {
+	position: absolute;
+	top: 1rem;
+	right: -16.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+	padding: 1rem;
+}
+
+.menu .btn-default {
+	padding: 0.5rem 1rem;
+}

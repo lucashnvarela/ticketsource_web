@@ -2,57 +2,58 @@
 
 /** @var $this yii\web\View */
 
-use common\models\Perfil;
+use yii\helpers\Html;
+use yii\bootstrap5\Carousel;
+use common\models\Evento;
 
 $this->registerCssFile("@web/css/site/index.css");
 
 $this->title = Yii::$app->name;
 ?>
 
-<div class="site-index container">
-    <div class="d-flex flex-column justify-content-center align-items-center">
-        <div class="mb-4">
-            <div class="container-fluid py-5 text-center">
-                <h1 class="display-4">Congratulations!</h1>
-                <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
-                <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
-            </div>
-        </div>
+<div class="site-index">
+	<?= Carousel::widget(['items' => $carousel_items]) ?>
 
-        <div class="body-content">
+	<div class="card">
+		<div class="card-header">
+			<h4 class="title">Novidades</h4>
+			<?= Html::a(
+				'VER MAIS',
+				['evento/index'],
+				['class' => 'btn-seemore ripple']
+			); ?>
+		</div>
+		<div class="card-body">
+			<?php
+			foreach ($db_eventoNovidades as $evento) {
+				echo $this->render('@frontend/views/evento/form', [
+					'model_evento' => $evento,
+				]);
+			} ?>
+		</div>
+	</div>
 
-            <div class="row">
-                <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
-
-                    <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
-
-                    <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
-                </div>
-                <div class="col-lg-4">
-                    <h2>Heading</h2>
-
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur.</p>
-
-                    <p><a class="btn btn-outline-secondary" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
+	<?php
+	foreach (Evento::getCategoriaList() as $categoria) {
+		if (!empty($db_evento[$categoria]) and count($db_evento[$categoria]) >= 5) { ?>
+			<div class="card">
+				<div class="card-header">
+					<h4 class="title"><?= $categoria ?></h4>
+					<?= Html::a(
+						'VER MAIS',
+						['evento/index', 'filter' => $categoria],
+						['class' => 'btn-seemore ripple']
+					); ?>
+				</div>
+				<div class="card-body">
+					<?php
+					foreach ($db_evento[$categoria] as $evento) {
+						echo $this->render('@frontend/views/evento/form', [
+							'model_evento' => $evento,
+						]);
+					} ?>
+				</div>
+			</div>
+	<?php }
+	} ?>
 </div>

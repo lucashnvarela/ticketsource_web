@@ -32,19 +32,22 @@ AppAsset::register($this);
 <body>
 	<?php $this->beginBody() ?>
 
-	<div class="alert-container">
-		<?= Alert::widget() ?>
-	</div>
-
 	<main role="main">
 		<?= $content ?>
 		</div>
 	</main>
 
-	<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<div class="alert-container">
+		<?= Alert::widget() ?>
+	</div>
+
 	<?php $this->endBody() ?>
 </body>
+
+<?= $this->render('footer') ?>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </html>
 <?php $this->endPage(); ?>

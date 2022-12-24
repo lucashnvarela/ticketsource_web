@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use yii\data\Pagination;
 use common\models\User;
 use common\models\Sessao;
 use common\models\SessaoSearch;
@@ -27,7 +28,7 @@ class SessaoController extends Controller {
 					[
 						'actions' => ['index', 'view', 'create', 'update', 'delete'],
 						'allow' => true,
-						'roles' => [ROLE_GESTOR],
+						'roles' => [User::ROLE_GESTOR],
 					],
 				],
 			],
@@ -44,18 +45,16 @@ class SessaoController extends Controller {
 	 * Lists all Sessao models.
 	 * @return mixed
 	 */
+	public function actionIndex($month, $year, $filter = null) {
+		//* verifiar se o utilizador tem permissões para visualizar as sessões
+		if (!Yii::$app->user->can('visualizarSessoes'))
+			throw new NotFoundHttpException;
 
-	public function actionIndex($month, $year) {
-		$calendarModel = new Calendar();
-		$calendarDate = ['month' => $month, 'year' => $year];
-		$db_sessao = Sessao::find()
-			->where(['month(data)' => $month, 'year(data)' => $year])
-			->all();
+		$class_calendar = new Calendar();
+		$class_calendar->setCalendar($month, $year, $filter);
 
 		return $this->render('index', [
-			'calendarModel' => $calendarModel,
-			'calendarDate' => $calendarDate,
-			'db_sessao' => $db_sessao,
+			'class_calendar' => $class_calendar,
 		]);
 	}
 
@@ -65,13 +64,23 @@ class SessaoController extends Controller {
 	 * @return mixed
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
-	public function actionView($date) {
-		$db_sessao = Sessao::find()
-			->where(['data' => $date])
-			->all();
+	public function actionView($data = null, $id_evento = null, $filter = null) {
+		//* verificar se o utilizador tem permissões para visualizar as sessões
+		if (!Yii::$app->user->can('visualizarSessoes'))
+			throw new NotFoundHttpException;
+
+		$model_search = new SessaoSearch();
+		$data_provider = $model_search->search(Yii::$app->request->queryParams);
+
+		$pagination = new Pagination([
+			'defaultPageSize' => 6,
+			'totalCount' => $data_provider->getTotalCount(),
+		]);
 
 		return $this->render('view', [
-			'db_sessao' => $db_sessao,
+			'db_sessao' => $data_provider->getModels(),
+			'model_search' => $model_search,
+			'pagination' => $pagination,
 		]);
 	}
 
@@ -80,15 +89,25 @@ class SessaoController extends Controller {
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 * @return mixed
 	 */
-	public function actionCreate() {
-		$model = new Sessao();
+	public function actionCreate($id_evento) {
+		//* verificar se o utilizador tem permissões para criar sessões
+		if (!Yii::$app->user->can('adicionarSessao'))
+			throw new NotFoundHttpException;
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+		$model_sessao = new Sessao();
+
+		if ($model_sessao->load(Yii::$app->request->post())) {
+			$model_sessao->id_evento = $id_evento;
+			$model_sessao->data = date('Y-m-d', strtotime($model_sessao->data));
+			$model_sessao->save();
+			$model_sessao->addBilhetes();
+
+			Yii::$app->session->setFlash('success', 'Sessão registada com sucesso');
+			return $this->redirect(['view', 'id_evento' => $model_sessao->id_evento]);
 		}
 
 		return $this->render('create', [
-			'model' => $model,
+			'model_sessao' => $model_sessao,
 		]);
 	}
 
@@ -100,14 +119,23 @@ class SessaoController extends Controller {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionUpdate($id) {
-		$model = $this->findModel($id);
+		//* verificar se o utilizador tem permissões para editar sessões
+		if (!Yii::$app->user->can('editarSessao'))
+			throw new NotFoundHttpException;
 
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-			return $this->redirect(['view', 'id' => $model->id]);
+		$model_sessao = $this->findModel($id);
+		$model_sessao->data = date('d-m-Y', strtotime($model_sessao->data));
+
+		if ($model_sessao->load(Yii::$app->request->post())) {
+			$model_sessao->data = date('Y-m-d', strtotime($model_sessao->data));
+			$model_sessao->save();
+
+			Yii::$app->session->setFlash('success', 'Sessão atualizada com sucesso');
+			return $this->redirect(['view', 'id_evento' => $model_sessao->id_evento]);
 		}
 
 		return $this->render('update', [
-			'model' => $model,
+			'model_sessao' => $model_sessao,
 		]);
 	}
 
@@ -119,9 +147,13 @@ class SessaoController extends Controller {
 	 * @throws NotFoundHttpException if the model cannot be found
 	 */
 	public function actionDelete($id) {
+		//* verificar se o utilizador tem permissões para eliminar sessões
+		if (!Yii::$app->user->can('apagarSessao'))
+			throw new NotFoundHttpException;
+
 		$this->findModel($id)->delete();
 
-		return $this->redirect(['index']);
+		return $this->redirect(['view', 'id_evento' => $this->findModel($id)->id_evento]);
 	}
 
 	/**

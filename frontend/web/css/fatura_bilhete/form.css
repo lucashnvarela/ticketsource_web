@@ -1,0 +1,61 @@
+.fatura-bilhete {
+	text-decoration: none !important;
+	color: var(--theme-text-color);
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.fatura-bilhete .date {
+	text-align: center;
+	width: fit-content;
+	border: 1px solid var(--theme-border-color);
+	margin: 0.5rem 0 0.5rem 1rem;
+}
+
+.fatura-bilhete .date #month {
+	font-size: 14px;
+	text-transform: capitalize;
+	color: white;
+	background-color: var(--theme-palette-medium);
+	border-bottom: 1px solid var(--theme-border-color);
+	padding: 0 0.5rem;
+	margin: 0;
+}
+
+.fatura-bilhete .date #day {
+	font-size: 24px;
+	font-weight: bold;
+	background-color: white;
+	margin: 0;
+}
+
+.fatura-bilhete .date #weekday {
+	font-size: 14px;
+	text-transform: capitalize;
+	background-color: white;
+	margin: 0;
+}
+
+.fatura-bilhete p span {
+	font-weight: bold;
+}
+
+.fatura-bilhete .detalhes {
+	font-size: 16px;
+	text-align: start;
+	width: 100%;
+}
+
+.fatura-bilhete .detalhes p {
+	margin: 0.5rem 1rem;
+}
+
+.fatura-bilhete > p {
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	width: 8rem;
+	margin: 1rem;
+}

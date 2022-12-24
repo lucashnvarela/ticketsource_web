@@ -1,0 +1,42 @@
+a:has(.card-evento) {
+	text-decoration: none !important;
+	color: var(--theme-base-color) !important;
+}
+
+.card-evento {
+	width: fit-content;
+	border: 1px solid var(--theme-border-color) !important;
+	border-radius: 0.25rem !important;
+	margin: 0 !important;
+}
+
+.card-evento:hover {
+	transform: scale(1.02);
+}
+
+.card-evento .card-header {
+	background-color: transparent;
+	border: 0 !important;
+	padding: 8px !important;
+	margin: 0 !important;
+}
+
+.card-evento .evento-image {
+	background-size: cover;
+	background-position: center;
+	height: 15rem;
+	width: 10rem;
+}
+
+.card-evento .card-body {
+	padding: 0 0.5rem 0.5rem !important;
+}
+
+.card-evento .card-body .evento-title {
+	font-size: 14px;
+	font-weight: bold;
+	text-transform: capitalize;
+	width: 10rem;
+	height: 2.125rem;
+	margin: 0;
+}

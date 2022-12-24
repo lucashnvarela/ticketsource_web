@@ -45,7 +45,10 @@ class Alert extends \yii\bootstrap5\Widget {
 
 	public $alertIcon = [
 		'error'   => '<ion-icon name="alert-circle-outline"></ion-icon>',
+		'danger'  => '<ion-icon name="alert-circle-outline"></ion-icon>',
 		'success' => '<ion-icon name="checkmark-circle-outline"></ion-icon>',
+		'info'    => '<ion-icon name="information-circle-outline"></ion-icon>',
+		'warning' => '<ion-icon name="warning-outline"></ion-icon>'
 	];
 
 	/**
