@@ -41,8 +41,9 @@ class PagamentoController extends Controller {
 	public function actionCreate() {
 		$model_pagamento = new Pagamento();
 
+
 		//* carregar dados do formulário
-		if ($model_pagamento->load(Yii::$app->request->post()) && $model_pagamento->validate()) {
+		if ($model_pagamento->load(Yii::$app->request->post())) {
 			$model_pagamento->data_validade = date('Y-m-d', strtotime('01-' . $model_pagamento->data_validade));
 
 			//* criar fatura e associar ao pagamento

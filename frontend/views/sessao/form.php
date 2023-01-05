@@ -20,7 +20,7 @@ $sessao_dia = datefmt_format(
 ?>
 
 <li>
-	<a href=<?= Url::to(['sessao/view', 'id' => $model_sessao->id]) ?>>
+	<a href=<?= Url::to(['sessao/view', 'id' => $model_sessao->id]) ?> name=<?= $model_sessao->id ?>>
 		<div class="date">
 			<p id="month"><?= substr($sessao_mes, 0, -1) ?></p>
 			<p id="day"><?= date('d', strtotime($model_sessao->data)) ?></p>

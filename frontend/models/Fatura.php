@@ -34,7 +34,7 @@ class Fatura extends \yii\db\ActiveRecord {
 			[['data'], 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			[['data'], 'safe'],
 
-			[['total'], 'required', 'message' => 'O campo {attribute} é obrigatório'],
+			//[['total'], 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			[['total'], 'number', 'message' => 'O campo {attribute} deve ser um número'],
 
 			[['id_user'], 'required', 'message' => 'O campo {attribute} é obrigatório'],

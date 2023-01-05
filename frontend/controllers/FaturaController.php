@@ -62,6 +62,7 @@ class FaturaController extends Controller {
 			throw new NotFoundHttpException;
 
 		$user_carrinho = Carrinho::getUserCarrinho();
+		$model_fatura = Fatura::findOne($id);
 
 		//* adicionar bilhetes do carrinho à fatura
 		foreach ($user_carrinho as $item_carrinho)
@@ -75,12 +76,13 @@ class FaturaController extends Controller {
 		Carrinho::deleteAll(['id_user' => Yii::$app->user->id]);
 
 		//* atualizar o total da fatura com o valor dos bilhetes e o valor do seguro
-		foreach ($this->getBilhetes() as $item_fatura)
-			$this->total += $item_fatura->bilhete->sessao->preco;
-		$this->total += Carrinho::VALOR_SEGURO;
+		foreach ($model_fatura->bilhetes as $item_fatura)
+			$model_fatura->total += $item_fatura->bilhete->sessao->preco;
 
-		$this->save();
+		$model_fatura->total += Carrinho::VALOR_SEGURO;
+		$model_fatura->save();
 
+		Yii::$app->session->setFlash('success', 'Compra efetuada com sucesso');
 		return $this->redirect(['carrinho/index']);
 	}
 

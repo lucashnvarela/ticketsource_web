@@ -47,7 +47,7 @@ class Perfil extends \yii\db\ActiveRecord {
 			['pais', 'string', 'max' => 45],
 
 			['distrito', 'trim'],
-			['distrito', 'required', 'message' => 'O campo {attribute} é obrigatóri'],
+			['distrito', 'required', 'message' => 'O campo {attribute} é obrigatório'],
 			['distrito', 'string', 'max' => 45],
 
 			['morada', 'trim'],

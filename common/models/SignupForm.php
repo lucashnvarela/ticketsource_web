@@ -33,7 +33,7 @@ class SignupForm extends Model {
 			['email', 'unique', 'targetClass' => '\common\models\User', 'message' => 'Já existe um utlizador com este email'],
 
 			['password', 'required', 'message' => 'O campo {attribute} é obrigatório'],
-			['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'tooShort' => 'O campo {attribute} deve conter pelo menos 4 caracteres'],
+			['password', 'string', 'min' => Yii::$app->params['user.passwordMinLength'], 'tooShort' => 'O campo {attribute} deve conter pelo menos 8 caracteres'],
 		];
 	}
 

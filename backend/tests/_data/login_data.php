@@ -1,13 +1,33 @@
 <?php
 return [
-    [
-        'username' => 'erau',
-        'auth_key' => 'tUu1qHcde0diwUol3xeI-18MuHkkprQI',
-        // password_0
-        'password_hash' => '$2y$13$nJ1WDlBaGcbCdbNC5.5l4.sgy.OMEKCqtDQOdQ2OWpgiKRWYyzzne',
-        'password_reset_token' => 'RkD_Jw0_8HEedzLk7MM-ZKEFfYR7VbMr_1392559490',
-        'created_at' => '1392559490',
-        'updated_at' => '1392559490',
-        'email' => 'sfriesen@jenkins.info',
-    ],
+	[
+		'id' => 1,
+		'username' => 'admin',
+		'auth_key' => '2t7jC06i3xBxyqsgpBsjHcsQ2LHYsDHF',
+		// admin123
+		'password_hash' => '$2y$13$v79XQb6wxfliv5a7rY8MzO9idYm3QnW8c5ulA.N.RKBafWl44lJTK',
+		'password_reset_token' => null,
+		'email' => 'admin@mail.com',
+		'status' => '10',
+	],
+	[
+		'id' => 2,
+		'username' => 'gestor',
+		'auth_key' => 'XfiQSMHI3xXBY-vVkfSiqP5MRrSR13yw',
+		// gestor123
+		'password_hash' => '$2y$13$9HFmIHzw2.cqmrr1GlHkOODnuZ8LNXA7DMVMZDA28Dy2RRXYorZLe',
+		'password_reset_token' => null,
+		'email' => 'gestor@mail.com',
+		'status' => '10',
+	],
+	[
+		'id' => 3,
+		'username' => 'cliente',
+		'auth_key' => 'pYrzNmor25ls9a8NH0HBbdU7mYpwP39v',
+		// cliente123
+		'password_hash' => '$2y$13$2ClCKgl3bfr2iDnm8sJMT.1IQII0/weFbmsbZE8.E7BQOwa5U5tCy',
+		'password_reset_token' => null,
+		'email' => 'cliente@mail.com',
+		'status' => '10',
+	],
 ];

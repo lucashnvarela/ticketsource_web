@@ -18,8 +18,8 @@ $this->title = 'Sessão - ' . $sessao_data[0] . ' de ' . ucfirst($sessao_data[1]
 	<div class="card">
 		<div class="card-header">
 			<div>
-				<h5><?= $model_sessao->evento->titulo ?></h5>
-				<h6><?= $sessao_data[0] . ' de ' . ucfirst($sessao_data[1]) ?></h6>
+				<h5 id="title"><?= $model_sessao->evento->titulo ?></h5>
+				<h6 id="data"><?= $sessao_data[0] . ' de ' . ucfirst($sessao_data[1]) ?></h6>
 			</div>
 			<p>Selecione o lugar do bilhete que pretende comprar</p>
 		</div>

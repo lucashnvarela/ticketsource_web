@@ -4,63 +4,72 @@ namespace frontend\tests\functional;
 
 use frontend\tests\FunctionalTester;
 use common\fixtures\UserFixture;
+use yii\helpers\Url;
 
-class LoginCest
-{
-    /**
-     * Load fixtures before db transaction begin
-     * Called in _before()
-     * @see \Codeception\Module\Yii2::_before()
-     * @see \Codeception\Module\Yii2::loadFixtures()
-     * @return array
-     */
-    public function _fixtures()
-    {
-        return [
-            'user' => [
-                'class' => UserFixture::class,
-                'dataFile' => codecept_data_dir() . 'login_data.php',
-            ],
-        ];
-    }
+class LoginCest {
+	/**
+	 * Load fixtures before db transaction begin
+	 * Called in _before()
+	 * @see \Codeception\Module\Yii2::_before()
+	 * @see \Codeception\Module\Yii2::loadFixtures()
+	 * @return array
+	 */
+	public function _fixtures() {
+		return [
+			'user' => [
+				'class' => UserFixture::class,
+				'dataFile' => codecept_data_dir() . 'login_data.php',
+			],
+		];
+	}
 
-    public function _before(FunctionalTester $I)
-    {
-        $I->amOnRoute('site/login');
-    }
+	public function _before(FunctionalTester $I) {
+		$I->amOnPage(Url::toRoute('/site/login'));
+		$I->see('Iniciar sessão', '.card-header #title');
+	}
 
-    protected function formParams($login, $password)
-    {
-        return [
-            'LoginForm[username]' => $login,
-            'LoginForm[password]' => $password,
-        ];
-    }
+	/* //!
+	public function loginEmpty(FunctionalTester $I) {
+		$I->fillField('LoginForm[username]', '');
+		$I->seeInField('LoginForm[username]', '');
+		$I->fillField('LoginForm[password]', '');
+		$I->seeInField('LoginForm[password]', '');
+		$I->click('#login-form button[type=submit]');
 
-    public function checkEmpty(FunctionalTester $I)
-    {
-        $I->submitForm('#login-form', $this->formParams('', ''));
-        $I->seeValidationError('Username cannot be blank.');
-        $I->seeValidationError('Password cannot be blank.');
-    }
+		$I->see('O campo nome de utilizador é obrigatório', '.invalid-feedback');
+		$I->see('O campo palavra-passe é obrigatório', '.invalid-feedback');
+	}
+	*/
 
-    public function checkWrongPassword(FunctionalTester $I)
-    {
-        $I->submitForm('#login-form', $this->formParams('admin', 'wrong'));
-        $I->seeValidationError('Incorrect username or password.');
-    }
+	public function loginWrongPassword(FunctionalTester $I) {
+		$I->fillField('LoginForm[username]', 'cliente');
+		$I->seeInField('LoginForm[username]', 'cliente');
+		$I->fillField('LoginForm[password]', 'wrong');
+		$I->seeInField('LoginForm[password]', 'wrong');
+		$I->click('#login-form button[type=submit]');
 
-    public function checkInactiveAccount(FunctionalTester $I)
-    {
-        $I->submitForm('#login-form', $this->formParams('test.test', 'Test1234'));
-        $I->seeValidationError('Incorrect username or password');
-    }
+		$I->see('Username ou password incorretos', '.message');
+	}
 
-    public function checkValidLogin(FunctionalTester $I)
-    {
-        $I->submitForm('#login-form', $this->formParams('erau', 'password_0'));
-        $I->see('Logout (erau)', 'form button[type=submit]');
-        $I->dontSeeLink('Login');
-        $I->dontSeeLink('Signup');
-    }
+	public function loginInactiveAccount(FunctionalTester $I) {
+		$I->fillField('LoginForm[username]', 'cliente.inactive');
+		$I->seeInField('LoginForm[username]', 'cliente.inactive');
+		$I->fillField('LoginForm[password]', 'cliente123');
+		$I->seeInField('LoginForm[password]', 'cliente123');
+		$I->click('#login-form button[type=submit]');
+
+		$I->see('Login indisponível', '.message');
+	}
+
+	public function loginSuccessfully(FunctionalTester $I) {
+		$I->fillField('LoginForm[username]', 'cliente');
+		$I->seeInField('LoginForm[username]', 'cliente');
+		$I->fillField('LoginForm[password]', 'cliente123');
+		$I->seeInField('LoginForm[password]', 'cliente123');
+		$I->click('#login-form button[type=submit]');
+
+		$I->see('Minha Conta', '.nav .nav-link');
+		$I->dontSeeLink('Iniciar Sessão', '.nav .nav-link');
+		$I->see('Logout', '.nav .nav-link');
+	}
 }

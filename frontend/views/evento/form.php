@@ -9,7 +9,7 @@ use backend\models\UploadForm;
 $this->registerCssFile("@web/css/evento/form.css");
 ?>
 
-<a href=<?= Url::toRoute(['evento/view', 'id' => $model_evento->id]) ?>>
+<a href=<?= Url::toRoute(['evento/view', 'id' => $model_evento->id]) ?> name=<?= $model_evento->titulo ?>>
 	<div class="card card-evento">
 		<div class="card-header">
 			<img class="evento-image" src=<?= UploadForm::getImageDir() . $model_evento->nome_pic  ?>>
